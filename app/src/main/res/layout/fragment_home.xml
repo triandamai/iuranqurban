@@ -118,13 +118,22 @@
             </androidx.cardview.widget.CardView>
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:id="@+id/rv"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 showShimmer="@{isLoading}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:shimmer_recycler_item_count="2"
-                app:shimmer_recycler_layout="@layout/item_shimmer_karyawan" />
+                tools:itemCount="3"
+                tools:listitem="@layout/item_shimmer_iuran"
+                app:shimmer_recycler_layout="@layout/item_shimmer_iuran" />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/putih"
+                android:text="LIHAT HISTORY IURAN"/>
         </LinearLayout>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
