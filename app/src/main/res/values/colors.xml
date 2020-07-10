@@ -2,8 +2,8 @@
 <resources>
     <color name="putih">#FFFFFF</color>
     <color name="biru">#21A0F1</color>
-    <color name="colorPrimary">#21A0F1</color>
-    <color name="colorPrimaryAccent">#71B3FF</color>
+    <color name="colorPrimary">#18988B</color>
+    <color name="colorPrimaryAccent">#1CAE9F</color>
     <color name="colorPrimaryAccentBanget">#C5E8FF</color>
     <color name="colorPrimaryDark">#1789D1</color>
     <color name="colorPrimaryDarkAja">#174C81</color>

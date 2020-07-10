@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".auth.RencanaQurbanActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:paddingEnd="@dimen/sp_16"
+            android:paddingStart="@dimen/sp_16"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                android:text="Rencana program qurban"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/sp_12"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/sp_20"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                android:text="Masukkan data diri Anda selengkap-lengkapnya"/>
+
+            <EditText
+                android:id="@+id/et_jenis_qurban"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:hint="Jenis hewan qurban"/>
+            <EditText
+                android:id="@+id/et_jumlah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:hint="Jumlah hewan qurban"/>
+            <EditText
+                android:id="@+id/et_targetnominal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:hint="Target Nominal"/>
+            <EditText
+                android:id="@+id/et_jenisbeli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:focusable="false"
+                android:hint="Pembelian"/>
+            <EditText
+                android:id="@+id/et_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:hint="Tempat penyerahan qurban"/>
+
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_100"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/putih"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/sp_20"
+            android:text="SELANJUTNYA"/>
+
+    </RelativeLayout>
+</layout>
