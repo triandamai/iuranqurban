@@ -2,8 +2,8 @@ package com.tdn.data.repository;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.tdn.pantaupemudik.data.Constants;
-import com.tdn.pantaupemudik.data.mapper.FirebaseMapper;
+import com.tdn.data.Const;
+import com.tdn.data.mapper.FirebaseMapper;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public abstract class FirebaseDatabaseRepository<Model> {
 
     protected abstract String getRootNode();
     public FirebaseDatabaseRepository(FirebaseMapper mapper) {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.CHILD_DATA).child(getRootNode());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD).child(getRootNode());
         this.mapper = mapper;
     }
 

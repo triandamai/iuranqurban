@@ -1,7 +1,11 @@
 package com.tdn.data.entity;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class userEntity {
     String uid,
+            nama,
             nik,
             no_hp,
             jenis_kelamin,
@@ -18,8 +22,9 @@ public class userEntity {
     public userEntity() {
     }
 
-    public userEntity(String uid, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String created_at, String updated_at) {
+    public userEntity(String uid, String nama, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String created_at, String updated_at) {
         this.uid = uid;
+        this.nama = nama;
         this.nik = nik;
         this.no_hp = no_hp;
         this.jenis_kelamin = jenis_kelamin;
@@ -40,6 +45,14 @@ public class userEntity {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public String getNik() {
@@ -142,6 +155,7 @@ public class userEntity {
     public String toString() {
         return "userModel{" +
                 "uid='" + uid + '\'' +
+                ", nama='" + nama + '\'' +
                 ", nik='" + nik + '\'' +
                 ", no_hp='" + no_hp + '\'' +
                 ", jenis_kelamin='" + jenis_kelamin + '\'' +
