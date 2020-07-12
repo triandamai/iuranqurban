@@ -28,6 +28,7 @@
             android:paddingEnd="@dimen/dp_16"
             android:text="Selamat Datang di Tabungan Qurban"/>
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_masuk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_100"
@@ -48,6 +49,7 @@
                 android:textStyle="bold"
                 android:text="Belum punya akun?"/>
             <TextView
+                android:id="@+id/tv_daftar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

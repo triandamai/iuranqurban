@@ -11,6 +11,6 @@ public class notifikasiUserRepository extends FirebaseDatabaseRepository<notifik
 
     @Override
     protected String getRootNode() {
-        return Const.CHILD_NOTIF_ADMIN;
+        return Const.CHILD_NOTIF_USER;
     }
 }

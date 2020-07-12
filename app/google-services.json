@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "264573731963",
+    "firebase_url": "https://myproject-64aac.firebaseio.com",
+    "project_id": "myproject-64aac",
+    "storage_bucket": "myproject-64aac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264573731963:android:cefa3874af3ea2c1be4ede",
+        "android_client_info": {
+          "package_name": "com.tdn.qurban"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264573731963-n3bfohavc6j7uem942k02srforqbels1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdn.qurban",
+            "certificate_hash": "5ce992c54564f7ed00280c063564767bdd732955"
+          }
+        },
+        {
+          "client_id": "264573731963-ro6vtkfus8etok361bbr7ef3tiuffcsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbwHhGWzv5pdzHWFN4YYd27csOPhd1Rjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264573731963-ro6vtkfus8etok361bbr7ef3tiuffcsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

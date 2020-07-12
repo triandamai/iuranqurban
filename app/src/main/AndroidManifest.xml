@@ -28,7 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".auth.RencanaQurbanActivity"></activity>
+        <activity android:name=".auth.RencanaQurbanActivity" />
         <activity android:name=".auth.RegistrasiActivity" />
         <activity android:name=".auth.IntroActivity" />
         <activity android:name=".auth.DaftarActivity" />
