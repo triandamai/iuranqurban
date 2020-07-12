@@ -21,6 +21,6 @@ public class tabunganRepository extends FirebaseDatabaseRepository<tabunganModel
 
     @Override
     protected DatabaseReference getDb() {
-
+        return databaseReference;
     }
 }

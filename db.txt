@@ -1,0 +1,53 @@
+iuran qurban
+
+user - uid
+	- nama
+	- nik
+	- nomor handphone
+	- jk
+	- alamat
+	- nama ahli waris
+	- nik ahli waris
+	- hubungan dengan ahli waris
+	- level
+	- status 
+	- kartuidentitas
+	- hp/wa
+	- created_at
+	- updated_at
+saldo 
+	- uid
+	- jumlah
+	- last updated
+
+rencana	- uid
+	- jenis
+	- jumlah
+	- target nominal
+	- pembelian
+	- tempat penyerahan
+	- created_at
+	- updated_at
+
+tabungan
+	- id
+	- uid
+	- bukti
+	- nominal
+	- keterangan
+	- keterangan status
+	- status
+	- created_at
+	- updated_at
+
+notif
+	- id
+	- from_uid
+	- body
+	- tipe
+	- created_at
+
+hewan
+	- id
+	- jenis
+	- nominal

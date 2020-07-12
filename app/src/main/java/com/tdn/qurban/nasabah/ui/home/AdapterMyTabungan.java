@@ -4,9 +4,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdn.domain.model.tabunganModel;
+
+import java.util.List;
+
 public class AdapterMyTabungan extends RecyclerView.Adapter<AdapterMyTabungan.MyViewHolder> {
+    private List<tabunganModel> tabunganModels;
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -21,6 +28,35 @@ public class AdapterMyTabungan extends RecyclerView.Adapter<AdapterMyTabungan.My
     @Override
     public int getItemCount() {
         return 0;
+    }
+
+    public void setData(List<tabunganModel> tabunganModels) {
+        if (this.tabunganModels == null) {
+
+        } else {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+                    return 0;
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return 0;
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                    return false;
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                    return false;
+                }
+            });
+        }
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
