@@ -10,8 +10,9 @@ public class userRepository extends FirebaseDatabaseRepository<userModel> {
         super(new userMapper());
     }
 
+
     @Override
-    protected String getRootNode() {
-        return Const.CHILD_USER;
+    protected DatabaseReference getDb() {
+        return null;
     }
 }

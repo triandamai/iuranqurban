@@ -1,14 +1,17 @@
 package com.tdn.qurban.auth;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +28,7 @@ public class RegistrasiActivity extends AppCompatActivity {
     private ActivityRegistrasiBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
+    private MaterialAlertDialogBuilder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,33 @@ public class RegistrasiActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_registrasi);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
+
+        binding.etJk.setText(Const.JK_LK);
+        binding.etHubungan.setText(Const.HUBUNGAN_ANAK);
+
+        builder = new MaterialAlertDialogBuilder(getApplicationContext(), R.style.dialog);
+
+        builder.create();
+
         onCLick();
     }
 
     private void onCLick() {
+        binding.etJk.setOnClickListener(v -> {
+            String[] jeniskelamin = {Const.JK_LK, Const.JK_PR};
+            builder.setTitle("Pilih Jneis Kelmain");
+            builder.setItems(jeniskelamin, (dialog, which) -> {
+                binding.etJk.setText(which);
+            });
+            builder.show();
+        });
+        binding.etHubungan.setOnClickListener(v -> {
+            String[] hubungan = {Const.HUBUNGAN_ANAK, Const.HUBUNGAN_ORANGTUA, Const.HUBUNGAN_SAUDARA};
+            builder.setTitle("Pilih hubungan dengan ahli waris");
+            builder.setItems(hubungan, (dialog, which) -> {
+                binding.etHubungan.setText(which);
+            });
+        });
         binding.btnSimpan.setOnClickListener(v -> {
             if (cekValidasi()) {
                 simpan();
@@ -85,4 +112,6 @@ public class RegistrasiActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

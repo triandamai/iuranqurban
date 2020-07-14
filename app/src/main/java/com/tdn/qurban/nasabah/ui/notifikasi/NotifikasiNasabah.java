@@ -1,5 +1,8 @@
 package com.tdn.qurban.nasabah.ui.notifikasi;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -12,11 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.core.VMFactory;
+import com.tdn.qurban.databinding.NotifikasiNasabahFragmentBinding;
+
+import java.util.List;
 
 public class NotifikasiNasabah extends Fragment {
 
     private NotifikasiNasabahViewModel mViewModel;
+    private AdapterNotifikasi adapterNotifikasi;
+    private NotifikasiNasabahFragmentBinding binding;
 
     public static NotifikasiNasabah newInstance() {
         return new NotifikasiNasabah();
@@ -25,14 +36,34 @@ public class NotifikasiNasabah extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.notifikasi_nasabah_fragment, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.notifikasi_nasabah_fragment, container, false);
+        adapterNotifikasi = new AdapterNotifikasi(adapterClicked);
+        binding.rv.setAdapter(adapterNotifikasi);
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(NotifikasiNasabahViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = new ViewModelProvider(this, new VMFactory(getContext())).get(NotifikasiNasabahViewModel.class);
     }
 
+    private AdapterClicked adapterClicked = posisi -> {
+
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        observe(mViewModel);
+    }
+
+    private void observe(NotifikasiNasabahViewModel mViewModel) {
+        mViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModels -> {
+            if (notifikasiModels != null) {
+                adapterNotifikasi.setData(notifikasiModels);
+
+            }
+        });
+    }
 }

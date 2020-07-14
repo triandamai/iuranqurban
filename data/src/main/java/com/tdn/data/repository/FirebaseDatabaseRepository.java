@@ -20,7 +20,7 @@ public abstract class FirebaseDatabaseRepository<Model> {
 
     public FirebaseDatabaseRepository(FirebaseMapper mapper) {
 
-        databaseReference = getDb();
+        this.databaseReference = getDb();
         this.mapper = mapper;
     }
 

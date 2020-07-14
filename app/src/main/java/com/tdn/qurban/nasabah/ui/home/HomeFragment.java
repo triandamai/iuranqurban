@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
         adapterMyTabungan = new AdapterMyTabungan();
         binding.rv.setAdapter(adapterMyTabungan);
 
+
         return binding.getRoot();
     }
 
@@ -55,17 +56,20 @@ public class HomeFragment extends Fragment {
                 adapterMyTabungan.setData(tabunganModels);
             }
         });
-        homeViewModel.getSaldoDatas().observe(getViewLifecycleOwner(), saldoModels -> {
-            if (saldoModels != null) {
-                binding.tvSaldo.setText("Rp " + saldoModels.get(0).getJumlah());
+        homeViewModel.getSaldoDatas().observe(getViewLifecycleOwner(), saldoModel -> {
+            if (saldoModel != null) {
+                binding.tvSaldo.setText("Rp " + saldoModel.getJumlah());
+            } else {
+                binding.tvSaldo.setText("Rp 0 ");
             }
         });
+
         homeViewModel.getIsActive().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean != null) {
                 if (aBoolean) {
-                    binding.tvAktivasi.setText("Aktif");
+                    binding.tvStatus.setText("Terverifikasi");
                 } else {
-                    binding.tvAktivasi.setText("Akun Belum Aktif");
+                    binding.tvStatus.setText("Akun Belum Aktif");
                 }
             }
         });

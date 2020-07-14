@@ -1,9 +1,7 @@
 package com.tdn.domain.model;
 
 public class userModel {
-    String uid,
-    nama,
-            nik,
+    String uid, nama, nik,
             no_hp,
             jenis_kelamin,
             alamat,
