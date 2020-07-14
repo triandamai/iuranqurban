@@ -31,5 +31,5 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         return binding.getRoot();
     }
-    
+
 }
