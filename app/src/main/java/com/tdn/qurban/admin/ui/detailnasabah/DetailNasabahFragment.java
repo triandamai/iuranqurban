@@ -1,5 +1,6 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class DetailNasabahFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DetailNasabahViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(DetailNasabahViewModel.class);
         // TODO: Use the ViewModel
     }
 
