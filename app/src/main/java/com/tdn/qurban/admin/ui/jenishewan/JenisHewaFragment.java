@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -13,10 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.VMFactory;
+import com.tdn.qurban.databinding.JenisHewaFragmentBinding;
 
 public class JenisHewaFragment extends Fragment {
 
     private JenisHewaViewModel mViewModel;
+    private AdapterJenisHewan adapterJenisHewan;
+    private JenisHewaFragmentBinding binding;
 
     public static JenisHewaFragment newInstance() {
         return new JenisHewaFragment();
@@ -25,13 +31,15 @@ public class JenisHewaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.jenis_hewa_fragment, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.jenis_hewa_fragment, container, false);
+
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(JenisHewaViewModel.class);
+        mViewModel = new ViewModelProvider(this, new VMFactory()).get(JenisHewaViewModel.class);
         // TODO: Use the ViewModel
     }
 

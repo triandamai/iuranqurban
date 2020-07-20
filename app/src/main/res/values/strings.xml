@@ -17,4 +17,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="selamat_datang">SELAMAT DATANG KEMBALI</string>
     <string name="nasabah">Nasabah Trian</string>
+    <string name="fragment_detail_nasabah">Detail Nasabah</string>
+    <string name="fragment_jenis_hewan">Jenis Hewan</string>
+    <string name="fragment_listnasabah">Daftar Nasabah</string>
+    <string name="fragment_profil">Profil</string>
 </resources>

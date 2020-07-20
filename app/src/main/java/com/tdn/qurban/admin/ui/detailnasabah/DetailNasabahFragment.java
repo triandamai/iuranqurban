@@ -1,5 +1,6 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.qurban.R;
+import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
 
 public class DetailNasabahFragment extends Fragment {
 
     private DetailNasabahViewModel mViewModel;
+    private DetailNasabahFragmentBinding binding;
 
     public static DetailNasabahFragment newInstance() {
         return new DetailNasabahFragment();
@@ -26,7 +29,9 @@ public class DetailNasabahFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.detail_nasabah_fragment, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_nasabah_fragment, container, false);
+
+        return binding.getRoot();
     }
 
     @Override

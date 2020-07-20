@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.tdn.qurban.nasabah.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -22,4 +22,21 @@
         android:name="com.tdn.qurban.nasabah.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_aktivasiakun"
+        android:name="com.tdn.qurban.nasabah.ui.aktivasiakun.AktivasiAkun"
+        android:label="Aktivasi Akun"
+        tools:layout="@layout/aktivasi_akun_fragment" />
+    <fragment
+        android:id="@+id/nav_konfirmasipembayaran"
+        android:name="com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran"
+        android:label="Konfirmasi Akun"
+        tools:layout="@layout/aktivasi_akun_fragment" />
+    <fragment
+        android:id="@+id/nav_notifikasi"
+        android:name="com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabah"
+        android:label="Notifikasi"
+        tools:layout="@layout/notifikasi_nasabah_fragment" />
+
+
 </navigation>

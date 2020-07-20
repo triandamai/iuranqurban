@@ -22,4 +22,25 @@
         android:name="com.tdn.qurban.admin.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_detail_nasabah"
+        android:name="com.tdn.qurban.admin.ui.detailnasabah.DetailNasabahFragment"
+        android:label="@string/fragment_detail_nasabah"
+        tools:layout="@layout/detail_nasabah_fragment" />
+    <fragment
+        android:id="@+id/navigation_jenishewan"
+        android:name="com.tdn.qurban.admin.ui.jenishewan.JenisHewaFragment"
+        android:label="@string/fragment_jenis_hewan"
+        tools:layout="@layout/jenis_hewa_fragment" />
+    <fragment
+        android:id="@+id/navigation_nasabah"
+        android:name="com.tdn.qurban.admin.ui.nasabah.NasabahFragment"
+        android:label="@string/fragment_listnasabah"
+        tools:layout="@layout/nasabah_fragment" />
+    <fragment
+        android:id="@+id/navigation_profiladmin"
+        android:name="com.tdn.qurban.admin.ui.profil.ProfilFragment"
+        android:label="@string/fragment_profil"
+        tools:layout="@layout/profil_fragment" />
+
 </navigation>
