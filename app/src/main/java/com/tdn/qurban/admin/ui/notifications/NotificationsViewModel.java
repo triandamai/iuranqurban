@@ -13,12 +13,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.notifikasiModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NotificationsViewModel extends ViewModel {
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
 
     private ValueEventListener notifikasiListener;
-    private LiveData<notifikasiModel> notifikasiModelLiveData;
+    private LiveData<List<notifikasiModel>> notifikasiModelLiveData;
 
     public NotificationsViewModel() {
         getAllNotifikasi();
@@ -29,7 +32,17 @@ public class NotificationsViewModel extends ViewModel {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                        if (snapshot.exists()) {
+                            List<notifikasiModel> notifikasiModelList = new ArrayList<>();
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                notifikasiModel notifikasiModel = data.getValue(notifikasiModel.class);
+                                notifikasiModel.setId(data.getKey());
+                                notifikasiModelList.add(notifikasiModel);
+                            }
+                            notifikasiModelLiveData.getValue().addAll(notifikasiModelList);
+                        } else {
+                            notifikasiModelLiveData = new MutableLiveData<>();
+                        }
                     }
 
                     @Override
@@ -40,7 +53,7 @@ public class NotificationsViewModel extends ViewModel {
         databaseReference.addValueEventListener(notifikasiListener);
     }
 
-    public LiveData<notifikasiModel> getNotifikasiModelLiveData() {
+    public LiveData<List<notifikasiModel>> getNotifikasiModelLiveData() {
         if (notifikasiModelLiveData == null) {
             notifikasiModelLiveData = new MutableLiveData<>();
         }

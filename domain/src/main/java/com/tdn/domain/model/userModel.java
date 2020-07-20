@@ -11,13 +11,15 @@ public class userModel {
             status,
             kartu_identitas,
             hp_wa,
+            registrasi,
+            rencana,
             created_at,
             updated_at;
 
     public userModel() {
     }
 
-    public userModel(String uid, String nama, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String created_at, String updated_at) {
+    public userModel(String uid, String nama, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String registrasi, String rencana, String created_at, String updated_at) {
         this.uid = uid;
         this.nama = nama;
         this.nik = nik;
@@ -30,6 +32,8 @@ public class userModel {
         this.status = status;
         this.kartu_identitas = kartu_identitas;
         this.hp_wa = hp_wa;
+        this.registrasi = registrasi;
+        this.rencana = rencana;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -130,6 +134,22 @@ public class userModel {
         this.hp_wa = hp_wa;
     }
 
+    public String getRegistrasi() {
+        return registrasi;
+    }
+
+    public void setRegistrasi(String registrasi) {
+        this.registrasi = registrasi;
+    }
+
+    public String getRencana() {
+        return rencana;
+    }
+
+    public void setRencana(String rencana) {
+        this.rencana = rencana;
+    }
+
     public String getCreated_at() {
         return created_at;
     }
@@ -161,6 +181,8 @@ public class userModel {
                 ", status='" + status + '\'' +
                 ", kartu_identitas='" + kartu_identitas + '\'' +
                 ", hp_wa='" + hp_wa + '\'' +
+                ", registrasi='" + registrasi + '\'' +
+                ", rencana='" + rencana + '\'' +
                 ", created_at='" + created_at + '\'' +
                 ", updated_at='" + updated_at + '\'' +
                 '}';

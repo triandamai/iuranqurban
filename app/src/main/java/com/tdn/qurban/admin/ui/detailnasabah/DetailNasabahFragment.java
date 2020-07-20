@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
 
 public class DetailNasabahFragment extends Fragment {
@@ -32,16 +34,10 @@ public class DetailNasabahFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_nasabah_fragment, container, false);
-
+        mViewModel = new ViewModelProvider(this, new VMFactory(getContext(), MyUser.getInstance(getContext()).getLastIdNasabah())).get(DetailNasabahViewModel.class);
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DetailNasabahViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onResume() {

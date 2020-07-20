@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.JenisHewaFragmentBinding;
 
@@ -36,16 +37,11 @@ public class JenisHewaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.jenis_hewa_fragment, container, false);
-
+        mViewModel = new ViewModelProvider(this, new VMFactory()).get(JenisHewaViewModel.class);
+        adapterJenisHewan = new AdapterJenisHewan(adapterClicked);
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this, new VMFactory()).get(JenisHewaViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onResume() {
@@ -55,7 +51,11 @@ public class JenisHewaFragment extends Fragment {
 
     private void observe(JenisHewaViewModel mViewModel) {
         mViewModel.getJenisHewaViewModel().observe(getViewLifecycleOwner(), hewanModels -> {
-
+            adapterJenisHewan.setData(hewanModels);
         });
     }
+
+    private AdapterClicked adapterClicked = posisi -> {
+
+    };
 }

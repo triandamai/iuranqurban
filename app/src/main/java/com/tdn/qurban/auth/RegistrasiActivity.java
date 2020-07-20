@@ -50,7 +50,7 @@ public class RegistrasiActivity extends AppCompatActivity {
     private void onCLick() {
         binding.etJk.setOnClickListener(v -> {
             String[] jeniskelamin = {Const.JK_LK, Const.JK_PR};
-            builder.setTitle("Pilih Jneis Kelmain");
+            builder.setTitle("Pilih Jenis Kelmain");
             builder.setItems(jeniskelamin, (dialog, which) -> {
                 binding.etJk.setText(which);
             });

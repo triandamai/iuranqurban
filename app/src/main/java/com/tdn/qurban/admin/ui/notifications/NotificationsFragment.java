@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.FragmentHomeBinding;
 
 
@@ -30,7 +31,8 @@ public class NotificationsFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_notifications, container, false);
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-
+        adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(adapterClicked);
+        binding.rv.setAdapter(adapterNotifikasiAdmin);
 
         return binding.getRoot();
     }
@@ -43,7 +45,11 @@ public class NotificationsFragment extends Fragment {
 
     private void observe(NotificationsViewModel notificationsViewModel) {
         notificationsViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModel -> {
-
+            adapterNotifikasiAdmin.setData(notifikasiModel);
         });
     }
+
+    private AdapterClicked adapterClicked = posisi -> {
+
+    };
 }

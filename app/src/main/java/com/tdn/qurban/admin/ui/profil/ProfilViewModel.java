@@ -30,12 +30,19 @@ public class ProfilViewModel extends ViewModel {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            userModel userModel = snapshot.getValue(userModel.class);
+                            userModel.setUid(snapshot.getKey());
+                            userModelMutableLiveData.setValue(userModel);
 
+                        } else {
+                            userModelMutableLiveData.setValue(null);
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        userModelMutableLiveData.setValue(null);
                     }
                 });
         databaseReference.addValueEventListener(profilListener);

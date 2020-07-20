@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.NasabahFragmentBinding;
 
 import java.util.List;
@@ -35,15 +36,12 @@ public class NasabahFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.nasabah_fragment, container, false);
+        mViewModel = new ViewModelProvider(this).get(NasabahViewModel.class);
+        adapterNasabah = new AdapterNasabah(adapterClicked);
+        binding.rv.setAdapter(adapterNasabah);
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NasabahViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onResume() {
@@ -53,7 +51,11 @@ public class NasabahFragment extends Fragment {
 
     private void observe(NasabahViewModel mViewModel) {
         mViewModel.getUseListLiveData().observe(getViewLifecycleOwner(), userModels -> {
-
+            adapterNasabah.setData(userModels);
         });
     }
+
+    private AdapterClicked adapterClicked = posisi -> {
+
+    };
 }

@@ -16,6 +16,7 @@ import com.tdn.domain.model.notifikasiModel;
 import com.tdn.domain.model.userModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HomeViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
@@ -23,8 +24,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Integer> nasabahAktif;
     private MutableLiveData<Integer> nasabahNonAktif;
     private LiveData<List<notifikasiModel>> notifikasiTabungan;
-    private ValueEventListener nasabahaktifListener;
-    private ValueEventListener nasabahnonaktifListener;
+    private ValueEventListener jumlahNasabahListener;
     private ValueEventListener notifikasiListener;
 
 
@@ -63,21 +63,21 @@ public class HomeViewModel extends ViewModel {
                         if (snapshot.exists()) {
                             for (DataSnapshot s : snapshot.getChildren()) {
                                 notifikasiModel m = s.getValue(notifikasiModel.class);
-                                m.setId(s.getKey());
                                 assert m != null;
-                                notifikasiTabungan.getValue().add(m);
+                                m.setId(s.getKey());
+                                Objects.requireNonNull(notifikasiTabungan.getValue()).add(m);
                             }
                         } else {
-                            notifikasiTabungan.getValue().addAll(null);
+                            Objects.requireNonNull(notifikasiTabungan.getValue()).addAll(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        notifikasiTabungan.getValue().addAll(null);
+                        Objects.requireNonNull(notifikasiTabungan.getValue()).addAll(null);
                     }
                 });
-        nasabahaktifListener = databaseReference.child(Const.CHILD_USER)
+        jumlahNasabahListener = databaseReference.child(Const.CHILD_USER)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -110,8 +110,7 @@ public class HomeViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(nasabahaktifListener);
-        databaseReference.removeEventListener(nasabahnonaktifListener);
+        databaseReference.removeEventListener(jumlahNasabahListener);
         databaseReference.removeEventListener(notifikasiListener);
     }
 }

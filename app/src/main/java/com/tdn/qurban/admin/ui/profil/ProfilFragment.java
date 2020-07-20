@@ -32,17 +32,11 @@ public class ProfilFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.profil_fragment, container, false);
-
+        mViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
         return binding.getRoot();
 
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
     @Override
     public void onResume() {
@@ -52,7 +46,9 @@ public class ProfilFragment extends Fragment {
 
     private void observe(ProfilViewModel mViewModel) {
         mViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
-
+            if (userModel != null) {
+                
+            }
         });
     }
 }

@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.userModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NasabahViewModel extends ViewModel {
@@ -27,17 +28,27 @@ public class NasabahViewModel extends ViewModel {
 
     private void getAllNasabah() {
         datanasabahListener = databaseReference.child(Const.CHILD_USER)
-                .orderByChild("")
+                .orderByChild(Const.CHILD_USER_LEVEL)
                 .startAt(Const.USER_LEVEL_NASABAH)
                 .endAt(Const.USER_LEVEL_NASABAH).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                        if (snapshot.exists()) {
+                            List<userModel> userModelList = new ArrayList<>();
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                userModel userModel = data.getValue(userModel.class);
+                                userModel.setUid(data.getKey());
+                                userModelList.add(userModel);
+                            }
+                            userModelList.addAll(userModelList);
+                        } else {
+                            useListLiveData = new MutableLiveData<>();
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        useListLiveData = new MutableLiveData<>();
                     }
                 });
         databaseReference.addValueEventListener(datanasabahListener);

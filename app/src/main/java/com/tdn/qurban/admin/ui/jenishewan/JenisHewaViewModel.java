@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.hewanModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JenisHewaViewModel extends ViewModel {
@@ -21,10 +22,8 @@ public class JenisHewaViewModel extends ViewModel {
     private ValueEventListener jenishewanListener;
     private LiveData<List<hewanModel>> jenisHewan;
 
-    public JenisHewaViewModel(DatabaseReference databaseReference, ValueEventListener jenishewanListener, LiveData<List<hewanModel>> jenisHewan) {
-        this.databaseReference = databaseReference;
-        this.jenishewanListener = jenishewanListener;
-        this.jenisHewan = jenisHewan;
+    public JenisHewaViewModel() {
+
         getJenisHewan();
     }
 
@@ -32,12 +31,22 @@ public class JenisHewaViewModel extends ViewModel {
         jenishewanListener = databaseReference.child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                if (snapshot.exists()) {
+                    List<hewanModel> hewanModelList = new ArrayList<>();
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        hewanModel hewanModel = data.getValue(hewanModel.class);
+                        hewanModel.setId(data.getKey());
+                        hewanModelList.add(hewanModel);
+                    }
+                    jenisHewan.getValue().addAll(hewanModelList);
+                } else {
+                    jenisHewan = new MutableLiveData<>();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                jenisHewan = new MutableLiveData<>();
             }
         });
         databaseReference.addValueEventListener(jenishewanListener);

@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,23 +20,32 @@ public class DetailNasabahViewModel extends ViewModel {
     private ValueEventListener detailNasabahListener;
     private MutableLiveData<userModel> detailUsers;
 
-    public DetailNasabahViewModel(ValueEventListener detailNasabahListener, MutableLiveData<userModel> detailUsers) {
-        this.detailNasabahListener = detailNasabahListener;
-        getDetail();
+    public DetailNasabahViewModel(Context context, String id) {
+        if (id != null) {
+            getDetail(id);
+        }
     }
 
-    private void getDetail() {
-        detailNasabahListener = databaseReference.child(Const.CHILD_USER).child("").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+    private void getDetail(String id) {
+        detailNasabahListener = databaseReference
+                .child(Const.CHILD_USER)
+                .child(id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            userModel userModel = snapshot.getValue(userModel.class);
+                            detailUsers.setValue(userModel);
+                        } else {
+                            detailUsers.setValue(null);
+                        }
+                    }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        detailUsers.setValue(null);
+                    }
+                });
         databaseReference.addValueEventListener(detailNasabahListener);
     }
 

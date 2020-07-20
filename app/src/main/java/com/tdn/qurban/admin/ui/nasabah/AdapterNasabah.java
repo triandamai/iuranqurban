@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdn.domain.model.hewanModel;
+import com.tdn.domain.model.userModel;
 import com.tdn.qurban.core.AdapterClicked;
 
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHolder> {
-    private List<hewanModel> he;
+    private List<userModel> he;
     private AdapterClicked adapterClicked;
 
     public AdapterNasabah(AdapterClicked adapterClicked) {
@@ -32,7 +33,7 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
 
     }
 
-    public void setData(List<hewanModel> notifikasiModels) {
+    public void setData(List<userModel> notifikasiModels) {
         if (this.he == null) {
             this.he.addAll(notifikasiModels);
         } else {
@@ -49,13 +50,13 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterNasabah.this.he.get(oldItemPosition).getId() == notifikasiModels.get(newItemPosition).getId();
+                    return AdapterNasabah.this.he.get(oldItemPosition).getUid() == notifikasiModels.get(newItemPosition).getUid();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    hewanModel lama = AdapterNasabah.this.he.get(oldItemPosition);
-                    hewanModel baru = notifikasiModels.get(newItemPosition);
+                    userModel lama = AdapterNasabah.this.he.get(oldItemPosition);
+                    userModel baru = notifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });

@@ -35,16 +35,17 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel viewModel;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
-        viewModel = new ViewModelProvider(this,new VMFactory(getApplicationContext(),actionListener)).get(LoginViewModel.class);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        viewModel = new ViewModelProvider(this, new VMFactory(getApplicationContext(), actionListener)).get(LoginViewModel.class);
         this.gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        this.gsc = GoogleSignIn.getClient(this,gso);
+        this.gsc = GoogleSignIn.getClient(this, gso);
         onClick();
     }
 
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             signIn();
         });
         binding.tvDaftar.setOnClickListener(v -> {
-            startActivity(new Intent(this,DaftarActivity.class));
+            startActivity(new Intent(this, DaftarActivity.class));
         });
     }
 
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivityForResult(signInIntent, Const.REQ_SIGN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -82,40 +84,51 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
     private AuthListener actionListener = new AuthListener() {
         @Override
         public void onStart() {
-            Snackbar.make(binding.getRoot(),"Proses..", BaseTransientBottomBar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), "Proses..", BaseTransientBottomBar.LENGTH_LONG).show();
         }
 
         @Override
         public void onSuccess(@NonNull String message, userModel data) {
-            Snackbar.make(binding.getRoot(),"signInWithCredential:success", BaseTransientBottomBar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), "signInWithCredential:success", BaseTransientBottomBar.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(message.equals(Const.USER_ADA)){
-                        if(data.getLevel().equals(Const.USER_LEVEL_ADMIN) || data.getLevel().equals(Const.USER_LEVEL_PANITIA)){
-                            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-                            finish();
-                        }else {
-                            startActivity(new Intent(LoginActivity.this, NasabahActivity.class));
+                    if (message.equals(Const.USER_ADA)) {
+                        if (data.getRegistrasi().equals(Const.SUDAH_REGISTRASI)) {
+                            if (data.getRencana().equals(Const.SUDAH_RENCANA)) {
+                                if (data.getLevel().equals(Const.USER_LEVEL_ADMIN) || data.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
+                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                    finish();
+                                } else {
+                                    startActivity(new Intent(LoginActivity.this, NasabahActivity.class));
+                                    finish();
+                                }
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, RencanaQurbanActivity.class));
+                                finish();
+                            }
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
                             finish();
                         }
-                    }else {
+
+                    } else {
                         startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
                         finish();
                     }
                 }
-            },2000);
+            }, 2000);
 
         }
 
 
-
         @Override
         public void onError(@NonNull String message) {
-            Snackbar.make(binding.getRoot(),message, BaseTransientBottomBar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), message, BaseTransientBottomBar.LENGTH_LONG).show();
         }
     };
 }
