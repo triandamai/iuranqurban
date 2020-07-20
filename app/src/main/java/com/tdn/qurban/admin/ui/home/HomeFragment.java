@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.databinding.FragmentHomeAdminBinding;
 import com.tdn.qurban.databinding.FragmentHomeBinding;
 
 import java.util.List;
@@ -25,13 +26,13 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private FragmentHomeBinding binding;
+    private FragmentHomeAdminBinding binding;
     private AdapterNotifikasiHomeAdmin adapterNotifikasiHomeAdmin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home_admin, container, false);
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         adapterNotifikasiHomeAdmin = new AdapterNotifikasiHomeAdmin(adapterClicked);
