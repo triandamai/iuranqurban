@@ -46,6 +46,11 @@ public class DetailNasabahFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        observe(mViewModel);
+
+    }
+
+    private void observe(DetailNasabahViewModel mViewModel) {
         mViewModel.getDetailUsers().observe(getViewLifecycleOwner(), userModel -> {
 
         });
