@@ -15,16 +15,16 @@ import com.tdn.domain.model.userModel;
 public class DetailNasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
-    private ValueEventListener detailNasabah;
+    private ValueEventListener detailNasabahListener;
     private MutableLiveData<userModel> detailUsers;
 
-    public DetailNasabahViewModel(ValueEventListener detailNasabah, MutableLiveData<userModel> detailUsers) {
-        this.detailNasabah = detailNasabah;
+    public DetailNasabahViewModel(ValueEventListener detailNasabahListener, MutableLiveData<userModel> detailUsers) {
+        this.detailNasabahListener = detailNasabahListener;
         getDetail();
     }
 
     private void getDetail() {
-        detailNasabah = databaseReference.child(Const.CHILD_USER).child("").addValueEventListener(new ValueEventListener() {
+        detailNasabahListener = databaseReference.child(Const.CHILD_USER).child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -35,16 +35,19 @@ public class DetailNasabahViewModel extends ViewModel {
 
             }
         });
-        databaseReference.addValueEventListener(detailNasabah);
+        databaseReference.addValueEventListener(detailNasabahListener);
     }
 
     public MutableLiveData<userModel> getDetailUsers() {
+        if (detailUsers == null) {
+            detailUsers = new MutableLiveData<>();
+        }
         return detailUsers;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(detailNasabah);
+        databaseReference.removeEventListener(detailNasabahListener);
     }
 }

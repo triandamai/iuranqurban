@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
 
@@ -41,4 +43,11 @@ public class DetailNasabahFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.getDetailUsers().observe(getViewLifecycleOwner(), userModel -> {
+
+        });
+    }
 }

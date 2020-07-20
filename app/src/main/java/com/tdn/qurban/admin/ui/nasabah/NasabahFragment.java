@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.nasabah;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.databinding.NasabahFragmentBinding;
+
+import java.util.List;
 
 public class NasabahFragment extends Fragment {
 
@@ -41,4 +45,15 @@ public class NasabahFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        observe(mViewModel);
+    }
+
+    private void observe(NasabahViewModel mViewModel) {
+        mViewModel.getUseListLiveData().observe(getViewLifecycleOwner(), userModels -> {
+
+        });
+    }
 }

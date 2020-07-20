@@ -23,9 +23,9 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Integer> nasabahAktif;
     private MutableLiveData<Integer> nasabahNonAktif;
     private LiveData<List<notifikasiModel>> notifikasiTabungan;
-    private ValueEventListener nasabahaktif;
-    private ValueEventListener nasabahnonaktif;
-    private ValueEventListener notif;
+    private ValueEventListener nasabahaktifListener;
+    private ValueEventListener nasabahnonaktifListener;
+    private ValueEventListener notifikasiListener;
 
 
     public HomeViewModel() {
@@ -52,7 +52,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void getMyHome() {
-        notif = databaseReference
+        notifikasiListener = databaseReference
                 .child(Const.CHILD_NOTIF_ADMIN).orderByChild("broad_to")
                 .startAt(Const.USER_LEVEL_PANITIA)
                 .endAt(Const.USER_LEVEL_ADMIN)
@@ -77,7 +77,7 @@ public class HomeViewModel extends ViewModel {
                         notifikasiTabungan.getValue().addAll(null);
                     }
                 });
-        nasabahaktif = databaseReference.child(Const.CHILD_USER)
+        nasabahaktifListener = databaseReference.child(Const.CHILD_USER)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -110,8 +110,8 @@ public class HomeViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(nasabahaktif);
-        databaseReference.removeEventListener(nasabahnonaktif);
-        databaseReference.removeEventListener(notif);
+        databaseReference.removeEventListener(nasabahaktifListener);
+        databaseReference.removeEventListener(nasabahnonaktifListener);
+        databaseReference.removeEventListener(notifikasiListener);
     }
 }

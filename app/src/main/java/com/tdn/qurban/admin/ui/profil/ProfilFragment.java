@@ -1,5 +1,8 @@
 package com.tdn.qurban.admin.ui.profil;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -12,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.databinding.ProfilFragmentBinding;
 
 public class ProfilFragment extends Fragment {
 
     private ProfilViewModel mViewModel;
+    private ProfilFragmentBinding binding;
 
     public static ProfilFragment newInstance() {
         return new ProfilFragment();
@@ -25,14 +31,28 @@ public class ProfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profil_fragment, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.profil_fragment, container, false);
+
+        return binding.getRoot();
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfilViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(ProfilViewModel.class);
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        observe(mViewModel);
+    }
+
+    private void observe(ProfilViewModel mViewModel) {
+        mViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
+
+        });
+    }
 }

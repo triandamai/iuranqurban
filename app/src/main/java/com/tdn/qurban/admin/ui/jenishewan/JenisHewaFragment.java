@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.JenisHewaFragmentBinding;
+
+import java.util.List;
 
 public class JenisHewaFragment extends Fragment {
 
@@ -43,4 +47,15 @@ public class JenisHewaFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        observe(mViewModel);
+    }
+
+    private void observe(JenisHewaViewModel mViewModel) {
+        mViewModel.getJenisHewaViewModel().observe(getViewLifecycleOwner(), hewanModels -> {
+
+        });
+    }
 }

@@ -2,6 +2,7 @@ package com.tdn.qurban.admin.ui.jenishewan;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,18 +18,18 @@ import java.util.List;
 public class JenisHewaViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.BASE_CHILD);
-    private ValueEventListener dataJenisHewan;
+    private ValueEventListener jenishewanListener;
     private LiveData<List<hewanModel>> jenisHewan;
 
-    public JenisHewaViewModel(DatabaseReference databaseReference, ValueEventListener dataJenisHewan, LiveData<List<hewanModel>> jenisHewan) {
+    public JenisHewaViewModel(DatabaseReference databaseReference, ValueEventListener jenishewanListener, LiveData<List<hewanModel>> jenisHewan) {
         this.databaseReference = databaseReference;
-        this.dataJenisHewan = dataJenisHewan;
+        this.jenishewanListener = jenishewanListener;
         this.jenisHewan = jenisHewan;
         getJenisHewan();
     }
 
     private void getJenisHewan() {
-        dataJenisHewan = databaseReference.child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
+        jenishewanListener = databaseReference.child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -39,13 +40,20 @@ public class JenisHewaViewModel extends ViewModel {
 
             }
         });
-        databaseReference.addValueEventListener(dataJenisHewan);
+        databaseReference.addValueEventListener(jenishewanListener);
 
+    }
+
+    public LiveData<List<hewanModel>> getJenisHewaViewModel() {
+        if (jenisHewan == null) {
+            jenisHewan = new MutableLiveData<>();
+        }
+        return jenisHewan;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(dataJenisHewan);
+        databaseReference.removeEventListener(jenishewanListener);
     }
 }
