@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,50 +17,49 @@ import com.tdn.domain.model.hewanModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JenisHewaViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    private LiveData<List<hewanModel>> jenisHewan;
 
     public JenisHewaViewModel() {
 
-        getJenisHewan();
+
     }
 
-    private void getJenisHewan() {
+    public LiveData<List<hewanModel>> getJenisHewan() {
+        final MutableLiveData<List<hewanModel>> jenisHewan = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     List<hewanModel> hewanModelList = new ArrayList<>();
                     for (DataSnapshot data : snapshot.getChildren()) {
+
                         hewanModel hewanModel = data.getValue(hewanModel.class);
                         hewanModel.setId(data.getKey());
+
                         hewanModelList.add(hewanModel);
+
+
                     }
-                    jenisHewan.getValue().addAll(hewanModelList);
+                    jenisHewan.setValue(hewanModelList);
+
                 } else {
-                    jenisHewan = new MutableLiveData<>();
+                    jenisHewan.setValue(null);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                jenisHewan = new MutableLiveData<>();
+                jenisHewan.setValue(null);
             }
         });
-
-
-    }
-
-    public LiveData<List<hewanModel>> getJenisHewaViewModel() {
-        if (jenisHewan == null) {
-            jenisHewan = new MutableLiveData<>();
-        }
         return jenisHewan;
     }
+
 
     @Override
     protected void onCleared() {

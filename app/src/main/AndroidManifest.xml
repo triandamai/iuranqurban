@@ -36,13 +36,16 @@
         <activity android:name=".auth.IntroActivity" />
         <activity android:name=".auth.DaftarActivity" />
         <activity android:name=".auth.LoginActivity" />
+        <activity android:name=".core.ImagePickerActivity" />
         <activity
             android:name=".admin.AdminActivity"
             android:label="@string/title_activity_admin" />
         <activity
             android:name=".nasabah.NasabahActivity"
             android:label="@string/title_activity_nasabah" />
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

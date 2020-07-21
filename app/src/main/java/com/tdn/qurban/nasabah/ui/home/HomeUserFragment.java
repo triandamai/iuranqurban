@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
@@ -28,9 +29,15 @@ public class HomeUserFragment extends Fragment {
         homeUserViewModel = new ViewModelProvider(this, new VMFactory()).get(HomeUserViewModel.class);
         adapterMyTabungan = new AdapterMyTabungan();
         binding.rv.setAdapter(adapterMyTabungan);
-
+        onClick();
 
         return binding.getRoot();
+    }
+
+    private void onClick() {
+        binding.tvAktivasi.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.nav_aktivasiakun);
+        });
     }
 
     @Override

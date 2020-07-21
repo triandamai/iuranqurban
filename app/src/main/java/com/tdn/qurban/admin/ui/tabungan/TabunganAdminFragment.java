@@ -45,6 +45,7 @@ public class TabunganAdminFragment extends Fragment {
     }
 
     private void observe(TabunganAdminViewModel mViewModel) {
+        binding.setIsLoading(false);
         mViewModel.getTabunganData().observe(getViewLifecycleOwner(), tabunganModels -> {
             if (tabunganModels != null) {
                 adapterTabunganAdmin.setData(tabunganModels);

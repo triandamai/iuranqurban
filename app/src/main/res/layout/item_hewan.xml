@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="@dimen/sp_20"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_hewan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/sp_20"
+            android:text="Nama Hewan" />
+
+        <TextView
+            android:id="@+id/tv_nominal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nominal" />
+    </LinearLayout>
+</layout>

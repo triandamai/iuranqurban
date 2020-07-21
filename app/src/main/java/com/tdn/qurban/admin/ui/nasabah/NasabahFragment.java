@@ -47,6 +47,7 @@ public class NasabahFragment extends Fragment {
     }
 
     private void observe(NasabahViewModel mViewModel) {
+        binding.setIsLoading(false);
         mViewModel.getUseListLiveData().observe(getViewLifecycleOwner(), userModels -> {
             adapterNasabah.setData(userModels);
         });

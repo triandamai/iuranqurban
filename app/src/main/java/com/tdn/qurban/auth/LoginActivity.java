@@ -39,12 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         viewModel = new ViewModelProvider(this, new VMFactory(getApplicationContext(), actionListener)).get(LoginViewModel.class);
-        this.gsc.signOut();
+
         this.gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         this.gsc = GoogleSignIn.getClient(this, gso);
+        gsc.signOut();
         onClick();
     }
 

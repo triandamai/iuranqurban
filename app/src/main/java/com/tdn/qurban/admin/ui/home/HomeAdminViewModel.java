@@ -127,7 +127,7 @@ public class HomeAdminViewModel extends ViewModel {
                         if (snapshot.exists()) {
                             UserModel userModel = snapshot.getValue(UserModel.class);
                             userModel.setUid(snapshot.getKey());
-                            Log.e("detail user", snapshot.toString());
+                          
                             userModelMutableLiveData.setValue(userModel);
                         } else {
                             userModelMutableLiveData = new MutableLiveData<>();

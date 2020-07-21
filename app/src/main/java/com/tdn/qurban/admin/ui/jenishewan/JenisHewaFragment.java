@@ -1,33 +1,30 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
-import com.tdn.qurban.databinding.JenisHewaFragmentBinding;
-
-import java.util.List;
+import com.tdn.qurban.databinding.JenisHewanFragmentBinding;
 
 public class JenisHewaFragment extends Fragment {
 
     private JenisHewaViewModel mViewModel;
     private AdapterJenisHewan adapterJenisHewan;
-    private JenisHewaFragmentBinding binding;
+    private JenisHewanFragmentBinding binding;
 
     public static JenisHewaFragment newInstance() {
         return new JenisHewaFragment();
@@ -36,10 +33,25 @@ public class JenisHewaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.jenis_hewa_fragment, container, false);
-        mViewModel = new ViewModelProvider(this, new VMFactory()).get(JenisHewaViewModel.class);
-        adapterJenisHewan = new AdapterJenisHewan(adapterClicked);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.jenis_hewan_fragment, container, false);
+
+        adapterJenisHewan = new AdapterJenisHewan(getContext(), adapterClicked);
+        binding.rv.setAdapter(adapterJenisHewan);
+
+        onClick();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this, new VMFactory()).get(JenisHewaViewModel.class);
+    }
+
+    private void onClick() {
+        binding.btnTambah.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tambahhewan);
+        });
     }
 
 
@@ -50,8 +62,12 @@ public class JenisHewaFragment extends Fragment {
     }
 
     private void observe(JenisHewaViewModel mViewModel) {
-        mViewModel.getJenisHewaViewModel().observe(getViewLifecycleOwner(), hewanModels -> {
-            adapterJenisHewan.setData(hewanModels);
+        binding.setIsLoading(false);
+        mViewModel.getJenisHewan().observe(getViewLifecycleOwner(), hewanModels -> {
+
+            if (hewanModels != null) {
+                adapterJenisHewan.setData(hewanModels);
+            }
         });
     }
 

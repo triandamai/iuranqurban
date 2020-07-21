@@ -25,7 +25,7 @@
         android:id="@+id/navigation_jenishewan"
         android:name="com.tdn.qurban.admin.ui.jenishewan.JenisHewaFragment"
         android:label="@string/fragment_jenis_hewan"
-        tools:layout="@layout/jenis_hewa_fragment" />
+        tools:layout="@layout/jenis_hewan_fragment" />
     <fragment
         android:id="@+id/navigation_nasabah"
         android:name="com.tdn.qurban.admin.ui.nasabah.NasabahFragment"

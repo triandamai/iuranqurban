@@ -7,8 +7,12 @@ import androidx.databinding.DataBindingUtil;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +29,7 @@ import com.tdn.qurban.R;
 import com.tdn.qurban.databinding.ActivityRencanaQurbanBinding;
 import com.tdn.qurban.nasabah.NasabahActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +39,8 @@ public class RencanaQurbanActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private AlertDialog.Builder builder;
+    private double jml = 0;
+    private String id_jenis = "";
 
 
     @Override
@@ -45,6 +52,32 @@ public class RencanaQurbanActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
         builder.create();
         onClick();
+        Watcher();
+    }
+
+    private void Watcher() {
+        binding.etJumlah.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!binding.etTargetnominal.getText().toString().isEmpty()) {
+                    jml = Double.parseDouble(binding.etTargetnominal.getText().toString());
+                    int qty = Integer.parseInt(binding.etJumlah.getText().toString());
+                    double hasil = jml * qty;
+                    binding.etTargetnominal.setText("Rp " + hasil);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void onClick() {
@@ -82,23 +115,30 @@ public class RencanaQurbanActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
+
                                 String[] hewan = {};
                                 String[] nominal = {};
                                 String[] id = {};
-                                int idx = 0;
                                 for (DataSnapshot s : snapshot.getChildren()) {
                                     hewanModel m = s.getValue(hewanModel.class);
                                     m.setId(s.getKey());
-                                    hewan[idx] = m.getJenis();
-                                    nominal[idx] = m.getNominal();
-                                    id[idx] = m.getId();
-                                    idx++;
+                                    Log.e("hewan", m.toString());
+                                    m.setId(s.getKey());
+                                    hewan = ArrayUtils.appendToArray(hewan, m.getJenis());
+                                    nominal = ArrayUtils.appendToArray(nominal, m.getNominal());
+                                    id = ArrayUtils.appendToArray(id, m.getId());
+
                                 }
                                 builder.setTitle("Pilih Jenis Hewan");
+                                String[] finalHewan = hewan;
+                                String[] finalNominal = nominal;
+                                String[] finalId = id;
                                 builder.setItems(hewan, (dialog, which) -> {
-                                    binding.etJenisQurban.setText(hewan[which]);
-                                    binding.etTargetnominal.setText(nominal[which]);
-                                });
+                                    binding.etJenisQurban.setText(finalHewan[which]);
+                                    binding.etTargetnominal.setText(finalNominal[which]);
+                                    jml = Double.parseDouble(finalNominal[which]);
+                                    id_jenis = finalId[which];
+                                }).show();
                             } else {
                                 Snackbar.make(binding.getRoot(), "Gagal : error ambil data", BaseTransientBottomBar.LENGTH_LONG).show();
                             }
@@ -123,6 +163,7 @@ public class RencanaQurbanActivity extends AppCompatActivity {
     private void simpan() {
         rencanaModel m = new rencanaModel();
         m.setUid(firebaseAuth.getCurrentUser().getUid());
+        m.setId_jenis(id_jenis);
         m.setUpdated_at(String.valueOf(new Date().getTime()));
         m.setTempat_penyerahan(binding.etTempatpenyerahan.getText().toString());
         m.setPembelian(binding.etJenisbeli.getText().toString());
@@ -137,7 +178,7 @@ public class RencanaQurbanActivity extends AppCompatActivity {
             databaseReference
                     .child(Const.CHILD_USER)
                     .child(firebaseAuth.getCurrentUser().getUid())
-                    .child(Const.CHILD_RENCANA)
+                    .child(Const.CHILD_USER_RENCANA)
                     .setValue(Const.SUDAH_RENCANA).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

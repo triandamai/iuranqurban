@@ -39,6 +39,7 @@ public class HomeAdminFragment extends Fragment {
     }
 
     private void observe(HomeAdminViewModel homeAdminViewModel) {
+        binding.setIsLoading(false);
         homeAdminViewModel.getNasabahAktif().observe(getViewLifecycleOwner(), integer -> {
             binding.jmlAktif.setText("" + integer);
         });

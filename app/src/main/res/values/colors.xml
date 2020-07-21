@@ -5,10 +5,10 @@
     <color name="colorPrimary">#18988B</color>
     <color name="colorPrimaryAccent">#1CAE9F</color>
     <color name="colorPrimaryAccentBanget">#C5E8FF</color>
-    <color name="colorPrimaryDark">#1789D1</color>
+    <color name="colorPrimaryDark">#189588</color>
     <color name="colorPrimaryDarkAja">#174C81</color>
     <color name="colorPrimaryDarkBanget">#0D346B</color>
-    <color name="colorAccent">#585EC0FF</color>
+    <color name="colorAccent">#8D18988B</color>
     <color name="colorAccentBanget">#3594D4F1</color>
     <color name="colorBlue">#8BCEED</color>
     <color name="colorBlueDark">#1877DD</color>

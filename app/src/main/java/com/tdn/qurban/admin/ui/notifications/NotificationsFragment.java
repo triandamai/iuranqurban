@@ -27,7 +27,7 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(getContext());
-        // binding.rv.setAdapter(adapterNotifikasiAdmin);
+        binding.rv.setAdapter(adapterNotifikasiAdmin);
 
         return binding.getRoot();
     }
@@ -39,6 +39,7 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void observe(NotificationsViewModel notificationsViewModel) {
+        binding.setIsLoading(false);
         notificationsViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModel -> {
             adapterNotifikasiAdmin.setData(notifikasiModel);
         });

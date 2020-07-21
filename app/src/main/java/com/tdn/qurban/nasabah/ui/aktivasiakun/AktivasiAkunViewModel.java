@@ -6,6 +6,7 @@ import android.net.Uri;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,17 +62,22 @@ public class AktivasiAkunViewModel extends ViewModel {
                 }
 
                 return bucket.getDownloadUrl();
+            }).addOnSuccessListener(uri -> {
+                actionListener.onSuccess("Berhasil : ");
             }).addOnCompleteListener(task12 -> {
-                if (task12.isSuccessful()) {
+                if (task12.isComplete()) {
                     Uri downloadUri = task12.getResult();
                     aktivasiModel m = new aktivasiModel();
-                    m.setFoto(downloadUri.getPath());
+                    m.setFoto(task12.getResult().toString());
                     m.setUid(firebaseAuth.getCurrentUser().getUid());
                     m.setUpdated_at(String.valueOf(new Date().getTime()));
                     m.setCreated_at(String.valueOf(new Date().getTime()));
                     databaseReference.child(Const.CHILD_AKTIVASI)
                             .child(firebaseAuth.getCurrentUser().getUid())
-                            .setValue(m).addOnFailureListener(e -> actionListener.onError("Gagal : " + e.getLocalizedMessage()))
+                            .setValue(m)
+                            .addOnFailureListener(e -> {
+                                actionListener.onError("Gagal : " + e.getLocalizedMessage());
+                            })
                             .addOnSuccessListener(aVoid -> {
                                 actionListener.onSuccess("Berhasil : ");
                             });
