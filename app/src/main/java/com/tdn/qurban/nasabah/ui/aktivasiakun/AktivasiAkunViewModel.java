@@ -3,15 +3,21 @@ package com.tdn.qurban.nasabah.ui.aktivasiakun;
 import android.content.Context;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.tdn.data.Const;
 import com.tdn.domain.model.aktivasiModel;
@@ -28,7 +34,7 @@ public class AktivasiAkunViewModel extends ViewModel {
     public MutableLiveData<String> progress = new MutableLiveData<>();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private StorageReference bucket = FirebaseStorage.getInstance().getReference().child(Const.BUCKET_AKTIVASI);
+    private StorageReference bucket = FirebaseStorage.getInstance().getReference();
 
     public AktivasiAkunViewModel(Context context, ActionListener listener) {
         this.actionListener = listener;
@@ -55,36 +61,42 @@ public class AktivasiAkunViewModel extends ViewModel {
 
         if (foto.getValue() != null) {
             Uri file = Uri.fromFile(new File(foto.getValue()));
-            UploadTask uploadTask = bucket.child(firebaseAuth.getCurrentUser().getUid()).putFile(file);
-            uploadTask.continueWithTask(task1 -> {
-                if (!task1.isSuccessful()) {
-                    throw Objects.requireNonNull(task1.getException());
-                }
+            final StorageReference storage = bucket
+                    .child(Const.CHILD_AKTIVASI + "/" + firebaseAuth.getCurrentUser().getUid() + ".jpeg");
 
-                return bucket.getDownloadUrl();
-            }).addOnSuccessListener(uri -> {
-                actionListener.onSuccess("Berhasil : ");
-            }).addOnCompleteListener(task12 -> {
-                if (task12.isComplete()) {
-                    Uri downloadUri = task12.getResult();
-                    aktivasiModel m = new aktivasiModel();
-                    m.setFoto(task12.getResult().toString());
-                    m.setUid(firebaseAuth.getCurrentUser().getUid());
-                    m.setUpdated_at(String.valueOf(new Date().getTime()));
-                    m.setCreated_at(String.valueOf(new Date().getTime()));
-                    databaseReference.child(Const.CHILD_AKTIVASI)
-                            .child(firebaseAuth.getCurrentUser().getUid())
-                            .setValue(m)
-                            .addOnFailureListener(e -> {
-                                actionListener.onError("Gagal : " + e.getLocalizedMessage());
-                            })
-                            .addOnSuccessListener(aVoid -> {
-                                actionListener.onSuccess("Berhasil : ");
-                            });
-                } else {
-                    actionListener.onError("Gagal upload");
+            StorageTask<UploadTask.TaskSnapshot> uploadTask = storage.putFile(file);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return storage.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        aktivasiModel m = new aktivasiModel();
+                        m.setFoto(downloadUri.toString());
+                        m.setUid(firebaseAuth.getCurrentUser().getUid());
+                        m.setUpdated_at(String.valueOf(new Date().getTime()));
+                        m.setCreated_at(String.valueOf(new Date().getTime()));
+                        databaseReference.child(Const.CHILD_AKTIVASI)
+                                .child(firebaseAuth.getCurrentUser().getUid())
+                                .setValue(m);
+
+                        actionListener.onSuccess("Berhasil : ");
+
+                    } else {
+                        actionListener.onError("Gagal : task gagal");
+                    }
                 }
             });
+
 
         } else {
             actionListener.onError("Isi semua data");
