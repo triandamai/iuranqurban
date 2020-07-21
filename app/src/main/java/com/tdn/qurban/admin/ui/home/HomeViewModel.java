@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.home;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,22 +21,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class HomeViewModel extends ViewModel {
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Integer> nasabahAktif;
     private MutableLiveData<Integer> nasabahNonAktif;
+    private MutableLiveData<userModel> userModelMutableLiveData;
     private LiveData<List<notifikasiModel>> notifikasiTabungan;
-    private ValueEventListener jumlahNasabahListener;
-    private ValueEventListener notifikasiListener;
 
 
     public HomeViewModel() {
         nasabahAktif = new MutableLiveData<>();
         nasabahNonAktif = new MutableLiveData<>();
         notifikasiTabungan = new MutableLiveData<>();
-        nasabahAktif.setValue(0);
-        nasabahNonAktif.setValue(0);
-        notifikasiTabungan.getValue().addAll(null);
+        userModelMutableLiveData = new MutableLiveData<>();
 
         getMyHome();
     }
@@ -47,12 +46,23 @@ public class HomeViewModel extends ViewModel {
         return nasabahNonAktif;
     }
 
+    public MutableLiveData<userModel> getUserModelMutableLiveData() {
+        if (userModelMutableLiveData == null) {
+            userModelMutableLiveData = new MutableLiveData<>();
+        }
+        return userModelMutableLiveData;
+    }
+
     public LiveData<List<notifikasiModel>> getNotifikasiTabungan() {
+        if (notifikasiTabungan == null) {
+            notifikasiTabungan = new MutableLiveData<>();
+        }
         return notifikasiTabungan;
     }
 
     private void getMyHome() {
-        notifikasiListener = databaseReference
+        databaseReference
+                .child(Const.BASE_CHILD)
                 .child(Const.CHILD_NOTIF_ADMIN).orderByChild("broad_to")
                 .startAt(Const.USER_LEVEL_PANITIA)
                 .endAt(Const.USER_LEVEL_ADMIN)
@@ -65,33 +75,39 @@ public class HomeViewModel extends ViewModel {
                                 notifikasiModel m = s.getValue(notifikasiModel.class);
                                 assert m != null;
                                 m.setId(s.getKey());
-                                Objects.requireNonNull(notifikasiTabungan.getValue()).add(m);
+                                notifikasiTabungan.getValue().add(m);
                             }
                         } else {
-                            Objects.requireNonNull(notifikasiTabungan.getValue()).addAll(null);
+                            notifikasiTabungan = new MutableLiveData<>();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Objects.requireNonNull(notifikasiTabungan.getValue()).addAll(null);
+                        notifikasiTabungan = new MutableLiveData<>();
                     }
                 });
-        jumlahNasabahListener = databaseReference.child(Const.CHILD_USER)
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             int a = 0;
                             int n = 0;
+
                             for (DataSnapshot s : snapshot.getChildren()) {
                                 userModel m = s.getValue(userModel.class);
-                                if (!m.getLevel().equals(Const.USER_LEVEL_ADMIN) || !m.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
+                                if (!m.getLevel().equals(Const.USER_LEVEL_ADMIN) ||
+                                        !m.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
                                     if (m.getStatus().equals(Const.STATUS_USER_AKTIF)) {
                                         a = a + 1;
                                     } else {
                                         n = n + 1;
                                     }
+                                } else {
+
                                 }
                             }
                             nasabahAktif.setValue(a);
@@ -105,12 +121,30 @@ public class HomeViewModel extends ViewModel {
                         nasabahAktif.setValue(0);
                     }
                 });
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_USER).child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            userModel userModel = snapshot.getValue(userModel.class);
+                            userModel.setUid(snapshot.getKey());
+                            Log.e("detail user", snapshot.toString());
+                            userModelMutableLiveData.setValue(userModel);
+                        } else {
+                            userModelMutableLiveData = new MutableLiveData<>();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        userModelMutableLiveData = new MutableLiveData<>();
+                    }
+                });
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(jumlahNasabahListener);
-        databaseReference.removeEventListener(notifikasiListener);
+
     }
 }

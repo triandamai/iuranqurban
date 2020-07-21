@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.tdn.domain.model.notifikasiModel;
+import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.FragmentHomeAdminBinding;
@@ -48,16 +49,19 @@ public class HomeFragment extends Fragment {
 
     private void observe(HomeViewModel homeViewModel) {
         homeViewModel.getNasabahAktif().observe(getViewLifecycleOwner(), integer -> {
-
+            binding.jmlAktif.setText("" + integer);
         });
         homeViewModel.getNasabahNonAktif().observe(getViewLifecycleOwner(), integer -> {
-
+            binding.jumlahNonaktif.setText("" + integer);
         });
         homeViewModel.getNotifikasiTabungan().observe(getViewLifecycleOwner(), notifikasiModels -> {
             if (notifikasiModels != null) {
                 adapterNotifikasiHomeAdmin.setData(notifikasiModels);
             }
 
+        });
+        homeViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
+            binding.tvNamaAdmin.setText("" + userModel.getNama());
         });
     }
 

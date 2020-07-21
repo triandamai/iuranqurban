@@ -47,7 +47,8 @@ public class ProfilFragment extends Fragment {
     private void observe(ProfilViewModel mViewModel) {
         mViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
             if (userModel != null) {
-                
+                binding.tvNama.setText(userModel.getNama());
+                binding.tvLevel.setText(userModel.getLevel());
             }
         });
     }

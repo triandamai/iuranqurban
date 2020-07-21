@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:focusable="false"
                 android:hint="Jenis hewan qurban" />
 
             <EditText
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:inputType="number"
                 android:hint="Jumlah hewan qurban" />
 
             <EditText
@@ -63,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:inputType="number|numberDecimal"
                 android:hint="Target Nominal" />
 
             <EditText
@@ -78,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
+                android:focusable="false"
                 android:hint="Tempat penyerahan qurban" />
 
         </LinearLayout>

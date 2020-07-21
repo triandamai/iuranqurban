@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,7 @@ public class RencanaQurbanActivity extends AppCompatActivity {
     private void onClick() {
         binding.btnSimpan.setOnClickListener(v -> {
             if (cekValidasi()) {
+                Snackbar.make(binding.getRoot(), "Proses..", BaseTransientBottomBar.LENGTH_LONG).show();
                 simpan();
             } else {
                 Snackbar.make(binding.getRoot(), "Harap Isi Semua Data", BaseTransientBottomBar.LENGTH_LONG).show();
@@ -128,11 +130,22 @@ public class RencanaQurbanActivity extends AppCompatActivity {
         m.setJumlah(binding.etJumlah.getText().toString());
         m.setJenis(binding.etJenisQurban.getText().toString());
         m.setCreated_at(String.valueOf(new Date().getTime()));
+
         databaseReference.child(Const.CHILD_RENCANA)
                 .child(firebaseAuth.getUid())
                 .setValue(m).addOnSuccessListener(aVoid -> {
-            startActivity(new Intent(RencanaQurbanActivity.this, NasabahActivity.class));
-            finish();
+            databaseReference
+                    .child(Const.CHILD_USER)
+                    .child(firebaseAuth.getCurrentUser().getUid())
+                    .child(Const.CHILD_RENCANA)
+                    .setValue(Const.SUDAH_RENCANA).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    startActivity(new Intent(RencanaQurbanActivity.this, NasabahActivity.class));
+                    finish();
+                }
+            });
+
         }).addOnFailureListener(e -> {
             Snackbar.make(binding.getRoot(), "Gagal : " + e.getLocalizedMessage(), BaseTransientBottomBar.LENGTH_LONG).show();
         });

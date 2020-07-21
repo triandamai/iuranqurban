@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdn.qurban.admin.ui.detailnasabah.DetailNasabahViewModel;
+import com.tdn.qurban.admin.ui.jenishewan.JenisHewaViewModel;
+import com.tdn.qurban.admin.ui.jenishewan.TambahHewan;
+import com.tdn.qurban.admin.ui.jenishewan.TambahHewanViewModel;
 import com.tdn.qurban.auth.LoginViewModel;
 import com.tdn.qurban.nasabah.ui.aktivasiakun.AktivasiAkunViewModel;
 import com.tdn.qurban.nasabah.ui.home.HomeFragment;
@@ -67,6 +70,10 @@ public class VMFactory implements ViewModelProvider.Factory {
             return (T) new NotifikasiNasabahViewModel(context);
         } else if (modelClass.isAssignableFrom(DetailNasabahViewModel.class)) {
             return (T) new DetailNasabahViewModel(context, id);
+        } else if (modelClass.isAssignableFrom(JenisHewaViewModel.class)) {
+            return (T) new JenisHewaViewModel();
+        } else if (modelClass.isAssignableFrom(TambahHewanViewModel.class)) {
+            return (T) new TambahHewanViewModel(context, listener);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

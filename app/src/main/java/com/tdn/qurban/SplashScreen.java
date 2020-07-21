@@ -24,6 +24,7 @@ import com.tdn.domain.model.userModel;
 import com.tdn.qurban.admin.AdminActivity;
 import com.tdn.qurban.auth.LoginActivity;
 import com.tdn.qurban.auth.RegistrasiActivity;
+import com.tdn.qurban.auth.RencanaQurbanActivity;
 import com.tdn.qurban.databinding.ActivitySplashBinding;
 import com.tdn.qurban.nasabah.NasabahActivity;
 
@@ -52,20 +53,27 @@ public class SplashScreen extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 userModel usermodel = new userModel();
                                 usermodel.setUid(snapshot.getKey());
-                                Log.e("hasil", snapshot.toString());
-
                                 usermodel = snapshot.getValue(userModel.class);
-                                usermodel.setUid(snapshot.getKey());
                                 assert usermodel != null;
                                 if (usermodel.getLevel().equals(Const.USER_LEVEL_NASABAH)) {
                                     Snackbar.make(binding.getRoot(), "Sync " + usermodel.getNama(), BaseTransientBottomBar.LENGTH_LONG).show();
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            startActivity(new Intent(SplashScreen.this, NasabahActivity.class));
-                                            finish();
-                                        }
-                                    }, 1000);
+                                    if (usermodel.getRencana().equals(Const.SUDAH_RENCANA)) {
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                startActivity(new Intent(SplashScreen.this, NasabahActivity.class));
+                                                finish();
+                                            }
+                                        }, 1000);
+                                    } else {
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                startActivity(new Intent(SplashScreen.this, RencanaQurbanActivity.class));
+                                                finish();
+                                            }
+                                        }, 1000);
+                                    }
                                 } else {
                                     Snackbar.make(binding.getRoot(), "Sync " + usermodel.getNama(), BaseTransientBottomBar.LENGTH_LONG).show();
                                     new Handler().postDelayed(new Runnable() {

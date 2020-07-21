@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.tdn.domain.model.userModel" />
+
+        <variable
+            name="onClick"
+            type="com.tdn.qurban.core.AdapterClicked" />
+
+        <variable
+            name="posisi"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:elevation="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_5"
+        android:layout_margin="@dimen/dp_5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:onClick="@{onClick->onClick(posisi)}"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.status}" />
+
+            <TextView
+                android:id="@+id/tv_nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:text="@{data.nama}" />
+
+            <TextView
+                android:id="@+id/tv_nik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`NIK `+data.nik}" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

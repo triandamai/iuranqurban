@@ -28,7 +28,9 @@ public class RegistrasiActivity extends AppCompatActivity {
     private ActivityRegistrasiBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private MaterialAlertDialogBuilder builder;
+
+    private String[] jeniskelamin = {Const.JK_LK, Const.JK_PR};
+    private String[] hubungan = {Const.HUBUNGAN_ANAK, Const.HUBUNGAN_SAUDARA, Const.HUBUNGAN_ORANGTUA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,31 +42,38 @@ public class RegistrasiActivity extends AppCompatActivity {
         binding.etJk.setText(Const.JK_LK);
         binding.etHubungan.setText(Const.HUBUNGAN_ANAK);
 
-        builder = new MaterialAlertDialogBuilder(getApplicationContext(), R.style.dialog);
-
-        builder.create();
 
         onCLick();
     }
 
     private void onCLick() {
         binding.etJk.setOnClickListener(v -> {
-            String[] jeniskelamin = {Const.JK_LK, Const.JK_PR};
-            builder.setTitle("Pilih Jenis Kelmain");
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(RegistrasiActivity.this, R.style.dialog);
+            builder.setTitle("Pilih Jenis Kelamin");
             builder.setItems(jeniskelamin, (dialog, which) -> {
-                binding.etJk.setText(which);
+
+                binding.etJk.setText(jeniskelamin[which]);
+
+
             });
+            builder.create();
             builder.show();
         });
         binding.etHubungan.setOnClickListener(v -> {
-            String[] hubungan = {Const.HUBUNGAN_ANAK, Const.HUBUNGAN_ORANGTUA, Const.HUBUNGAN_SAUDARA};
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(RegistrasiActivity.this, R.style.dialog);
             builder.setTitle("Pilih hubungan dengan ahli waris");
             builder.setItems(hubungan, (dialog, which) -> {
-                binding.etHubungan.setText(which);
+
+                binding.etHubungan.setText(hubungan[which]);
+
+
             });
+            builder.create();
+            builder.show();
         });
         binding.btnSimpan.setOnClickListener(v -> {
             if (cekValidasi()) {
+                Snackbar.make(binding.getRoot(), "Proses..", BaseTransientBottomBar.LENGTH_LONG).show();
                 simpan();
             } else {
                 Snackbar.make(binding.getRoot(), "Harap Isi Semua Data", BaseTransientBottomBar.LENGTH_LONG).show();
@@ -86,6 +95,7 @@ public class RegistrasiActivity extends AppCompatActivity {
     private void simpan() {
         userModel m = new userModel();
         m.setUid(firebaseAuth.getCurrentUser().getUid());
+        m.setNama(binding.etNama.getText().toString());
         m.setUpdated_at(String.valueOf(new Date().getTime()));
         m.setNo_hp(binding.etHp.getText().toString());
         m.setStatus(Const.STATUS_USER_PENDING);
@@ -97,6 +107,8 @@ public class RegistrasiActivity extends AppCompatActivity {
         m.setHubungan_dengan_ahli_waris(binding.etHubungan.getText().toString());
         m.setHp_wa(binding.etHp.getText().toString());
         m.setCreated_at(String.valueOf(new Date().getTime()));
+        m.setRegistrasi(Const.SUDAH_REGISTRASI);
+        m.setRencana(Const.BELUM_RENCANA);
         m.setAlamat(binding.etAlamat.getText().toString());
 
         databaseReference.child(Const.CHILD_USER)

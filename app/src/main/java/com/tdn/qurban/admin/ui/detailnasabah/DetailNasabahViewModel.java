@@ -12,22 +12,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.domain.model.rencanaModel;
 import com.tdn.domain.model.userModel;
 
 public class DetailNasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
-    private ValueEventListener detailNasabahListener;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private MutableLiveData<userModel> detailUsers;
+    private MutableLiveData<rencanaModel> rencanaModelMutableLiveData;
 
     public DetailNasabahViewModel(Context context, String id) {
+        this.detailUsers = new MutableLiveData<>();
+        this.rencanaModelMutableLiveData = new MutableLiveData<>();
         if (id != null) {
             getDetail(id);
         }
     }
 
     private void getDetail(String id) {
-        detailNasabahListener = databaseReference
+        databaseReference
+                .child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
                 .child(id)
                 .addValueEventListener(new ValueEventListener() {
@@ -46,7 +50,27 @@ public class DetailNasabahViewModel extends ViewModel {
                         detailUsers.setValue(null);
                     }
                 });
-        databaseReference.addValueEventListener(detailNasabahListener);
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_RENCANA)
+                .child(id)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            rencanaModel rencanaModel = snapshot.getValue(rencanaModel.class);
+                            rencanaModel.setUid(snapshot.getKey());
+                            rencanaModelMutableLiveData.setValue(rencanaModel);
+                        } else {
+                            rencanaModelMutableLiveData = new MutableLiveData<>();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        rencanaModelMutableLiveData = new MutableLiveData<>();
+
+                    }
+                });
     }
 
     public MutableLiveData<userModel> getDetailUsers() {
@@ -56,9 +80,15 @@ public class DetailNasabahViewModel extends ViewModel {
         return detailUsers;
     }
 
+    public MutableLiveData<rencanaModel> getRencanaModelMutableLiveData() {
+        if (rencanaModelMutableLiveData == null) {
+            rencanaModelMutableLiveData = new MutableLiveData<>();
+        }
+        return rencanaModelMutableLiveData;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(detailNasabahListener);
     }
 }

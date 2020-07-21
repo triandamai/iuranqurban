@@ -2,20 +2,22 @@ package com.tdn.domain.model;
 
 public class rencanaModel {
     String uid;
-	String jenis;
-	String jumlah;
-	String target_nominal;
-	String pembelian;
-	String tempat_penyerahan;
-	String created_at;
-	String updated_at;
+    String jenis;
+    String id_jenis;
+    String jumlah;
+    String target_nominal;
+    String pembelian;
+    String tempat_penyerahan;
+    String created_at;
+    String updated_at;
 
     public rencanaModel() {
     }
 
-    public rencanaModel(String uid, String jenis, String jumlah, String target_nominal, String pembelian, String tempat_penyerahan, String created_at, String updated_at) {
+    public rencanaModel(String uid, String jenis, String id_jenis, String jumlah, String target_nominal, String pembelian, String tempat_penyerahan, String created_at, String updated_at) {
         this.uid = uid;
         this.jenis = jenis;
+        this.id_jenis = id_jenis;
         this.jumlah = jumlah;
         this.target_nominal = target_nominal;
         this.pembelian = pembelian;
@@ -38,6 +40,14 @@ public class rencanaModel {
 
     public void setJenis(String jenis) {
         this.jenis = jenis;
+    }
+
+    public String getId_jenis() {
+        return id_jenis;
+    }
+
+    public void setId_jenis(String id_jenis) {
+        this.id_jenis = id_jenis;
     }
 
     public String getJumlah() {
@@ -93,6 +103,7 @@ public class rencanaModel {
         return "rencanaModel{" +
                 "uid='" + uid + '\'' +
                 ", jenis='" + jenis + '\'' +
+                ", id_jenis='" + id_jenis + '\'' +
                 ", jumlah='" + jumlah + '\'' +
                 ", target_nominal='" + target_nominal + '\'' +
                 ", pembelian='" + pembelian + '\'' +

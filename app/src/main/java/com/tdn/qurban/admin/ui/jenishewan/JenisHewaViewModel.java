@@ -18,8 +18,8 @@ import java.util.List;
 
 public class JenisHewaViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.BASE_CHILD);
-    private ValueEventListener jenishewanListener;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     private LiveData<List<hewanModel>> jenisHewan;
 
     public JenisHewaViewModel() {
@@ -28,7 +28,7 @@ public class JenisHewaViewModel extends ViewModel {
     }
 
     private void getJenisHewan() {
-        jenishewanListener = databaseReference.child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -49,7 +49,7 @@ public class JenisHewaViewModel extends ViewModel {
                 jenisHewan = new MutableLiveData<>();
             }
         });
-        databaseReference.addValueEventListener(jenishewanListener);
+
 
     }
 
@@ -63,6 +63,5 @@ public class JenisHewaViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(jenishewanListener);
     }
 }

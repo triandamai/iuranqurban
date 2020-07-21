@@ -18,12 +18,14 @@ import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.FragmentHomeBinding;
+import com.tdn.qurban.databinding.FragmentNotificationsBinding;
+import com.tdn.qurban.databinding.FragmentNotificationsBindingImpl;
 
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
-    private FragmentHomeBinding binding;
+    private FragmentNotificationsBinding binding;
     private AdapterNotifikasiAdmin adapterNotifikasiAdmin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -32,7 +34,7 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(adapterClicked);
-        binding.rv.setAdapter(adapterNotifikasiAdmin);
+        // binding.rv.setAdapter(adapterNotifikasiAdmin);
 
         return binding.getRoot();
     }

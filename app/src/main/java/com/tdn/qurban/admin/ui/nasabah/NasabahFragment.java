@@ -10,11 +10,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
@@ -37,7 +39,7 @@ public class NasabahFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.nasabah_fragment, container, false);
         mViewModel = new ViewModelProvider(this).get(NasabahViewModel.class);
-        adapterNasabah = new AdapterNasabah(adapterClicked);
+        adapterNasabah = new AdapterNasabah(getContext(), adapterClicked);
         binding.rv.setAdapter(adapterNasabah);
         return binding.getRoot();
     }
@@ -56,6 +58,7 @@ public class NasabahFragment extends Fragment {
     }
 
     private AdapterClicked adapterClicked = posisi -> {
-
+        MyUser.getInstance(getContext()).setLastIdNasabah(adapterNasabah.getFromPosition(posisi).getUid());
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_nasabah);
     };
 }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.data.pref.MyUser;
+import com.tdn.domain.model.rencanaModel;
 import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
@@ -48,7 +49,20 @@ public class DetailNasabahFragment extends Fragment {
 
     private void observe(DetailNasabahViewModel mViewModel) {
         mViewModel.getDetailUsers().observe(getViewLifecycleOwner(), userModel -> {
-
+            if (userModel != null) {
+                binding.tvNama.setText(userModel.getNama());
+                binding.tvStatus.setText(userModel.getStatus());
+                binding.tvAlamat.setText(userModel.getAlamat());
+                binding.tvAhliwaris.setText(userModel.getNama_ahli_waris());
+                binding.tvNik.setText(userModel.getNik());
+                binding.tvTelpon.setText(userModel.getNo_hp());
+            }
+        });
+        mViewModel.getRencanaModelMutableLiveData().observe(getViewLifecycleOwner(), rencanaModel -> {
+            if (rencanaModel != null) {
+                binding.tvJenishewan.setText(rencanaModel.getJenis());
+                binding.tvJumlahHewan.setText(rencanaModel.getJumlah());
+            }
         });
     }
 }

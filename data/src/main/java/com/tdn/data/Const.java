@@ -18,8 +18,8 @@ public class Const {
 
     public static final String SUDAH_REGISTRASI = "YES";
     public static final String BELUM_REGISTRASI = "NO";
-    public static final String SUDAH_RENCANA = "NO";
-    public static final String BELUM_RENCANA = "YES";
+    public static final String SUDAH_RENCANA = "YES";
+    public static final String BELUM_RENCANA = "NO";
 
 
     public static final String USER_ADA = "ada";

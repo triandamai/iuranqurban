@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.notifications;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,28 +20,30 @@ import java.util.List;
 
 public class NotificationsViewModel extends ViewModel {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    private ValueEventListener notifikasiListener;
+
     private LiveData<List<notifikasiModel>> notifikasiModelLiveData;
 
     public NotificationsViewModel() {
+        notifikasiModelLiveData = new MutableLiveData<>();
         getAllNotifikasi();
     }
 
     private void getAllNotifikasi() {
-        notifikasiListener = databaseReference.child(Const.CHILD_NOTIF_ADMIN)
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_NOTIF_ADMIN)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            List<notifikasiModel> notifikasiModelList = new ArrayList<>();
+
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 notifikasiModel notifikasiModel = data.getValue(notifikasiModel.class);
                                 notifikasiModel.setId(data.getKey());
-                                notifikasiModelList.add(notifikasiModel);
+
+                                notifikasiModelLiveData.getValue().add(notifikasiModel);
                             }
-                            notifikasiModelLiveData.getValue().addAll(notifikasiModelList);
+
                         } else {
                             notifikasiModelLiveData = new MutableLiveData<>();
                         }
@@ -47,10 +51,10 @@ public class NotificationsViewModel extends ViewModel {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        notifikasiModelLiveData = new MutableLiveData<>();
                     }
                 });
-        databaseReference.addValueEventListener(notifikasiListener);
+
     }
 
     public LiveData<List<notifikasiModel>> getNotifikasiModelLiveData() {
