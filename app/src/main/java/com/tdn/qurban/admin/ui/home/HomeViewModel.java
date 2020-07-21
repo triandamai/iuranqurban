@@ -14,19 +14,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.notifikasiModel;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
+import com.tdn.domain.model.NotifikasiModel;
 
 import java.util.List;
-import java.util.Objects;
 
 public class HomeViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Integer> nasabahAktif;
     private MutableLiveData<Integer> nasabahNonAktif;
-    private MutableLiveData<userModel> userModelMutableLiveData;
-    private LiveData<List<notifikasiModel>> notifikasiTabungan;
+    private MutableLiveData<UserModel> userModelMutableLiveData;
+    private LiveData<List<NotifikasiModel>> notifikasiTabungan;
 
 
     public HomeViewModel() {
@@ -46,14 +45,14 @@ public class HomeViewModel extends ViewModel {
         return nasabahNonAktif;
     }
 
-    public MutableLiveData<userModel> getUserModelMutableLiveData() {
+    public MutableLiveData<UserModel> getUserModelMutableLiveData() {
         if (userModelMutableLiveData == null) {
             userModelMutableLiveData = new MutableLiveData<>();
         }
         return userModelMutableLiveData;
     }
 
-    public LiveData<List<notifikasiModel>> getNotifikasiTabungan() {
+    public LiveData<List<NotifikasiModel>> getNotifikasiTabungan() {
         if (notifikasiTabungan == null) {
             notifikasiTabungan = new MutableLiveData<>();
         }
@@ -72,7 +71,7 @@ public class HomeViewModel extends ViewModel {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             for (DataSnapshot s : snapshot.getChildren()) {
-                                notifikasiModel m = s.getValue(notifikasiModel.class);
+                                NotifikasiModel m = s.getValue(NotifikasiModel.class);
                                 assert m != null;
                                 m.setId(s.getKey());
                                 notifikasiTabungan.getValue().add(m);
@@ -98,7 +97,7 @@ public class HomeViewModel extends ViewModel {
                             int n = 0;
 
                             for (DataSnapshot s : snapshot.getChildren()) {
-                                userModel m = s.getValue(userModel.class);
+                                UserModel m = s.getValue(UserModel.class);
                                 if (!m.getLevel().equals(Const.USER_LEVEL_ADMIN) ||
                                         !m.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
                                     if (m.getStatus().equals(Const.STATUS_USER_AKTIF)) {
@@ -126,7 +125,7 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            userModel userModel = snapshot.getValue(userModel.class);
+                            UserModel userModel = snapshot.getValue(UserModel.class);
                             userModel.setUid(snapshot.getKey());
                             Log.e("detail user", snapshot.toString());
                             userModelMutableLiveData.setValue(userModel);

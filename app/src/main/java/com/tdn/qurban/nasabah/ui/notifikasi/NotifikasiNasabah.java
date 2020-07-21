@@ -1,9 +1,7 @@
 package com.tdn.qurban.nasabah.ui.notifikasi;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -15,13 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.NotifikasiNasabahFragmentBinding;
-
-import java.util.List;
 
 public class NotifikasiNasabah extends Fragment {
 

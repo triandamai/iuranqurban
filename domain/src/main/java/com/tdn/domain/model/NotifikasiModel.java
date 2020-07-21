@@ -1,6 +1,6 @@
 package com.tdn.domain.model;
 
-public class notifikasiModel {
+public class NotifikasiModel {
     String id;
     String from_uid;
     String broad_to;
@@ -8,10 +8,10 @@ public class notifikasiModel {
     String tipe;
     String created_at;
 
-    public notifikasiModel() {
+    public NotifikasiModel() {
     }
 
-    public notifikasiModel(String id, String from_uid, String broad_to, String body, String tipe, String created_at) {
+    public NotifikasiModel(String id, String from_uid, String broad_to, String body, String tipe, String created_at) {
         this.id = id;
         this.from_uid = from_uid;
         this.broad_to = broad_to;
@@ -70,7 +70,7 @@ public class notifikasiModel {
 
     @Override
     public String toString() {
-        return "notifikasiModel{" +
+        return "NotifikasiModel{" +
                 "id='" + id + '\'' +
                 ", from_uid='" + from_uid + '\'' +
                 ", broad_to='" + broad_to + '\'' +

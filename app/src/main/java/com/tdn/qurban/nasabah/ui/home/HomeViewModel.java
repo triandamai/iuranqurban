@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.saldoModel;
 import com.tdn.domain.model.tabunganModel;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +102,7 @@ public class HomeViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    userModel userModel = snapshot.getValue(userModel.class);
+                    UserModel userModel = snapshot.getValue(UserModel.class);
                     assert userModel != null;
                     if (userModel.getStatus().equals(Const.STATUS_USER_AKTIF)) {
                         isActive.setValue(true);

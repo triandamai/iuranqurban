@@ -13,12 +13,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.rencanaModel;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 
 public class DetailNasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private MutableLiveData<userModel> detailUsers;
+    private MutableLiveData<UserModel> detailUsers;
     private MutableLiveData<rencanaModel> rencanaModelMutableLiveData;
 
     public DetailNasabahViewModel(Context context, String id) {
@@ -38,7 +38,7 @@ public class DetailNasabahViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            userModel userModel = snapshot.getValue(userModel.class);
+                            UserModel userModel = snapshot.getValue(UserModel.class);
                             detailUsers.setValue(userModel);
                         } else {
                             detailUsers.setValue(null);
@@ -73,7 +73,7 @@ public class DetailNasabahViewModel extends ViewModel {
                 });
     }
 
-    public MutableLiveData<userModel> getDetailUsers() {
+    public MutableLiveData<UserModel> getDetailUsers() {
         if (detailUsers == null) {
             detailUsers = new MutableLiveData<>();
         }

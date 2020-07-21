@@ -1,9 +1,7 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -16,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.data.pref.MyUser;
-import com.tdn.domain.model.rencanaModel;
-import com.tdn.domain.model.userModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
@@ -35,6 +31,7 @@ public class DetailNasabahFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_nasabah_fragment, container, false);
+
         mViewModel = new ViewModelProvider(this, new VMFactory(getContext(), MyUser.getInstance(getContext()).getLastIdNasabah())).get(DetailNasabahViewModel.class);
         return binding.getRoot();
     }

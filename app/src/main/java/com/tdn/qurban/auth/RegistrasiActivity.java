@@ -1,16 +1,12 @@
 package com.tdn.qurban.auth;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -18,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tdn.data.Const;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.databinding.ActivityRegistrasiBinding;
 
@@ -93,7 +89,7 @@ public class RegistrasiActivity extends AppCompatActivity {
     }
 
     private void simpan() {
-        userModel m = new userModel();
+        UserModel m = new UserModel();
         m.setUid(firebaseAuth.getCurrentUser().getUid());
         m.setNama(binding.etNama.getText().toString());
         m.setUpdated_at(String.valueOf(new Date().getTime()));

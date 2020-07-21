@@ -1,12 +1,12 @@
 package com.tdn.data.mapper;
 
 import com.tdn.data.entity.userEntity;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 
-public class userMapper extends FirebaseMapper<userEntity, userModel> {
+public class userMapper extends FirebaseMapper<userEntity, UserModel> {
     @Override
-    public userModel map(userEntity e, String id) {
-        userModel m = new userModel();
+    public UserModel map(userEntity e, String id) {
+        UserModel m = new UserModel();
         m.setUid(id);
         m.setNama(e.getNama());
         m.setAlamat(e.getAlamat());

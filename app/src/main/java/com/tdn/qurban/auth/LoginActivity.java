@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,10 +19,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tdn.data.Const;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.admin.AdminActivity;
-import com.tdn.qurban.core.ActionListener;
 import com.tdn.qurban.core.AuthListener;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.ActivityLoginBinding;
@@ -51,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-        binding.btnMasuk.setOnClickListener(v -> {
+        binding.btnSimpan.setOnClickListener(v -> {
             signIn();
         });
         binding.tvDaftar.setOnClickListener(v -> {
@@ -93,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onSuccess(@NonNull String message, userModel data) {
+        public void onSuccess(@NonNull String message, UserModel data) {
             Snackbar.make(binding.getRoot(), "signInWithCredential:success", BaseTransientBottomBar.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override

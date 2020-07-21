@@ -1,6 +1,6 @@
 package com.tdn.domain.model;
 
-public class userModel {
+public class UserModel {
     String uid, nama, nik,
             no_hp,
             jenis_kelamin,
@@ -16,10 +16,10 @@ public class userModel {
             created_at,
             updated_at;
 
-    public userModel() {
+    public UserModel() {
     }
 
-    public userModel(String uid, String nama, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String registrasi, String rencana, String created_at, String updated_at) {
+    public UserModel(String uid, String nama, String nik, String no_hp, String jenis_kelamin, String alamat, String nama_ahli_waris, String hubungan_dengan_ahli_waris, String level, String status, String kartu_identitas, String hp_wa, String registrasi, String rencana, String created_at, String updated_at) {
         this.uid = uid;
         this.nama = nama;
         this.nik = nik;
@@ -168,7 +168,7 @@ public class userModel {
 
     @Override
     public String toString() {
-        return "userModel{" +
+        return "UserModel{" +
                 "uid='" + uid + '\'' +
                 ", nama='" + nama + '\'' +
                 ", nik='" + nik + '\'' +

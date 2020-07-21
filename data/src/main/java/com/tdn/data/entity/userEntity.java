@@ -153,7 +153,7 @@ public class userEntity {
 
     @Override
     public String toString() {
-        return "userModel{" +
+        return "UserModel{" +
                 "uid='" + uid + '\'' +
                 ", nama='" + nama + '\'' +
                 ", nik='" + nik + '\'' +

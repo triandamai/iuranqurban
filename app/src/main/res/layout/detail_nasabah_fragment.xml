@@ -3,9 +3,7 @@
 
     <data>
 
-        <variable
-            name="data"
-            type="com.tdn.domain.model.userModel" />
+
     </data>
 
 

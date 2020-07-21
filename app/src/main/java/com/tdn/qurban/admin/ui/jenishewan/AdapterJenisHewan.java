@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdn.domain.model.hewanModel;
-import com.tdn.domain.model.notifikasiModel;
 import com.tdn.qurban.core.AdapterClicked;
 
 import java.util.List;

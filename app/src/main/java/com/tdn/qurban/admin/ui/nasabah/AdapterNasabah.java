@@ -2,7 +2,6 @@ package com.tdn.qurban.admin.ui.nasabah;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,8 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdn.domain.model.hewanModel;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemNasabahBinding;
@@ -20,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHolder> {
-    private List<userModel> he;
+    private List<UserModel> he;
     private AdapterClicked adapterClicked;
     private ItemNasabahBinding binding;
     private Context context;
@@ -34,18 +32,17 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
     @Override
     public AdapterNasabah.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_nasabah, parent, false);
-        binding.setOnClick(adapterClicked);
         return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterNasabah.MyViewHolder holder, int position) {
-        holder.binding.setOnClick(adapterClicked);
+        holder.binding.setAction(adapterClicked);
         holder.binding.setPosisi(position);
         holder.binding.setData(he.get(position));
     }
 
-    public void setData(List<userModel> notifikasiModels) {
+    public void setData(List<UserModel> notifikasiModels) {
         if (this.he == null) {
             this.he.addAll(notifikasiModels);
         } else {
@@ -67,8 +64,8 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    userModel lama = AdapterNasabah.this.he.get(oldItemPosition);
-                    userModel baru = notifikasiModels.get(newItemPosition);
+                    UserModel lama = AdapterNasabah.this.he.get(oldItemPosition);
+                    UserModel baru = notifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });
@@ -78,7 +75,7 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
         }
     }
 
-    public userModel getFromPosition(int pos) {
+    public UserModel getFromPosition(int pos) {
         return he.get(pos);
     }
 

@@ -5,10 +5,10 @@
 
         <variable
             name="data"
-            type="com.tdn.domain.model.userModel" />
+            type="com.tdn.domain.model.UserModel" />
 
         <variable
-            name="onClick"
+            name="action"
             type="com.tdn.qurban.core.AdapterClicked" />
 
         <variable
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp_10"
-            android:onClick="@{onClick->onClick(posisi)}"
+            android:onClick="@{(v)->action.onClick(posisi)}"
             android:orientation="vertical">
 
             <TextView

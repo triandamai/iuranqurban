@@ -1,13 +1,10 @@
 package com.tdn.data.repository;
 
 import com.google.firebase.database.DatabaseReference;
-import com.tdn.data.Const;
 import com.tdn.data.mapper.notifikasiMapper;
-import com.tdn.data.mapper.userMapper;
-import com.tdn.domain.model.notifikasiModel;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.NotifikasiModel;
 
-public class notifikasiAdminRepository extends FirebaseDatabaseRepository<notifikasiModel> {
+public class notifikasiAdminRepository extends FirebaseDatabaseRepository<NotifikasiModel> {
     public notifikasiAdminRepository() {
         super(new notifikasiMapper());
     }

@@ -1,12 +1,12 @@
 package com.tdn.data.mapper;
 
 import com.tdn.data.entity.notifikasiEntity;
-import com.tdn.domain.model.notifikasiModel;
+import com.tdn.domain.model.NotifikasiModel;
 
-public class notifikasiMapper extends FirebaseMapper<notifikasiEntity, notifikasiModel> {
+public class notifikasiMapper extends FirebaseMapper<notifikasiEntity, NotifikasiModel> {
     @Override
-    public notifikasiModel map(notifikasiEntity e, String id) {
-        notifikasiModel m = new notifikasiModel();
+    public NotifikasiModel map(notifikasiEntity e, String id) {
+        NotifikasiModel m = new NotifikasiModel();
         m.setBody(e.getBody());
         m.setBroad_to(e.getBroad_to());
         m.setCreated_at(e.getCreated_at());

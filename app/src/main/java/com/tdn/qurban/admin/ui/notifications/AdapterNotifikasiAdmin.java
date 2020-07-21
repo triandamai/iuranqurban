@@ -7,16 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdn.domain.model.notifikasiModel;
+import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.qurban.core.AdapterClicked;
-import com.tdn.qurban.nasabah.ui.home.AdapterMyTabungan;
-import com.tdn.qurban.nasabah.ui.notifikasi.AdapterNotifikasi;
 
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifikasiAdmin.MyViewHolder> {
-    private List<notifikasiModel> notifikasiModels;
+    private List<NotifikasiModel> NotifikasiModels;
     private AdapterClicked adapterClicked;
 
     public AdapterNotifikasiAdmin(AdapterClicked adapterClicked) {
@@ -34,34 +32,34 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
     }
 
-    public void setData(List<notifikasiModel> notifikasiModels) {
-        if (this.notifikasiModels == null) {
-            this.notifikasiModels.addAll(notifikasiModels);
+    public void setData(List<NotifikasiModel> NotifikasiModels) {
+        if (this.NotifikasiModels == null) {
+            this.NotifikasiModels.addAll(NotifikasiModels);
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return AdapterNotifikasiAdmin.this.notifikasiModels.size();
+                    return AdapterNotifikasiAdmin.this.NotifikasiModels.size();
                 }
 
                 @Override
                 public int getNewListSize() {
-                    return notifikasiModels.size();
+                    return NotifikasiModels.size();
                 }
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterNotifikasiAdmin.this.notifikasiModels.get(oldItemPosition).getId() == notifikasiModels.get(newItemPosition).getId();
+                    return AdapterNotifikasiAdmin.this.NotifikasiModels.get(oldItemPosition).getId() == NotifikasiModels.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    notifikasiModel lama = AdapterNotifikasiAdmin.this.notifikasiModels.get(oldItemPosition);
-                    notifikasiModel baru = notifikasiModels.get(newItemPosition);
+                    NotifikasiModel lama = AdapterNotifikasiAdmin.this.NotifikasiModels.get(oldItemPosition);
+                    NotifikasiModel baru = NotifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });
-            this.notifikasiModels = notifikasiModels;
+            this.NotifikasiModels = NotifikasiModels;
             result.dispatchUpdatesTo(this);
             notifyDataSetChanged();
         }
@@ -69,7 +67,7 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
     @Override
     public int getItemCount() {
-        return notifikasiModels == null ? 0 : notifikasiModels.size();
+        return NotifikasiModels == null ? 0 : NotifikasiModels.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

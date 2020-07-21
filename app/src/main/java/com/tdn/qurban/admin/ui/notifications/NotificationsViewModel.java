@@ -1,7 +1,5 @@
 package com.tdn.qurban.admin.ui.notifications;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,9 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.notifikasiModel;
+import com.tdn.domain.model.NotifikasiModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationsViewModel extends ViewModel {
@@ -23,7 +20,7 @@ public class NotificationsViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-    private LiveData<List<notifikasiModel>> notifikasiModelLiveData;
+    private LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
 
     public NotificationsViewModel() {
         notifikasiModelLiveData = new MutableLiveData<>();
@@ -38,7 +35,7 @@ public class NotificationsViewModel extends ViewModel {
                         if (snapshot.exists()) {
 
                             for (DataSnapshot data : snapshot.getChildren()) {
-                                notifikasiModel notifikasiModel = data.getValue(notifikasiModel.class);
+                                NotifikasiModel notifikasiModel = data.getValue(NotifikasiModel.class);
                                 notifikasiModel.setId(data.getKey());
 
                                 notifikasiModelLiveData.getValue().add(notifikasiModel);
@@ -57,7 +54,7 @@ public class NotificationsViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<notifikasiModel>> getNotifikasiModelLiveData() {
+    public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
         if (notifikasiModelLiveData == null) {
             notifikasiModelLiveData = new MutableLiveData<>();
         }

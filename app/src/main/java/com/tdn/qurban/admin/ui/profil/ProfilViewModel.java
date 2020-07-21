@@ -11,13 +11,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 
 public class ProfilViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private MutableLiveData<userModel> userModelMutableLiveData;
+    private MutableLiveData<UserModel> userModelMutableLiveData;
     private ValueEventListener profilListener;
 
     public ProfilViewModel() {
@@ -31,7 +31,7 @@ public class ProfilViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            userModel userModel = snapshot.getValue(userModel.class);
+                            UserModel userModel = snapshot.getValue(UserModel.class);
                             userModel.setUid(snapshot.getKey());
                             userModelMutableLiveData.setValue(userModel);
 
@@ -48,7 +48,7 @@ public class ProfilViewModel extends ViewModel {
         databaseReference.addValueEventListener(profilListener);
     }
 
-    public MutableLiveData<userModel> getUserModelMutableLiveData() {
+    public MutableLiveData<UserModel> getUserModelMutableLiveData() {
         if (userModelMutableLiveData == null) {
             userModelMutableLiveData = new MutableLiveData<>();
         }

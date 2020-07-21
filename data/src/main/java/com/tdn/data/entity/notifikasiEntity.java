@@ -70,7 +70,7 @@ public class notifikasiEntity {
 
     @Override
     public String toString() {
-        return "notifikasiModel{" +
+        return "NotifikasiModel{" +
                 "id='" + id + '\'' +
                 ", from_uid='" + from_uid + '\'' +
                 ", broad_to='" + broad_to + '\'' +

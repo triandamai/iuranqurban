@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class NasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
     private ValueEventListener datanasabahListener;
-    private LiveData<List<userModel>> useListLiveData;
+    private LiveData<List<UserModel>> useListLiveData;
 
     public NasabahViewModel() {
         getAllNasabah();
@@ -34,9 +34,9 @@ public class NasabahViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            List<userModel> userModelList = new ArrayList<>();
+                            List<UserModel> userModelList = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
-                                userModel userModel = data.getValue(userModel.class);
+                                UserModel userModel = data.getValue(UserModel.class);
                                 userModel.setUid(data.getKey());
                                 userModelList.add(userModel);
                             }
@@ -54,7 +54,7 @@ public class NasabahViewModel extends ViewModel {
         databaseReference.addValueEventListener(datanasabahListener);
     }
 
-    public LiveData<List<userModel>> getUseListLiveData() {
+    public LiveData<List<UserModel>> getUseListLiveData() {
         if (useListLiveData == null) {
             useListLiveData = new MutableLiveData<>();
         }

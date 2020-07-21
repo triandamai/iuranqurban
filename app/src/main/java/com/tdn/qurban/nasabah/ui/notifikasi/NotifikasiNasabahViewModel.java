@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.notifikasiModel;
+import com.tdn.domain.model.NotifikasiModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class NotifikasiNasabahViewModel extends ViewModel {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
     private Context context;
-    private LiveData<List<notifikasiModel>> notifikasiModelLiveData = new MutableLiveData<>();
+    private LiveData<List<NotifikasiModel>> notifikasiModelLiveData = new MutableLiveData<>();
     private ValueEventListener notif;
 
     public NotifikasiNasabahViewModel(Context context) {
@@ -31,7 +31,7 @@ public class NotifikasiNasabahViewModel extends ViewModel {
         getMyNotifikasi();
     }
 
-    public LiveData<List<notifikasiModel>> getNotifikasiModelLiveData() {
+    public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
         if (notifikasiModelLiveData == null) {
             notifikasiModelLiveData.getValue().addAll(null);
         }
@@ -45,13 +45,13 @@ public class NotifikasiNasabahViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            List<notifikasiModel> notifikasiModels = new ArrayList<>();
+                            List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
-                                notifikasiModel n = data.getValue(notifikasiModel.class);
+                                NotifikasiModel n = data.getValue(NotifikasiModel.class);
                                 n.setId(data.getKey());
-                                notifikasiModels.add(n);
+                                NotifikasiModels.add(n);
                             }
-                            notifikasiModelLiveData.getValue().addAll(notifikasiModels);
+                            notifikasiModelLiveData.getValue().addAll(NotifikasiModels);
 
                         } else {
                             notifikasiModelLiveData.getValue().addAll(null);

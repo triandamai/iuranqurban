@@ -4,11 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,10 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.userModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.admin.AdminActivity;
 import com.tdn.qurban.auth.LoginActivity;
-import com.tdn.qurban.auth.RegistrasiActivity;
 import com.tdn.qurban.auth.RencanaQurbanActivity;
 import com.tdn.qurban.databinding.ActivitySplashBinding;
 import com.tdn.qurban.nasabah.NasabahActivity;
@@ -51,9 +48,9 @@ public class SplashScreen extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-                                userModel usermodel = new userModel();
+                                UserModel usermodel = new UserModel();
                                 usermodel.setUid(snapshot.getKey());
-                                usermodel = snapshot.getValue(userModel.class);
+                                usermodel = snapshot.getValue(UserModel.class);
                                 assert usermodel != null;
                                 if (usermodel.getLevel().equals(Const.USER_LEVEL_NASABAH)) {
                                     Snackbar.make(binding.getRoot(), "Sync " + usermodel.getNama(), BaseTransientBottomBar.LENGTH_LONG).show();
