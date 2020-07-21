@@ -10,21 +10,9 @@
         android:name="com.tdn.qurban.nasabah.ui.home.HomeUserFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.tdn.qurban.nasabah.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.tdn.qurban.nasabah.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_aktivasiakun"
-        android:name="com.tdn.qurban.nasabah.ui.aktivasiakun.AktivasiAkun"
+        android:name="com.tdn.qurban.nasabah.ui.aktivasiakun.AktivasiAkunFragment"
         android:label="Aktivasi Akun"
         tools:layout="@layout/aktivasi_akun_fragment" />
     <fragment
