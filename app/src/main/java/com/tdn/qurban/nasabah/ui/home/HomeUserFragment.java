@@ -15,9 +15,9 @@ import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.FragmentHomeBinding;
 
 
-public class HomeFragment extends Fragment {
+public class HomeUserFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private HomeUserViewModel homeUserViewModel;
     private FragmentHomeBinding binding;
     private AdapterMyTabungan adapterMyTabungan;
 
@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home, container, false);
-        homeViewModel = new ViewModelProvider(this, new VMFactory()).get(HomeViewModel.class);
+        homeUserViewModel = new ViewModelProvider(this, new VMFactory()).get(HomeUserViewModel.class);
         adapterMyTabungan = new AdapterMyTabungan();
         binding.rv.setAdapter(adapterMyTabungan);
 
@@ -36,16 +36,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        observe(homeViewModel);
+        observe(homeUserViewModel);
     }
 
-    private void observe(HomeViewModel homeViewModel) {
-        homeViewModel.getTabunganDatas().observe(getViewLifecycleOwner(), tabunganModels -> {
+    private void observe(HomeUserViewModel homeUserViewModel) {
+        homeUserViewModel.getTabunganDatas().observe(getViewLifecycleOwner(), tabunganModels -> {
             if (tabunganModels != null) {
                 adapterMyTabungan.setData(tabunganModels);
             }
         });
-        homeViewModel.getSaldoDatas().observe(getViewLifecycleOwner(), saldoModel -> {
+        homeUserViewModel.getSaldoDatas().observe(getViewLifecycleOwner(), saldoModel -> {
             if (saldoModel != null) {
                 binding.tvSaldo.setText("Rp " + saldoModel.getJumlah());
             } else {
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        homeViewModel.getIsActive().observe(getViewLifecycleOwner(), aBoolean -> {
+        homeUserViewModel.getIsActive().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean != null) {
                 if (aBoolean) {
                     binding.tvStatus.setText("Terverifikasi");

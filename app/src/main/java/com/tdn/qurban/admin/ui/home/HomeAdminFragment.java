@@ -15,9 +15,9 @@ import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.FragmentHomeAdminBinding;
 
 
-public class HomeFragment extends Fragment {
+public class HomeAdminFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private HomeAdminViewModel homeAdminViewModel;
     private FragmentHomeAdminBinding binding;
     private AdapterNotifikasiHomeAdmin adapterNotifikasiHomeAdmin;
 
@@ -25,8 +25,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home_admin, container, false);
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        homeAdminViewModel =
+                new ViewModelProvider(this).get(HomeAdminViewModel.class);
         adapterNotifikasiHomeAdmin = new AdapterNotifikasiHomeAdmin(adapterClicked);
         binding.rv.setAdapter(adapterNotifikasiHomeAdmin);
         return binding.getRoot();
@@ -35,23 +35,23 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        observe(homeViewModel);
+        observe(homeAdminViewModel);
     }
 
-    private void observe(HomeViewModel homeViewModel) {
-        homeViewModel.getNasabahAktif().observe(getViewLifecycleOwner(), integer -> {
+    private void observe(HomeAdminViewModel homeAdminViewModel) {
+        homeAdminViewModel.getNasabahAktif().observe(getViewLifecycleOwner(), integer -> {
             binding.jmlAktif.setText("" + integer);
         });
-        homeViewModel.getNasabahNonAktif().observe(getViewLifecycleOwner(), integer -> {
+        homeAdminViewModel.getNasabahNonAktif().observe(getViewLifecycleOwner(), integer -> {
             binding.jumlahNonaktif.setText("" + integer);
         });
-        homeViewModel.getNotifikasiTabungan().observe(getViewLifecycleOwner(), notifikasiModels -> {
+        homeAdminViewModel.getNotifikasiTabungan().observe(getViewLifecycleOwner(), notifikasiModels -> {
             if (notifikasiModels != null) {
                 adapterNotifikasiHomeAdmin.setData(notifikasiModels);
             }
 
         });
-        homeViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
+        homeAdminViewModel.getUserModelMutableLiveData().observe(getViewLifecycleOwner(), userModel -> {
             binding.tvNamaAdmin.setText("" + userModel.getNama());
         });
     }

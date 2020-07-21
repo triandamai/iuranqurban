@@ -15,11 +15,11 @@ import com.tdn.domain.model.TabunganModel;
 
 import java.util.List;
 
-public class TabunganViewModel extends ViewModel {
+public class TabunganAdminViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private LiveData<List<TabunganModel>> tabunganData;
 
-    public TabunganViewModel() {
+    public TabunganAdminViewModel() {
         this.tabunganData = new MutableLiveData<>();
         getAllTabungan();
     }

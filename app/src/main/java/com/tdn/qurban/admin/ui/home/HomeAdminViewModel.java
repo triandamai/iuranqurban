@@ -19,7 +19,7 @@ import com.tdn.domain.model.NotifikasiModel;
 
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeAdminViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MutableLiveData<Integer> nasabahAktif;
@@ -28,7 +28,7 @@ public class HomeViewModel extends ViewModel {
     private LiveData<List<NotifikasiModel>> notifikasiTabungan;
 
 
-    public HomeViewModel() {
+    public HomeAdminViewModel() {
         nasabahAktif = new MutableLiveData<>();
         nasabahNonAktif = new MutableLiveData<>();
         notifikasiTabungan = new MutableLiveData<>();

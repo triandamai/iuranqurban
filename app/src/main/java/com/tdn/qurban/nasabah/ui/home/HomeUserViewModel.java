@@ -18,7 +18,7 @@ import com.tdn.domain.model.UserModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeUserViewModel extends ViewModel {
 
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
@@ -31,7 +31,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<saldoModel> saldoDatas;
     private MutableLiveData<Boolean> isActive;
 
-    public HomeViewModel() {
+    public HomeUserViewModel() {
         getAllData();
 
     }

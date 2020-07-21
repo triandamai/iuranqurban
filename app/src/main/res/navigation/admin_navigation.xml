@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.tdn.qurban.admin.ui.home.HomeFragment"
+        android:name="com.tdn.qurban.admin.ui.home.HomeAdminFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home_admin" />
 
@@ -38,7 +38,7 @@
         tools:layout="@layout/profil_fragment" />
     <fragment
         android:id="@+id/navigation_tabungan"
-        android:name="com.tdn.qurban.admin.ui.tabungan.TabunganFragment"
+        android:name="com.tdn.qurban.admin.ui.tabungan.TabunganAdminFragment"
         android:label="@string/fragment_iuran"
         tools:layout="@layout/tabungan_fragment" />
     <fragment
