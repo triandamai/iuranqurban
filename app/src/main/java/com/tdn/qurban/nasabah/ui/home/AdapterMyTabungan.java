@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdn.domain.model.tabunganModel;
+import com.tdn.domain.model.TabunganModel;
 
 import java.util.List;
 
 public class AdapterMyTabungan extends RecyclerView.Adapter<AdapterMyTabungan.MyViewHolder> {
-    private List<tabunganModel> tabunganModels;
+    private List<TabunganModel> TabunganModels;
 
     @NonNull
     @Override
@@ -30,8 +30,8 @@ public class AdapterMyTabungan extends RecyclerView.Adapter<AdapterMyTabungan.My
         return 0;
     }
 
-    public void setData(List<tabunganModel> tabunganModels) {
-        if (this.tabunganModels == null) {
+    public void setData(List<TabunganModel> TabunganModels) {
+        if (this.TabunganModels == null) {
 
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {

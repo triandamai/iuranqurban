@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.tdn.domain.model.TabunganModel" />
+
+        <variable
+            name="action"
+            type="com.tdn.qurban.core.AdapterClicked" />
+
+        <variable
+            name="posisi"
+            type="Integer" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v)->action.onClick(posisi)}"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.created_at}" />
+
+        <TextView
+            android:id="@+id/tv_jumlah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@{`Rp `+data.nominal}" />
+
+        <TextView
+            android:id="@+id/tv_namauser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama " />
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.keterangan}" />
+    </LinearLayout>
+</layout>

@@ -8,12 +8,11 @@
     <item
         android:id="@+id/navigation_nasabah"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Nasaah" />
+        android:title="Nasabah" />
     <item
         android:id="@+id/navigation_jenishewan"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="Hewan" />
-
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"

@@ -11,8 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.domain.model.TabunganModel;
 import com.tdn.domain.model.saldoModel;
-import com.tdn.domain.model.tabunganModel;
 import com.tdn.domain.model.UserModel;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class HomeViewModel extends ViewModel {
     private ValueEventListener tabungan;
     private ValueEventListener saldo;
     private ValueEventListener user;
-    private MutableLiveData<List<tabunganModel>> tabunganDatas;
+    private MutableLiveData<List<TabunganModel>> tabunganDatas;
     private MutableLiveData<saldoModel> saldoDatas;
     private MutableLiveData<Boolean> isActive;
 
@@ -44,7 +44,7 @@ public class HomeViewModel extends ViewModel {
         return saldoDatas;
     }
 
-    public MutableLiveData<List<tabunganModel>> getTabunganDatas() {
+    public MutableLiveData<List<TabunganModel>> getTabunganDatas() {
         if (tabunganDatas == null) {
             tabunganDatas = new MutableLiveData<>();
         }
@@ -63,9 +63,9 @@ public class HomeViewModel extends ViewModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    List<tabunganModel> models = new ArrayList<>();
+                    List<TabunganModel> models = new ArrayList<>();
                     for (DataSnapshot s : snapshot.getChildren()) {
-                        tabunganModel tabunganModel = s.getValue(tabunganModel.class);
+                        TabunganModel tabunganModel = s.getValue(TabunganModel.class);
                         assert tabunganModel != null;
                         models.add(tabunganModel);
                     }

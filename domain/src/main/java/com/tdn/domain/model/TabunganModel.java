@@ -1,6 +1,6 @@
 package com.tdn.domain.model;
 
-public class tabunganModel {
+public class TabunganModel {
     String id;
     String uid;
     String bukti;
@@ -10,10 +10,10 @@ public class tabunganModel {
     String created_at;
     String updated_at;
 
-    public tabunganModel() {
+    public TabunganModel() {
     }
 
-    public tabunganModel(String id, String uid, String bukti, String nominal, String keterangan, String status, String created_at, String updated_at) {
+    public TabunganModel(String id, String uid, String bukti, String nominal, String keterangan, String status, String created_at, String updated_at) {
         this.id = id;
         this.uid = uid;
         this.bukti = bukti;
@@ -90,7 +90,7 @@ public class tabunganModel {
 
     @Override
     public String toString() {
-        return "tabunganModel{" +
+        return "TabunganModel{" +
                 "id='" + id + '\'' +
                 ", uid='" + uid + '\'' +
                 ", bukti='" + bukti + '\'' +

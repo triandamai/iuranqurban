@@ -2,9 +2,9 @@ package com.tdn.data.repository;
 
 import com.google.firebase.database.DatabaseReference;
 import com.tdn.data.mapper.tabunganMapper;
-import com.tdn.domain.model.tabunganModel;
+import com.tdn.domain.model.TabunganModel;
 
-public class tabunganRepository extends FirebaseDatabaseRepository<tabunganModel> {
+public class tabunganRepository extends FirebaseDatabaseRepository<TabunganModel> {
 
     DatabaseReference databaseReference;
 

@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.FragmentNotificationsBinding;
-import com.tdn.qurban.databinding.FragmentNotificationsBindingImpl;
 
 
 public class NotificationsFragment extends Fragment {
@@ -27,7 +26,7 @@ public class NotificationsFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_notifications, container, false);
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
-        adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(adapterClicked);
+        adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(getContext());
         // binding.rv.setAdapter(adapterNotifikasiAdmin);
 
         return binding.getRoot();

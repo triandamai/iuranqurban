@@ -1,12 +1,12 @@
 package com.tdn.data.mapper;
 
 import com.tdn.data.entity.tabunganEntity;
-import com.tdn.domain.model.tabunganModel;
+import com.tdn.domain.model.TabunganModel;
 
-public class tabunganMapper extends FirebaseMapper<tabunganEntity, tabunganModel> {
+public class tabunganMapper extends FirebaseMapper<tabunganEntity, TabunganModel> {
     @Override
-    public tabunganModel map(tabunganEntity e, String id) {
-        tabunganModel m = new tabunganModel();
+    public TabunganModel map(tabunganEntity e, String id) {
+        TabunganModel m = new TabunganModel();
         m.setBukti(e.getBukti());
         m.setCreated_at(e.getCreated_at());
         m.setId(id);

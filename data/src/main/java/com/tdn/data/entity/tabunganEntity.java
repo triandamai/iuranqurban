@@ -90,7 +90,7 @@ public class tabunganEntity {
 
     @Override
     public String toString() {
-        return "tabunganModel{" +
+        return "TabunganModel{" +
                 "id='" + id + '\'' +
                 ", uid='" + uid + '\'' +
                 ", bukti='" + bukti + '\'' +
