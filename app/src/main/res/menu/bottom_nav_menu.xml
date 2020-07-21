@@ -10,6 +10,10 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Nasabah" />
     <item
+        android:id="@+id/navigation_tabungan"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Hewan" />
+    <item
         android:id="@+id/navigation_jenishewan"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="Hewan" />

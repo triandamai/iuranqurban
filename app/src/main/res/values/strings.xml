@@ -21,4 +21,6 @@
     <string name="fragment_jenis_hewan">Jenis Hewan</string>
     <string name="fragment_listnasabah">Daftar Nasabah</string>
     <string name="fragment_profil">Profil</string>
+    <string name="label_tambahhewan">Tambah Hewan</string>
+    <string name="fragment_iuran">Iuran</string>
 </resources>
