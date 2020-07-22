@@ -49,6 +49,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:hint="Nama Lengkap" />
 
             <EditText
@@ -56,6 +60,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:inputType="number"
                 android:hint="Nama NIK" />
 
@@ -64,6 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:inputType="phone"
                 android:hint="Nomor Handphone/WA" />
 
@@ -72,6 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:focusable="false"
                 android:hint="Jenis Kelamin" />
 
@@ -80,6 +96,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:inputType="textMultiLine"
                 android:hint="Alamat lengkap" />
 
@@ -88,6 +108,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:hint="Nama ahli waris" />
 
             <EditText
@@ -95,6 +119,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:inputType="number"
                 android:hint="NIK ahli waris" />
 
@@ -103,6 +131,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:background="@drawable/myedittext"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:focusable="false"
                 android:hint="Hubungan dengan ahli waris" />
         </LinearLayout>

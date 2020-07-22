@@ -5,15 +5,23 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +40,7 @@ import com.tdn.qurban.core.MyFragment;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.KonfirmasiPembayaranFragmentBinding;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.tdn.qurban.core.ImagePickerActivity.showImagePickerOptions;
@@ -57,36 +66,36 @@ public class KonfirmasiPembayaran extends MyFragment {
 
     private void onClick() {
         binding.btnPickImage.setOnClickListener(v -> {
-            Dexter.withActivity(getActivity())
-                    .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .withListener(new MultiplePermissionsListener() {
-                        @Override
-                        public void onPermissionsChecked(MultiplePermissionsReport report) {
-                            if (report.areAllPermissionsGranted()) {
-                                showImagePickerOptions(getContext(), new ImagePickerActivity.PickerOptionListener() {
-                                    @Override
-                                    public void onTakeCameraSelected() {
-                                        launchCameraIntent();
-                                    }
+            Log.e("tes", "heh");
+            showImagePickerOptions(getContext(), new ImagePickerActivity.PickerOptionListener() {
+                @Override
+                public void onTakeCameraSelected() {
+                    launchCameraIntent();
+                }
 
-                                    @Override
-                                    public void onChooseGallerySelected() {
-                                        launchGalleryIntent();
-                                    }
-                                });
-
-                            }
-
-                            if (report.isAnyPermissionPermanentlyDenied()) {
-                                showSettingsDialog();
-                            }
-                        }
-
-                        @Override
-                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                            token.continuePermissionRequest();
-                        }
-                    });
+                @Override
+                public void onChooseGallerySelected() {
+                    launchGalleryIntent();
+                }
+            });
+//            Dexter.withActivity(getActivity())
+//                    .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                    .withListener(new MultiplePermissionsListener() {
+//                        @Override
+//                        public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                            if (report.areAllPermissionsGranted()) {
+//
+//
+//                            } else if (report.isAnyPermissionPermanentlyDenied()) {
+//                                showSettingsDialog();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                            token.continuePermissionRequest();
+//                        }
+//                    });
         });
         binding.btnSimpan.setOnClickListener(v -> {
             if (cekValidasi()) {
@@ -137,21 +146,41 @@ public class KonfirmasiPembayaran extends MyFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    // You can update this bitmap to your server
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
 
-        // TODO: Use the ViewModel
+                    // loading profile image from local cache
+                    binding.tvNamafile.setText("Bukti Tabungan.jpeg");
+                    mViewModel.foto.setValue(uri.getPath());
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onStart() {
-            Snackbar.make(binding.getRoot(), "Proses", BaseTransientBottomBar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), "Proses", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
         }
 
         @Override
         public void onSuccess(@NonNull String message) {
             Snackbar.make(binding.getRoot(), "Sukses : " + message, BaseTransientBottomBar.LENGTH_LONG).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.nav_home);
+                }
+            }, 1000);
         }
 
         @Override

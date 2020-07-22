@@ -13,11 +13,6 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,6 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="BROWSE"
+                        android:clickable="true"
                         android:layout_weight="1" />
 
                     <TextView
@@ -87,6 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:inputType="number"
                     android:hint="Nominal yang ditransfer" />
 
@@ -95,6 +95,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:minLines="3"
                     android:hint="Keterangan" />
             </LinearLayout>

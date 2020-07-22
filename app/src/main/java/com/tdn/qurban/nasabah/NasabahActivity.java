@@ -9,7 +9,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.tdn.qurban.R;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -20,13 +23,15 @@ import androidx.appcompat.widget.Toolbar;
 public class NasabahActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private FloatingActionButton fab;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nasabah);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,9 +47,30 @@ public class NasabahActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_aktivasiakun, R.id.nav_konfirmasipembayaran, R.id.nav_notifikasi)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        cekFAB();
+        onClick();
+    }
+
+    private void onClick() {
+        fab.setOnClickListener(v -> navController.navigate(R.id.nav_konfirmasipembayaran));
+    }
+
+    private void cekFAB() {
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                int id = destination.getId();
+                if (id == R.id.nav_aktivasiakun || id == R.id.nav_konfirmasipembayaran) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
     }
 
     @Override

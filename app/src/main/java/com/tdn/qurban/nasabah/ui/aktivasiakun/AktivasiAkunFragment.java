@@ -14,7 +14,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,12 +115,18 @@ public class AktivasiAkunFragment extends MyFragment {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onStart() {
-            Snackbar.make(binding.getRoot(), "Proses..", BaseTransientBottomBar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), "Proses..", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
         }
 
         @Override
         public void onSuccess(@NonNull String message) {
             Snackbar.make(binding.getRoot(), message, BaseTransientBottomBar.LENGTH_LONG).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.nav_home);
+                }
+            }, 1000);
         }
 
         @Override
@@ -138,6 +146,7 @@ public class AktivasiAkunFragment extends MyFragment {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
 
                     // loading profile image from local cache
+                    binding.tvNamafile.setText("Bukti Aktivasi.jpeg");
                     mViewModel.foto.setValue(uri.getPath());
 
                 } catch (IOException e) {

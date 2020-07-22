@@ -64,8 +64,10 @@ public class HomeUserFragment extends Fragment {
             if (aBoolean != null) {
                 if (aBoolean) {
                     binding.tvStatus.setText("Terverifikasi");
+                    binding.tvAktivasi.setVisibility(View.GONE);
                 } else {
                     binding.tvStatus.setText("Akun Belum Aktif");
+                    binding.tvAktivasi.setVisibility(View.VISIBLE);
                 }
             }
         });
