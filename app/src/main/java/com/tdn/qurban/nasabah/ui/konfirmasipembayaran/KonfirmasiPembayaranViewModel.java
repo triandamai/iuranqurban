@@ -71,7 +71,7 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                         m.setUid(firebaseAuth.getCurrentUser().getUid());
                         m.setKeterangan(ket.getValue());
                         m.setNominal(nominal.getValue());
-                        m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_PENDING);
+                        m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
                         databaseReference.child(Const.CHILD_TABUNGAN)
                                 .child(firebaseAuth.getCurrentUser().getUid())
                                 .push()

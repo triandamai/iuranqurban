@@ -37,21 +37,24 @@ public class Const {
 
     public static final String STATUS_NOTIF_TAMBAHSALDO_DITOLAK = "TAMBAHSALDOTOLAK";
     public static final String STATUS_NOTIF_TAMBAHSALDO_DITERIMA = "TAMBAHSALDOTERIMA";
-    public static final String STATUS_NOTIF_TAMBAHSALDO_PENDING = "PENDING";
+    public static final String STATUS_NOTIF_TAMBAHSALDO_MENUNGGU = "PENDING";
 
 
     public static final String TIPE_NOTIF_AKTIVASI = "AKTIVASI";
     public static final String STATUS_NOTIF_AKTIVASI_DITOLAK = "AKTIVASITOLAK";
     public static final String STATUS_NOTIF_AKTIVASI_DITERIMA = "AKTIVASIACC";
+    public static final String STATUS_NOTIF_AKTIVASI_MENUNGGU = "PENDING";
 
 
     public static final String TIPE_NOTIF_TARIK = "TARIKDANA";
     public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_DITERIMA = "DITERIMA";
     public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_DITOLAK = "DITOLAK";
+    public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU = "PENDING";
 
     public static final String TIPE_NOTIF_AJUKAN = "AJUKANDANA";
     public static final String STATUS_NOTIF_AJUKAN_DITERIMA = "DITERIMA";
     public static final String STATUS_NOTIF_AJUKAN_DITOLAK = "DITOLAK";
+    public static final String STATUS_NOTIF_AJUKAN_MENUNGGU = "PENDING";
 
     public static final String FILE_KOSONG = "kosong";
 
