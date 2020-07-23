@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.tdn.qurban.R;
 
-public class PengajuankFragment extends Fragment {
+public class PengajuanFragment extends Fragment {
 
-    private PengajuankViewModel mViewModel;
+    private PengajuanViewModel mViewModel;
 
-    public static PengajuankFragment newInstance() {
-        return new PengajuankFragment();
+    public static PengajuanFragment newInstance() {
+        return new PengajuanFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.pengajuank_fragment, container, false);
+        return inflater.inflate(R.layout.pengajuan_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PengajuankViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(PengajuanViewModel.class);
         // TODO: Use the ViewModel
     }
 

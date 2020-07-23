@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.tdn.data.Const;
+import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.TabunganModel;
 import com.tdn.qurban.core.ActionListener;
 
@@ -72,11 +73,22 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                         m.setKeterangan(ket.getValue());
                         m.setNominal(nominal.getValue());
                         m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
+
                         databaseReference.child(Const.CHILD_TABUNGAN)
                                 .child(firebaseAuth.getCurrentUser().getUid())
                                 .push()
                                 .setValue(m);
 
+                        NotifikasiModel n = new NotifikasiModel();
+                        n.setBody(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
+                        n.setTipe(Const.TIPE_NOTIF_TAMBAHSALDO);
+                        n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
+                        n.setBroad_to(Const.USER_LEVEL_PANITIA);
+                        n.setCreated_at(String.valueOf(new Date().getTime()));
+
+                        databaseReference.child(Const.CHILD_NOTIF_ADMIN)
+                                .push()
+                                .setValue(n);
                         listener.onSuccess("Berhasil : ");
                     } else {
                         listener.onError("Gagal : task gagal");

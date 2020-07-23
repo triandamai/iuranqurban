@@ -15,6 +15,7 @@ public class Const {
     public static final String CHILD_USER_REGISTRASI = "registrasi";
     public static final String CHILD_USER_RENCANA = "rencana";
     public static final String CHILD_USER_LEVEL = "level";
+    public static final String CHILD_ORDERBYTIPE = "tipe_pengajuan";
 
     public static final String SUDAH_REGISTRASI = "YES";
     public static final String BELUM_REGISTRASI = "NO";
@@ -45,6 +46,8 @@ public class Const {
     public static final String STATUS_NOTIF_AKTIVASI_DITERIMA = "AKTIVASIACC";
     public static final String STATUS_NOTIF_AKTIVASI_MENUNGGU = "PENDING";
 
+    public static final String PENGAJUAN_VERIFIKASI_YES = "YES";
+    public static final String PENGAJUAN_VERIFIKASI_NO = "NO";
 
     public static final String TIPE_NOTIF_TARIK = "TARIKDANA";
     public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_DITERIMA = "DITERIMA";

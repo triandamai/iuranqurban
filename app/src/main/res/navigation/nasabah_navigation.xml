@@ -21,10 +21,18 @@
         android:label="Konfirmasi Akun"
         tools:layout="@layout/aktivasi_akun_fragment" />
     <fragment
+        android:id="@+id/nav_pengajuan"
+        android:name="com.tdn.qurban.nasabah.ui.pengajuan.PengajuanFragment"
+        android:label="Pengajuan"
+        tools:layout="@layout/pengajuan_fragment" />
+    <fragment
+        android:id="@+id/nav_tabungan"
+        android:name="com.tdn.qurban.nasabah.ui.tabungan.TabunganNasabahFragment"
+        android:label="Pengajuan"
+        tools:layout="@layout/tabungan_nasabah_fragment" />
+    <fragment
         android:id="@+id/nav_notifikasi"
         android:name="com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabah"
         android:label="Notifikasi"
         tools:layout="@layout/notifikasi_nasabah_fragment" />
-
-
 </navigation>
