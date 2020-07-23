@@ -1,11 +1,10 @@
-package com.tdn.qurban.nasabah.ui.tabungan;
+package com.tdn.qurban.admin.ui.tabunganadmin;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,21 +12,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
-import com.tdn.domain.model.hewanModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabunganNasabahViewModel extends ViewModel {
+public class TabunganAdminViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    // TODO: Implement the ViewModel
     public LiveData<List<TabunganModel>> getTabunganACC() {
         final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD)
-                .child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
+                .orderByChild(Const.CHILD_ORDERBYSTATUS)
+                .equalTo(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -38,11 +35,7 @@ public class TabunganNasabahViewModel extends ViewModel {
                                 TabunganModel hewanModel = data.getValue(TabunganModel.class);
                                 hewanModel.setId(data.getKey());
 
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
-
-                                }
+                                hewanModelList.add(hewanModel);
 
 
                             }
@@ -64,8 +57,8 @@ public class TabunganNasabahViewModel extends ViewModel {
     public LiveData<List<TabunganModel>> getTabunganMENUNGGU() {
         final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
+                .orderByChild(Const.CHILD_ORDERBYSTATUS)
+                .equalTo(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,11 +69,7 @@ public class TabunganNasabahViewModel extends ViewModel {
                                 TabunganModel hewanModel = data.getValue(TabunganModel.class);
                                 hewanModel.setId(data.getKey());
 
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
-
-                                }
+                                hewanModelList.add(hewanModel);
 
 
                             }
@@ -102,8 +91,8 @@ public class TabunganNasabahViewModel extends ViewModel {
     public LiveData<List<TabunganModel>> getTabunganTOLAK() {
         final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
+                .orderByChild(Const.CHILD_ORDERBYSTATUS)
+                .equalTo(Const.STATUS_NOTIF_TAMBAHSALDO_DITOLAK)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,11 +102,8 @@ public class TabunganNasabahViewModel extends ViewModel {
 
                                 TabunganModel hewanModel = data.getValue(TabunganModel.class);
                                 hewanModel.setId(data.getKey());
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_DITOLAK)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
 
-                                }
+                                hewanModelList.add(hewanModel);
 
 
                             }
