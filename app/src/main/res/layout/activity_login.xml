@@ -15,9 +15,10 @@
 
         <ImageView
             android:layout_width="@dimen/dp_100"
-            android:layout_height="@dimen/dp_200"
+            android:layout_height="@dimen/dp_100"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_100"
+            android:scaleType="fitXY"
             android:src="@drawable/logo" />
 
         <TextView
@@ -53,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Belum punya akun?" />
+                android:text="Dengan masuk Anda menyetujui ?" />
 
             <TextView
                 android:id="@+id/tv_daftar"
@@ -61,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:text=" Daftar Disini" />
+                android:text="Ketentuan Layanan" />
         </LinearLayout>
     </LinearLayout>
 </layout>

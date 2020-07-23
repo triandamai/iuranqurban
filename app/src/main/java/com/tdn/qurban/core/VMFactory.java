@@ -103,7 +103,7 @@ public class VMFactory implements ViewModelProvider.Factory {
         } else if (modelClass.isAssignableFrom(HomeAdminViewModel.class)) {
             return (T) new HomeAdminViewModel();
             /*
-             TODO:: admin detail nasabah
+             TODO:: admin detail menu_appbar_nasabah
               */
         } else if (modelClass.isAssignableFrom(DetailNasabahViewModel.class)) {
             return (T) new DetailNasabahViewModel(context, id);
