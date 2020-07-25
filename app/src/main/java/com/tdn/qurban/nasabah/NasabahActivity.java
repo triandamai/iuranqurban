@@ -37,20 +37,17 @@ public class NasabahActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nasabah);
 
         fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_aktivasiakun, R.id.nav_konfirmasipembayaran, R.id.nav_notifikasi)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
+                .setFallbackOnNavigateUpListener(() ->
+                        NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                )
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -64,15 +61,14 @@ public class NasabahActivity extends AppCompatActivity {
     }
 
     private void cekFAB() {
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                int id = destination.getId();
-                if (id == R.id.nav_aktivasiakun || id == R.id.nav_konfirmasipembayaran) {
-                    fab.setVisibility(View.GONE);
-                } else {
-                    fab.setVisibility(View.VISIBLE);
-                }
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            int id = destination.getId();
+            if (id == R.id.nav_aktivasiakun || id == R.id.nav_konfirmasipembayaran) {
+                fab.setVisibility(View.GONE);
+            } else if (id == R.id.nav_home || id == R.id.nav_tabungan) {
+                fab.setOnClickListener(view -> navController.navigate(R.id.nav_konfirmasipembayaran));
+            } else {
+                fab.setVisibility(View.VISIBLE);
             }
         });
 

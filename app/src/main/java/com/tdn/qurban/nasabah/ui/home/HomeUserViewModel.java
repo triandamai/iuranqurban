@@ -1,6 +1,9 @@
 package com.tdn.qurban.nasabah.ui.home;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -21,111 +24,114 @@ import java.util.List;
 public class HomeUserViewModel extends ViewModel {
 
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public LiveData<List<TabunganModel>> listTabunganLiveData;
+    public LiveData<Boolean> isUserActive;
+    public LiveData<saldoModel> saldoModel;
 
-    private ValueEventListener tabungan;
-    private ValueEventListener saldo;
-    private ValueEventListener user;
-    private MutableLiveData<List<TabunganModel>> tabunganDatas;
-    private MutableLiveData<saldoModel> saldoDatas;
-    private MutableLiveData<Boolean> isActive;
 
     public HomeUserViewModel() {
-        getAllData();
-
+        saldoModel = getSaldoDatas();
+        isUserActive = getIsActive();
+        listTabunganLiveData = getTabunganDatas();
     }
 
 
-    public MutableLiveData<saldoModel> getSaldoDatas() {
-        if (saldoDatas == null) {
-            saldoDatas = new MutableLiveData<>();
-        }
-        return saldoDatas;
-    }
-
-    public MutableLiveData<List<TabunganModel>> getTabunganDatas() {
-        if (tabunganDatas == null) {
-            tabunganDatas = new MutableLiveData<>();
-        }
-        return tabunganDatas;
-    }
-
-    public MutableLiveData<Boolean> getIsActive() {
-        if (isActive == null) {
-            isActive = new MutableLiveData<>();
-        }
-        return isActive;
-    }
-
-    public void getAllData() {
-        tabungan = databaseReference.child(Const.CHILD_TABUNGAN).child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<TabunganModel> models = new ArrayList<>();
-                    for (DataSnapshot s : snapshot.getChildren()) {
-                        TabunganModel tabunganModel = s.getValue(TabunganModel.class);
-                        assert tabunganModel != null;
-                        models.add(tabunganModel);
+    public LiveData<saldoModel> getSaldoDatas() {
+        final MutableLiveData<saldoModel> saldo = new MutableLiveData<>();
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_SALDO).child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            saldoModel saldoModel = snapshot.getValue(saldoModel.class);
+                            saldoModel.setUid(firebaseAuth.getCurrentUser().getUid());
+                            assert saldoModel != null;
+                            saldo.setValue(saldoModel);
+                        } else {
+                            saldo.setValue(null);
+                        }
                     }
 
-                    tabunganDatas.setValue(models);
-                } else {
-                    tabunganDatas.setValue(null);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                tabunganDatas.setValue(null);
-            }
-        });
-        saldo = databaseReference.child(Const.CHILD_SALDO).child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    saldoModel saldoModel = snapshot.getValue(saldoModel.class);
-                    assert saldoModel != null;
-                    saldoDatas.setValue(saldoModel);
-                } else {
-                    saldoDatas.setValue(null);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                saldoDatas.setValue(null);
-            }
-        });
-        user = databaseReference.child(Const.CHILD_USER).child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    UserModel userModel = snapshot.getValue(UserModel.class);
-                    assert userModel != null;
-                    if (userModel.getStatus().equals(Const.STATUS_USER_AKTIF)) {
-                        isActive.setValue(true);
-                    } else {
-                        isActive.setValue(false);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        saldo.setValue(null);
                     }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                isActive.setValue(false);
-            }
-        });
-
+                });
+        return saldo;
     }
+
+    public LiveData<List<TabunganModel>> getTabunganDatas() {
+        final MutableLiveData<List<TabunganModel>> listTabungan = new MutableLiveData<>();
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_TABUNGAN)
+                .orderByChild(Const.CHILD_ORDERBYUID)
+                .startAt(firebaseAuth.getCurrentUser().getUid())
+                .endAt(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            List<TabunganModel> list = new ArrayList<>();
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                TabunganModel model = data.getValue(TabunganModel.class);
+                                assert model != null;
+                                model.setId(data.getKey());
+
+                                list.add(model);
+                            }
+                            listTabungan.setValue(list);
+                        } else {
+                            listTabungan.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        listTabungan.setValue(null);
+                    }
+                });
+        return listTabungan;
+    }
+
+    public LiveData<Boolean> getIsActive() {
+        final MutableLiveData<Boolean> active = new MutableLiveData<>();
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()) {
+                            UserModel userModel = snapshot.getValue(UserModel.class);
+                            assert userModel != null;
+                            userModel.setUid(snapshot.getKey());
+
+                            if (userModel.getStatus().equals(Const.STATUS_USER_AKTIF)) {
+                                active.setValue(true);
+                            } else {
+                                active.setValue(false);
+                            }
+                        } else {
+                            active.setValue(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        active.setValue(false);
+                    }
+                });
+        return active;
+    }
+
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        databaseReference.removeEventListener(tabungan);
-        databaseReference.removeEventListener(saldo);
-        databaseReference.removeEventListener(user);
+
     }
 
 

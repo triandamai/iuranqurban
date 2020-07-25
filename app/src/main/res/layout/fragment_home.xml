@@ -100,7 +100,7 @@
                                 android:layout_weight="1"
                                 android:layout_gravity="end"
                                 android:textAlignment="textEnd"
-                                android:text="Terverifikasi" />
+                                android:text="-" />
 
                         </LinearLayout>
 
@@ -120,6 +120,8 @@
                             android:layout_height="1dp"
                             android:layout_marginTop="@dimen/dp_16"
                             android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginRight="@dimen/dp_5"
                             android:background="#C1C0C0" />
 
                         <TextView
@@ -145,6 +147,20 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/item_shimmer_iuran"
                     app:shimmer_recycler_layout="@layout/item_shimmer_iuran" />
+
+                <LinearLayout
+                    android:id="@+id/ly_kosong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/sp_20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/sp_20"
+                        android:text="Belum ada history iuran" />
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_lihat_hostory"

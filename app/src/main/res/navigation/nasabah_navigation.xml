@@ -22,9 +22,9 @@
         tools:layout="@layout/aktivasi_akun_fragment" />
     <fragment
         android:id="@+id/nav_pengajuan"
-        android:name="com.tdn.qurban.nasabah.ui.pengajuan.PengajuanFragment"
+        android:name="com.tdn.qurban.nasabah.ui.pengajuanpenarikan.PengajuanPenarikanFragment"
         android:label="Pengajuan"
-        tools:layout="@layout/pengajuan_fragment" />
+        tools:layout="@layout/pengajuan_penarikan_fragment" />
     <fragment
         android:id="@+id/nav_tabungan"
         android:name="com.tdn.qurban.nasabah.ui.tabungan.TabunganNasabahFragment"

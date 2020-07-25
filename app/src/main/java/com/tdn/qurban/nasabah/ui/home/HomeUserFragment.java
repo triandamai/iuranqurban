@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.FragmentHomeBinding;
 
@@ -27,8 +28,11 @@ public class HomeUserFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home, container, false);
         homeUserViewModel = new ViewModelProvider(this, new VMFactory()).get(HomeUserViewModel.class);
-        adapterMyTabungan = new AdapterMyTabungan();
+        adapterMyTabungan = new AdapterMyTabungan(getContext(), adapterClicked);
+        binding.rv.showShimmer();
+        binding.lyKosong.setVisibility(View.GONE);
         binding.rv.setAdapter(adapterMyTabungan);
+
         onClick();
 
         return binding.getRoot();
@@ -37,6 +41,9 @@ public class HomeUserFragment extends Fragment {
     private void onClick() {
         binding.tvAktivasi.setOnClickListener(v -> {
             Navigation.findNavController(binding.getRoot()).navigate(R.id.nav_aktivasiakun);
+        });
+        binding.btnLihatHostory.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.nav_tabungan);
         });
     }
 
@@ -47,12 +54,14 @@ public class HomeUserFragment extends Fragment {
     }
 
     private void observe(HomeUserViewModel homeUserViewModel) {
-        homeUserViewModel.getTabunganDatas().observe(getViewLifecycleOwner(), tabunganModels -> {
+        homeUserViewModel.listTabunganLiveData.observe(getViewLifecycleOwner(), tabunganModels -> {
             if (tabunganModels != null) {
                 adapterMyTabungan.setData(tabunganModels);
+            } else {
+                binding.lyKosong.setVisibility(View.VISIBLE);
             }
         });
-        homeUserViewModel.getSaldoDatas().observe(getViewLifecycleOwner(), saldoModel -> {
+        homeUserViewModel.saldoModel.observe(getViewLifecycleOwner(), saldoModel -> {
             if (saldoModel != null) {
                 binding.tvSaldo.setText("Rp " + saldoModel.getJumlah());
             } else {
@@ -60,16 +69,26 @@ public class HomeUserFragment extends Fragment {
             }
         });
 
-        homeUserViewModel.getIsActive().observe(getViewLifecycleOwner(), aBoolean -> {
+        homeUserViewModel.isUserActive.observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean != null) {
                 if (aBoolean) {
                     binding.tvStatus.setText("Terverifikasi");
+                    binding.tvStatus.setTextColor(getResources().getColor(R.color.colorPrimary));
                     binding.tvAktivasi.setVisibility(View.GONE);
                 } else {
                     binding.tvStatus.setText("Akun Belum Aktif");
+                    binding.tvStatus.setTextColor(getResources().getColor(R.color.red));
                     binding.tvAktivasi.setVisibility(View.VISIBLE);
                 }
+            } else {
+                binding.tvStatus.setText("Akun Belum Aktif");
+                binding.tvStatus.setTextColor(getResources().getColor(R.color.red));
+                binding.tvAktivasi.setVisibility(View.VISIBLE);
             }
         });
     }
+
+    private AdapterClicked adapterClicked = posisi -> {
+
+    };
 }

@@ -1,5 +1,7 @@
 package com.tdn.qurban.nasabah.ui.tabungan;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -21,29 +23,33 @@ import java.util.List;
 public class TabunganNasabahViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public LiveData<List<TabunganModel>> listLiveData;
 
-    public LiveData<List<TabunganModel>> getTabunganACC() {
+
+    public TabunganNasabahViewModel() {
+        listLiveData = getTabungan();
+    }
+
+    public LiveData<List<TabunganModel>> getTabungan() {
         final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_TABUNGAN)
                 .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
+                .startAt(firebaseAuth.getCurrentUser().getUid())
+                .endAt(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             List<TabunganModel> hewanModelList = new ArrayList<>();
+
                             for (DataSnapshot data : snapshot.getChildren()) {
 
                                 TabunganModel hewanModel = data.getValue(TabunganModel.class);
+                                assert hewanModel != null;
                                 hewanModel.setId(data.getKey());
 
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
-
-                                }
-
+                                hewanModelList.add(hewanModel);
 
                             }
                             tabunganModel.setValue(hewanModelList);
@@ -61,78 +67,4 @@ public class TabunganNasabahViewModel extends ViewModel {
         return tabunganModel;
     }
 
-    public LiveData<List<TabunganModel>> getTabunganMENUNGGU() {
-        final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            List<TabunganModel> hewanModelList = new ArrayList<>();
-                            for (DataSnapshot data : snapshot.getChildren()) {
-
-                                TabunganModel hewanModel = data.getValue(TabunganModel.class);
-                                hewanModel.setId(data.getKey());
-
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
-
-                                }
-
-
-                            }
-                            tabunganModel.setValue(hewanModelList);
-
-                        } else {
-                            tabunganModel.setValue(null);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        tabunganModel.setValue(null);
-                    }
-                });
-        return tabunganModel;
-    }
-
-    public LiveData<List<TabunganModel>> getTabunganTOLAK() {
-        final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .equalTo(firebaseAuth.getCurrentUser().getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            List<TabunganModel> hewanModelList = new ArrayList<>();
-                            for (DataSnapshot data : snapshot.getChildren()) {
-
-                                TabunganModel hewanModel = data.getValue(TabunganModel.class);
-                                hewanModel.setId(data.getKey());
-                                if (hewanModel.getStatus().equals(Const.STATUS_NOTIF_TAMBAHSALDO_DITOLAK)) {
-                                    hewanModelList.add(hewanModel);
-                                } else {
-
-                                }
-
-
-                            }
-                            tabunganModel.setValue(hewanModelList);
-
-                        } else {
-                            tabunganModel.setValue(null);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        tabunganModel.setValue(null);
-                    }
-                });
-        return tabunganModel;
-    }
 }

@@ -19,6 +19,7 @@ import com.tdn.qurban.nasabah.ui.home.HomeUserViewModel;
 import com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran;
 import com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaranViewModel;
 import com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabahViewModel;
+import com.tdn.qurban.nasabah.ui.tabungan.TabunganNasabahViewModel;
 
 public class VMFactory implements ViewModelProvider.Factory {
     /**
@@ -143,6 +144,8 @@ public class VMFactory implements ViewModelProvider.Factory {
             // notifikasi user
         } else if (modelClass.isAssignableFrom(NotifikasiNasabahViewModel.class)) {
             return (T) new NotifikasiNasabahViewModel(context);
+        } else if (modelClass.isAssignableFrom(TabunganNasabahViewModel.class)) {
+            return (T) new TabunganNasabahViewModel();
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

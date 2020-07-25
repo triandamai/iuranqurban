@@ -1,4 +1,4 @@
-package com.tdn.qurban.nasabah.ui.pengajuan;
+package com.tdn.qurban.nasabah.ui.pengajuantutpakun;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.tdn.qurban.R;
 
-public class PengajuanFragment extends Fragment {
+public class PengajuanTutupAkunkFragment extends Fragment {
 
-    private PengajuanViewModel mViewModel;
+    private PengajuanTutupAkunkViewModel mViewModel;
 
-    public static PengajuanFragment newInstance() {
-        return new PengajuanFragment();
+    public static PengajuanTutupAkunkFragment newInstance() {
+        return new PengajuanTutupAkunkFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.pengajuan_fragment, container, false);
+        return inflater.inflate(R.layout.pengajuan_tutup_akunk_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PengajuanViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(PengajuanTutupAkunkViewModel.class);
         // TODO: Use the ViewModel
     }
 
