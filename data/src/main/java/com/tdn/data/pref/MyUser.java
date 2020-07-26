@@ -39,4 +39,23 @@ public class MyUser {
         return sharedPreferences.getString(Const.KEY_PREF_LAST_NASABAH_ID, Const.VALUE_PREF_NULL);
     }
 
+    public void setLastIdNotif(String val) {
+        editor.putString(Const.KEY_PREF_LAST_NOTIF_ID, val);
+        editor.apply();
+    }
+
+
+    public String getLastIdNotif() {
+        return sharedPreferences.getString(Const.KEY_PREF_LAST_NOTIF_ID, Const.VALUE_PREF_NULL);
+    }
+
+    public void setLastIdTabungan(String val) {
+        editor.putString(Const.KEY_PREF_LAST_TABUNGAN_ID, val);
+        editor.apply();
+    }
+
+
+    public String getLastIdTabungan() {
+        return sharedPreferences.getString(Const.KEY_PREF_LAST_TABUNGAN_ID, Const.VALUE_PREF_NULL);
+    }
 }

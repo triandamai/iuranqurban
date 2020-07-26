@@ -71,6 +71,8 @@ public class Const {
     public static final String HUBUNGAN_ORANGTUA = "ORANG TUA";
 
     public static final String KEY_PREF_LAST_NASABAH_ID = "nsbh";
+    public static final String KEY_PREF_LAST_NOTIF_ID = "nsbha";
+    public static final String KEY_PREF_LAST_TABUNGAN_ID = "nsbhb";
     public static final String VALUE_PREF_NULL = "NULL";
     public static final String KEY_PREF = "data_iuran_qurban";
 

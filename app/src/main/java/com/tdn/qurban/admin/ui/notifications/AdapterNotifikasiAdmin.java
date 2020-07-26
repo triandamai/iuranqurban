@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
@@ -63,16 +65,31 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                             u.setUid(snapshot.getKey());
 
                             if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
+                                MyUser.getInstance(context).setLastIdNasabah(u.getUid());
+                                binding.btnAksi.setOnClickListener(v1 -> {
+                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_nasabah);
+                                });
                                 v.setText(u.getNama() + " Mengajukan Pengajuan Dana Status : " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
+                                binding.btnAksi.setOnClickListener(v1 -> {
+                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
+                                });
                                 v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
+                                binding.btnAksi.setOnClickListener(v1 -> {
+                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
+                                });
                                 v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
+                                binding.btnAksi.setOnClickListener(v1 -> {
+                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
+                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tabungan);
+                                });
                                 v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
                             } else {
                                 v.setText("Notifikasi tidak diketahui");
                             }
+
                         }
                     }
 
@@ -81,17 +98,7 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
                     }
                 });
-        if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
 
-        } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
-
-        } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
-
-        } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
-
-        } else {
-
-        }
     }
 
     public void setData(List<NotifikasiModel> NotifikasiModels) {
