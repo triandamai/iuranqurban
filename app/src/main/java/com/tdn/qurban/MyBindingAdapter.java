@@ -9,6 +9,8 @@ import androidx.databinding.BindingAdapter;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.squareup.picasso.Picasso;
+import com.tdn.data.Const;
+import com.tdn.domain.model.NotifikasiModel;
 import com.todkars.shimmer.ShimmerRecyclerView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -69,5 +71,10 @@ public class MyBindingAdapter {
         } else {
             v.setText("Tidak diketahui");
         }
+    }
+
+    @BindingAdapter("setNotif")
+    public static void setNotif(TextView v, NotifikasiModel n) {
+
     }
 }

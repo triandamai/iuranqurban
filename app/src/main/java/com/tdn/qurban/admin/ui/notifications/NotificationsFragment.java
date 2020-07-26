@@ -27,6 +27,8 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         adapterNotifikasiAdmin = new AdapterNotifikasiAdmin(getContext());
+        binding.lyKosong.setVisibility(View.GONE);
+        binding.rv.showShimmer();
         binding.rv.setAdapter(adapterNotifikasiAdmin);
 
         return binding.getRoot();
@@ -40,8 +42,14 @@ public class NotificationsFragment extends Fragment {
 
     private void observe(NotificationsViewModel notificationsViewModel) {
         binding.setIsLoading(false);
-        notificationsViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModel -> {
-            adapterNotifikasiAdmin.setData(notifikasiModel);
+        notificationsViewModel.notifikasiModelLiveData.observe(getViewLifecycleOwner(), notifikasiModel -> {
+            if (notifikasiModel != null) {
+                binding.lyKosong.setVisibility(View.GONE);
+                adapterNotifikasiAdmin.setData(notifikasiModel);
+            } else {
+                binding.lyKosong.setVisibility(View.VISIBLE);
+
+            }
         });
     }
 

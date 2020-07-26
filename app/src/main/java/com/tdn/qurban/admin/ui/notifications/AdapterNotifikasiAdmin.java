@@ -4,22 +4,32 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.tdn.data.Const;
 import com.tdn.domain.model.NotifikasiModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemNotifikasiBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifikasiAdmin.MyViewHolder> {
-    private List<NotifikasiModel> NotifikasiModels;
+    private List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private AdapterClicked adapterClicked;
     private ItemNotifikasiBinding binding;
     private Context context;
@@ -38,7 +48,50 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
     @Override
     public void onBindViewHolder(@NonNull AdapterNotifikasiAdmin.MyViewHolder holder, int position) {
+        NotifikasiModel n = NotifikasiModels.get(position);
         binding.setData(NotifikasiModels.get(position));
+        TextView v = binding.tvIsiNotifikasi;
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(n.getFrom_uid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            UserModel u = snapshot.getValue(UserModel.class);
+                            assert u != null;
+                            u.setUid(snapshot.getKey());
+
+                            if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
+                                v.setText(u.getNama() + " Mengajukan Pengajuan Dana Status : " + n.getStatus());
+                            } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
+                                v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : " + n.getStatus());
+                            } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
+                                v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status " + n.getStatus());
+                            } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
+                                v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
+                            } else {
+                                v.setText("Notifikasi tidak diketahui");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
+
+        } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
+
+        } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
+
+        } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
+
+        } else {
+
+        }
     }
 
     public void setData(List<NotifikasiModel> NotifikasiModels) {

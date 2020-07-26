@@ -13,6 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".admin.ui.notifications.NotificationsFragment">
 
         <com.todkars.shimmer.ShimmerRecyclerView
@@ -26,5 +27,19 @@
             app:shimmer_recycler_item_count="2"
             tools:itemCount="3"
             tools:listitem="@layout/item_shimmer_iuran" />
+
+        <LinearLayout
+            android:id="@+id/ly_kosong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sp_20">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="@dimen/sp_20"
+                android:text="Belum ada history iuran" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

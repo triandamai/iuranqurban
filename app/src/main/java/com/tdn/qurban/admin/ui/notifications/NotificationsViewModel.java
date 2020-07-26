@@ -21,10 +21,10 @@ public class NotificationsViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-    private LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
+    public LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
 
     public NotificationsViewModel() {
-        notifikasiModelLiveData = getAllNotifikasi();
+        this.notifikasiModelLiveData = getAllNotifikasi();
 
     }
 
