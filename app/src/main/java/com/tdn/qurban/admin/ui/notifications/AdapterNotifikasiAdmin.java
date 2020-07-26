@@ -82,8 +82,8 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                                 v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
                                 binding.btnAksi.setOnClickListener(v1 -> {
-                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
-                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tabungan);
+                                    MyUser.getInstance(context).setLastIdTabungan(n.getId_content());
+                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_tabungan);
                                 });
                                 v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
                             } else {

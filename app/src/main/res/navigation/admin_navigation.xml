@@ -41,6 +41,12 @@
         android:name="com.tdn.qurban.admin.ui.tabungan.TabunganAdminFragment"
         android:label="@string/fragment_iuran"
         tools:layout="@layout/tabungan_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_detail_tabungan"
+        android:name="com.tdn.qurban.admin.ui.tabungan.DetailTabunganFragment"
+        android:label="@string/fragment_iuran"
+        tools:layout="@layout/detail_tabungan_fragment" />
     <fragment
         android:id="@+id/navigation_tambahhewan"
         android:name="com.tdn.qurban.admin.ui.jenishewan.TambahHewan"

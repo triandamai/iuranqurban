@@ -50,48 +50,44 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                     .child(Const.CHILD_TABUNGAN + "/" + new Date().getTime() + ".jpeg");
 
             StorageTask<UploadTask.TaskSnapshot> uploadTask = storage.putFile(file);
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    // Continue with the task to get the download URL
-                    return storage.getDownloadUrl();
+            Task<Uri> urlTask = uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        TabunganModel m = new TabunganModel();
-                        m.setBukti(downloadUri.toString());
-                        m.setCreated_at(String.valueOf(new Date().getTime()));
-                        m.setUpdated_at(String.valueOf(new Date().getTime()));
-                        m.setUid(firebaseAuth.getCurrentUser().getUid());
-                        m.setKeterangan(ket.getValue());
-                        m.setNominal(nominal.getValue());
-                        m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
 
-                        databaseReference.child(Const.CHILD_TABUNGAN)
-                                .push()
-                                .setValue(m);
+                // Continue with the task to get the download URL
+                return storage.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    TabunganModel m = new TabunganModel();
+                    String id = databaseReference.push().getKey();
+                    m.setBukti(downloadUri.toString());
+                    m.setCreated_at(String.valueOf(new Date().getTime()));
+                    m.setUpdated_at(String.valueOf(new Date().getTime()));
+                    m.setUid(firebaseAuth.getCurrentUser().getUid());
+                    m.setKeterangan(ket.getValue());
+                    m.setNominal(nominal.getValue());
+                    m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
 
-                        NotifikasiModel n = new NotifikasiModel();
-                        n.setBody(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
-                        n.setTipe(Const.TIPE_NOTIF_TAMBAHSALDO);
-                        n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
-                        n.setBroad_to(Const.USER_LEVEL_PANITIA);
-                        n.setCreated_at(String.valueOf(new Date().getTime()));
+                    databaseReference.child(Const.CHILD_TABUNGAN)
+                            .child(id)
+                            .setValue(m);
 
-                        databaseReference.child(Const.CHILD_NOTIF_ADMIN)
-                                .push()
-                                .setValue(n);
-                        listener.onSuccess("Berhasil : ");
-                    } else {
-                        listener.onError("Gagal : task gagal");
-                    }
+                    NotifikasiModel n = new NotifikasiModel();
+                    n.setId_content(id);
+                    n.setBody(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
+                    n.setTipe(Const.TIPE_NOTIF_TAMBAHSALDO);
+                    n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
+                    n.setBroad_to(Const.USER_LEVEL_PANITIA);
+                    n.setCreated_at(String.valueOf(new Date().getTime()));
+
+                    databaseReference.child(Const.CHILD_NOTIF_ADMIN)
+                            .push()
+                            .setValue(n);
+                    listener.onSuccess("Berhasil : ");
+                } else {
+                    listener.onError("Gagal : task gagal");
                 }
             });
 
