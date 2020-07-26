@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.NotifikasiModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationsViewModel extends ViewModel {
@@ -23,41 +24,38 @@ public class NotificationsViewModel extends ViewModel {
     private LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
 
     public NotificationsViewModel() {
-        notifikasiModelLiveData = new MutableLiveData<>();
-        getAllNotifikasi();
+        notifikasiModelLiveData = getAllNotifikasi();
+
     }
 
-    private void getAllNotifikasi() {
+    private LiveData<List<NotifikasiModel>> getAllNotifikasi() {
+        final MutableLiveData<List<NotifikasiModel>> notif = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_NOTIF_ADMIN)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-
+                            List<NotifikasiModel> list = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 NotifikasiModel notifikasiModel = data.getValue(NotifikasiModel.class);
+                                assert notifikasiModel != null;
                                 notifikasiModel.setId(data.getKey());
-
-                                notifikasiModelLiveData.getValue().add(notifikasiModel);
+                                list.add(notifikasiModel);
                             }
+                            notif.setValue(list);
 
                         } else {
-                            notifikasiModelLiveData = new MutableLiveData<>();
+                            notif.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        notifikasiModelLiveData = new MutableLiveData<>();
+                        notif.setValue(null);
                     }
                 });
-
+        return notif;
     }
 
-    public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
-        if (notifikasiModelLiveData == null) {
-            notifikasiModelLiveData = new MutableLiveData<>();
-        }
-        return notifikasiModelLiveData;
-    }
+
 }

@@ -14,13 +14,14 @@ import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemTabunganBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAdmin.MyViewHolder> {
-    private List<TabunganModel> TabunganModels;
+    private List<TabunganModel> TabunganModels = new ArrayList<>();
     private AdapterClicked adapterClicked;
-    private ItemTabunganBinding binding;
+
     private Context context;
 
     public AdapterTabunganAdmin(Context context, AdapterClicked adapterClicked) {
@@ -31,15 +32,17 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
     @NonNull
     @Override
     public AdapterTabunganAdmin.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_tabungan, parent, false);
+        ItemTabunganBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_tabungan, parent, false);
         return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterTabunganAdmin.MyViewHolder holder, int position) {
-        binding.setData(TabunganModels.get(position));
-        binding.setAction(adapterClicked);
-        binding.setPosisi(position);
+        holder.binding.setData(TabunganModels.get(position));
+        holder.binding.setAction(adapterClicked);
+        holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
+        holder.binding.setPosisi(position);
+        holder.binding.setPosisi(position);
     }
 
     public void setData(List<TabunganModel> NotifikasiModels) {

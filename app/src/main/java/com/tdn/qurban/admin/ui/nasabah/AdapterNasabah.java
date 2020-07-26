@@ -9,16 +9,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdn.data.Const;
 import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemNasabahBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHolder> {
-    private List<UserModel> he;
+    private List<UserModel> he = new ArrayList<>();
     private AdapterClicked adapterClicked;
     private ItemNasabahBinding binding;
     private Context context;
@@ -40,6 +42,13 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
         holder.binding.setAction(adapterClicked);
         holder.binding.setPosisi(position);
         holder.binding.setData(he.get(position));
+        if (he.get(position).getStatus().equals(Const.STATUS_USER_AKTIF)) {
+            binding.tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        } else if (he.get(position).getStatus().equals(Const.STATUS_USER_NONAKTIF)) {
+            binding.tvStatus.setTextColor(context.getResources().getColor(R.color.red));
+        } else {
+            binding.tvStatus.setTextColor(context.getResources().getColor(R.color.gray_tua));
+        }
     }
 
     public void setData(List<UserModel> notifikasiModels) {

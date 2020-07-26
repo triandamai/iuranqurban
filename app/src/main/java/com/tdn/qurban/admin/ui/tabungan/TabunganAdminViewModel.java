@@ -13,44 +13,45 @@ import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TabunganAdminViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private LiveData<List<TabunganModel>> tabunganData;
+    public LiveData<List<TabunganModel>> tabunganData;
 
     public TabunganAdminViewModel() {
-        this.tabunganData = new MutableLiveData<>();
-        getAllTabungan();
+        this.tabunganData = getTabunganData();
+
     }
 
     public LiveData<List<TabunganModel>> getTabunganData() {
-        if (tabunganData == null) {
-            tabunganData = new MutableLiveData<>();
-        }
-        return tabunganData;
-    }
-
-    private void getAllTabungan() {
+        final MutableLiveData<List<TabunganModel>> tabungan = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_TABUNGAN)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
+                            List<TabunganModel> tabunganModels = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 TabunganModel model = data.getValue(TabunganModel.class);
+                                assert model != null;
                                 model.setId(data.getKey());
-                                tabunganData.getValue().add(model);
+                                tabunganModels.add(model);
                             }
+                            tabungan.setValue(tabunganModels);
                         } else {
-                            tabunganData = new MutableLiveData<>();
+                            tabungan.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        tabunganData = new MutableLiveData<>();
+                        tabungan.setValue(null);
                     }
                 });
+        return tabungan;
     }
+
+
 }

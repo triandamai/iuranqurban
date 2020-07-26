@@ -35,7 +35,11 @@ public class DetailNasabahFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_nasabah_fragment, container, false);
 
         mViewModel = new ViewModelProvider(this, new VMFactory(getContext(), MyUser.getInstance(getContext()).getLastIdNasabah())).get(DetailNasabahViewModel.class);
+        onClick();
         return binding.getRoot();
+    }
+
+    private void onClick() {
     }
 
 
