@@ -1,4 +1,4 @@
-package com.tdn.qurban.nasabah.ui.pengajuanpenarikan;
+package com.tdn.qurban.nasabah.ui.pengajuantutpakun;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,22 +17,22 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tdn.qurban.R;
-import com.tdn.qurban.databinding.PengajuanPenarikanFragmentBinding;
+import com.tdn.qurban.databinding.PengajuanTutupAkunFragmentBinding;
 
-public class PengajuanPenarikanFragment extends Fragment {
+public class PengajuanTutupAkunFragment extends Fragment {
 
-    private PengajuanPenarikanViewModel mViewModel;
-    private PengajuanPenarikanFragmentBinding binding;
+    private PengajuanTutupAkunViewModel mViewModel;
+    private PengajuanTutupAkunFragmentBinding binding;
 
-    public static PengajuanPenarikanFragment newInstance() {
-        return new PengajuanPenarikanFragment();
+    public static PengajuanTutupAkunFragment newInstance() {
+        return new PengajuanTutupAkunFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.pengajuan_penarikan_fragment, container, false);
-        mViewModel = new ViewModelProvider(this).get(PengajuanPenarikanViewModel.class);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.pengajuan_tutup_akun_fragment, container, false);
+        mViewModel = new ViewModelProvider(this).get(PengajuanTutupAkunViewModel.class);
         onClick();
         return binding.getRoot();
     }

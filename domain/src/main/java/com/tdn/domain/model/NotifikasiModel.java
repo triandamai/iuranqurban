@@ -6,17 +6,19 @@ public class NotifikasiModel {
     String broad_to;
     String body;
     String tipe;
+    String status;
     String created_at;
 
     public NotifikasiModel() {
     }
 
-    public NotifikasiModel(String id, String from_uid, String broad_to, String body, String tipe, String created_at) {
+    public NotifikasiModel(String id, String from_uid, String broad_to, String body, String tipe, String status, String created_at) {
         this.id = id;
         this.from_uid = from_uid;
         this.broad_to = broad_to;
         this.body = body;
         this.tipe = tipe;
+        this.status = status;
         this.created_at = created_at;
     }
 
@@ -60,6 +62,14 @@ public class NotifikasiModel {
         this.tipe = tipe;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getCreated_at() {
         return created_at;
     }
@@ -76,6 +86,7 @@ public class NotifikasiModel {
                 ", broad_to='" + broad_to + '\'' +
                 ", body='" + body + '\'' +
                 ", tipe='" + tipe + '\'' +
+                ", status='" + status + '\'' +
                 ", created_at='" + created_at + '\'' +
                 '}';
     }

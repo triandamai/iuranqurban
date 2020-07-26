@@ -32,7 +32,10 @@ public class NotifikasiNasabah extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.notifikasi_nasabah_fragment, container, false);
-        adapterNotifikasi = new AdapterNotifikasi(adapterClicked);
+        mViewModel = new ViewModelProvider(this, new VMFactory()).get(NotifikasiNasabahViewModel.class);
+        binding.rv.showShimmer();
+        binding.lyKosong.setVisibility(View.GONE);
+        adapterNotifikasi = new AdapterNotifikasi(getContext(), adapterClicked);
         binding.rv.setAdapter(adapterNotifikasi);
         return binding.getRoot();
     }
@@ -40,7 +43,7 @@ public class NotifikasiNasabah extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this, new VMFactory(getContext())).get(NotifikasiNasabahViewModel.class);
+
     }
 
     private AdapterClicked adapterClicked = posisi -> {
@@ -54,10 +57,13 @@ public class NotifikasiNasabah extends Fragment {
     }
 
     private void observe(NotifikasiNasabahViewModel mViewModel) {
-        mViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModels -> {
+        mViewModel.notifikasiModelLiveData.observe(getViewLifecycleOwner(), notifikasiModels -> {
             if (notifikasiModels != null) {
+                binding.lyKosong.setVisibility(View.GONE);
                 adapterNotifikasi.setData(notifikasiModels);
+            } else {
 
+                binding.lyKosong.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.tdn.qurban.nasabah.ui.tentang;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class TentangAplikasiFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(TentangAplikasiViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(TentangAplikasiViewModel.class);
         // TODO: Use the ViewModel
     }
 

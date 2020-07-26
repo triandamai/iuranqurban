@@ -134,7 +134,7 @@ public class VMFactory implements ViewModelProvider.Factory {
             return (T) new AktivasiAkunViewModel(context, actionListener);
             //notifikasi user
         } else if (modelClass.isAssignableFrom(NotifikasiNasabahViewModel.class)) {
-            return (T) new NotifikasiNasabahViewModel(context);
+            return (T) new NotifikasiNasabahViewModel();
             //home user
         } else if (modelClass.isAssignableFrom(HomeUserViewModel.class)) {
             return (T) new HomeUserViewModel();
@@ -142,8 +142,6 @@ public class VMFactory implements ViewModelProvider.Factory {
         } else if (modelClass.isAssignableFrom(KonfirmasiPembayaranViewModel.class)) {
             return (T) new KonfirmasiPembayaranViewModel(context, actionListener);
             // notifikasi user
-        } else if (modelClass.isAssignableFrom(NotifikasiNasabahViewModel.class)) {
-            return (T) new NotifikasiNasabahViewModel(context);
         } else if (modelClass.isAssignableFrom(TabunganNasabahViewModel.class)) {
             return (T) new TabunganNasabahViewModel();
         } else {

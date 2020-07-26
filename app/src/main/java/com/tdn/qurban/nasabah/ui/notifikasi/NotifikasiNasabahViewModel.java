@@ -23,24 +23,17 @@ public class NotifikasiNasabahViewModel extends ViewModel {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
     private Context context;
-    private LiveData<List<NotifikasiModel>> notifikasiModelLiveData = new MutableLiveData<>();
-    private ValueEventListener notif;
+    public LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
 
-    public NotifikasiNasabahViewModel(Context context) {
-        this.context = context;
-        getMyNotifikasi();
+
+    public NotifikasiNasabahViewModel() {
+        notifikasiModelLiveData = getNotifikasiModelLiveData();
     }
 
     public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
-        if (notifikasiModelLiveData == null) {
-            notifikasiModelLiveData.getValue().addAll(null);
-        }
-        return notifikasiModelLiveData;
-    }
-
-    private void getMyNotifikasi() {
-
-        notif = databaseReference.child(Const.CHILD_NOTIF_USER).child(firebaseAuth.getCurrentUser().getUid())
+        final MutableLiveData<List<NotifikasiModel>> notif = new MutableLiveData<>();
+        databaseReference.child(Const.CHILD_NOTIF_USER)
+                .child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -51,23 +44,20 @@ public class NotifikasiNasabahViewModel extends ViewModel {
                                 n.setId(data.getKey());
                                 NotifikasiModels.add(n);
                             }
-                            notifikasiModelLiveData.getValue().addAll(NotifikasiModels);
+                            notif.setValue(NotifikasiModels);
 
                         } else {
-                            notifikasiModelLiveData.getValue().addAll(null);
+                            notif.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        notif.setValue(null);
                     }
                 });
+        return notif;
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        databaseReference.removeEventListener(notif);
-    }
+
 }

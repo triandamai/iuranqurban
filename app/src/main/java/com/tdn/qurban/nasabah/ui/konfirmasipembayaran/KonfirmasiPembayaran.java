@@ -59,6 +59,7 @@ public class KonfirmasiPembayaran extends MyFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.konfirmasi_pembayaran_fragment, container, false);
         mViewModel = new ViewModelProvider(this, new VMFactory(getContext(), actionListener)).get(KonfirmasiPembayaranViewModel.class);
+        binding.ivFoto.setVisibility(View.GONE);
         textWatcher();
         onClick();
         return binding.getRoot();
@@ -157,6 +158,8 @@ public class KonfirmasiPembayaran extends MyFragment {
 
                     // loading profile image from local cache
                     binding.tvNamafile.setText("Bukti Tabungan.jpeg");
+                    binding.ivFoto.setVisibility(View.VISIBLE);
+                    binding.ivFoto.setImageBitmap(bitmap);
                     mViewModel.foto.setValue(uri.getPath());
 
                 } catch (IOException e) {

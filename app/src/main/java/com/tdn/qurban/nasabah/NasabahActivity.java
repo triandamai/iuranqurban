@@ -29,6 +29,8 @@ public class NasabahActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private FloatingActionButton fab;
     private NavController navController;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -38,12 +40,19 @@ public class NasabahActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.fab);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_aktivasiakun, R.id.nav_konfirmasipembayaran, R.id.nav_notifikasi)
+                R.id.nav_home,
+                R.id.nav_aktivasiakun,
+                R.id.nav_konfirmasipembayaran,
+                R.id.nav_notifikasi,
+                R.id.nav_penarikan,
+                R.id.nav_penutupan,
+                R.id.nav_profil,
+                R.id.nav_tentang)
                 .setOpenableLayout(drawer)
                 .setFallbackOnNavigateUpListener(() ->
                         NavigationUI.navigateUp(navController, mAppBarConfiguration)
@@ -58,6 +67,7 @@ public class NasabahActivity extends AppCompatActivity {
 
     private void onClick() {
         fab.setOnClickListener(v -> navController.navigate(R.id.nav_konfirmasipembayaran));
+
     }
 
     private void cekFAB() {

@@ -2,6 +2,6 @@ package com.tdn.qurban.nasabah.ui.pengajuantutpakun;
 
 import androidx.lifecycle.ViewModel;
 
-public class PengajuanTutupAkunkViewModel extends ViewModel {
+public class PengajuanTutupAkunViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 }

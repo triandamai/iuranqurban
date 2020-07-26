@@ -56,6 +56,7 @@ public class AktivasiAkunFragment extends MyFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.aktivasi_akun_fragment, container, false);
         mViewModel = new ViewModelProvider(this, new VMFactory(getContext(), actionListener)).get(AktivasiAkunViewModel.class);
+        binding.ivFoto.setVisibility(View.GONE);
         onClick();
         return binding.getRoot();
     }
@@ -147,6 +148,8 @@ public class AktivasiAkunFragment extends MyFragment {
 
                     // loading profile image from local cache
                     binding.tvNamafile.setText("Bukti Aktivasi.jpeg");
+                    binding.ivFoto.setVisibility(View.VISIBLE);
+                    binding.ivFoto.setImageBitmap(bitmap);
                     mViewModel.foto.setValue(uri.getPath());
 
                 } catch (IOException e) {

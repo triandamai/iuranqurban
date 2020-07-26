@@ -1,35 +1,46 @@
 package com.tdn.qurban.nasabah.ui.notifikasi;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdn.domain.model.NotifikasiModel;
+import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.databinding.ItemNotifikasiBinding;
 import com.tdn.qurban.nasabah.ui.home.AdapterMyTabungan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AdapterNotifikasi extends RecyclerView.Adapter<AdapterMyTabungan.MyViewHolder> {
-    private List<NotifikasiModel> NotifikasiModels;
+public class AdapterNotifikasi extends RecyclerView.Adapter<AdapterNotifikasi.MyViewHolder> {
+    private List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
     private AdapterClicked adapterClicked;
+    private Context context;
 
-    public AdapterNotifikasi(AdapterClicked adapterClicked) {
+    public AdapterNotifikasi(Context context, AdapterClicked adapterClicked) {
         this.adapterClicked = adapterClicked;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public AdapterMyTabungan.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public AdapterNotifikasi.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemNotifikasiBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_notifikasi, parent, false);
+
+        return new MyViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterMyTabungan.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterNotifikasi.MyViewHolder holder, int position) {
+        holder.binding.setData(NotifikasiModels.get(position));
 
     }
 
@@ -72,8 +83,11 @@ public class AdapterNotifikasi extends RecyclerView.Adapter<AdapterMyTabungan.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+        private ItemNotifikasiBinding binding;
+
+        public MyViewHolder(@NonNull ItemNotifikasiBinding itemView) {
+            super(itemView.getRoot());
+            this.binding = itemView;
         }
     }
 }

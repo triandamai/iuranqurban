@@ -20,19 +20,36 @@
         android:name="com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran"
         android:label="Konfirmasi Akun"
         tools:layout="@layout/aktivasi_akun_fragment" />
-    <fragment
-        android:id="@+id/nav_pengajuan"
-        android:name="com.tdn.qurban.nasabah.ui.pengajuanpenarikan.PengajuanPenarikanFragment"
-        android:label="Pengajuan"
-        tools:layout="@layout/pengajuan_penarikan_fragment" />
+
     <fragment
         android:id="@+id/nav_tabungan"
         android:name="com.tdn.qurban.nasabah.ui.tabungan.TabunganNasabahFragment"
-        android:label="Pengajuan"
+        android:label="Tabungan Saya"
         tools:layout="@layout/tabungan_nasabah_fragment" />
     <fragment
         android:id="@+id/nav_notifikasi"
         android:name="com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabah"
         android:label="Notifikasi"
         tools:layout="@layout/notifikasi_nasabah_fragment" />
+    <fragment
+        android:id="@+id/nav_tentang"
+        android:name="com.tdn.qurban.nasabah.ui.tentang.TentangAplikasiFragment"
+        android:label="Tentang Aplikasi"
+        tools:layout="@layout/tentang_aplikasi_fragment" />
+    <fragment
+        android:id="@+id/nav_profil"
+        android:name="com.tdn.qurban.nasabah.ui.profil.ProfilNasabahFragment"
+        android:label="Profil "
+        tools:layout="@layout/profil_fragment" />
+
+    <fragment
+        android:id="@+id/nav_penarikan"
+        android:name="com.tdn.qurban.nasabah.ui.pengajuanpenarikan.PengajuanPenarikanFragment"
+        android:label="Penarikan Dana"
+        tools:layout="@layout/pengajuan_penarikan_fragment" />
+    <fragment
+        android:id="@+id/nav_penutupan"
+        android:name="com.tdn.qurban.nasabah.ui.pengajuantutpakun.PengajuanTutupAkunFragment"
+        android:label="Penutupan Akun"
+        tools:layout="@layout/pengajuan_tutup_akun_fragment" />
 </navigation>

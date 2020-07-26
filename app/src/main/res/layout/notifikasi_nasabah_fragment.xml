@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="iSrefresh"
             type="boolean" />
@@ -16,39 +17,41 @@
             name="vm"
             type="com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabahViewModel" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 
 
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
 
-        </com.google.android.material.appbar.AppBarLayout>
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            setRefreshing="@{iSrefresh}"
-            setRefreshingListener="@{refresh}"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".nasabah.ui.notifikasi.NotifikasiNasabah">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:shimmer_recycler_item_count="5"
+                app:shimmer_recycler_layout="@layout/item_shimmer_notif" />
 
-                <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/rv"
+            <LinearLayout
+                android:id="@+id/ly_kosong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/sp_20">
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:shimmer_recycler_item_count="5"
-                    app:shimmer_recycler_layout="@layout/item_shimmer_notif" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/sp_20"
+                    android:text="Belum ada notifikasi apapun" />
+            </LinearLayout>
+        </RelativeLayout>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
