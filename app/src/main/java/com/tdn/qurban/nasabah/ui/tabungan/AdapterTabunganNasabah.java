@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
@@ -41,7 +42,15 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setAction(adapterClicked);
         holder.binding.setData(TabunganModels.get(position));
+        holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
         holder.binding.setPosisi(position);
+        if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_AJUKAN_DITERIMA)) {
+            holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        } else if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_AJUKAN_DITOLAK)) {
+            holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.red));
+        } else {
+            holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.gray_muda));
+        }
         Log.e("tes tabungan", TabunganModels.toString());
     }
 

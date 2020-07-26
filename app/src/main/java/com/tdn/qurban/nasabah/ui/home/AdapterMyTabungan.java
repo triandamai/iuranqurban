@@ -42,6 +42,7 @@ public class AdapterMyTabungan extends RecyclerView.Adapter<AdapterMyTabungan.My
     public void onBindViewHolder(@NonNull AdapterMyTabungan.MyViewHolder holder, int position) {
         holder.binding.setAction(adapterClicked);
         holder.binding.setData(TabunganModels.get(position));
+        holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
         holder.binding.setPosisi(position);
         Log.e("tes tabungan", TabunganModels.toString());
     }

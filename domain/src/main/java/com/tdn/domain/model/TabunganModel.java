@@ -1,5 +1,10 @@
 package com.tdn.domain.model;
 
+import android.util.Log;
+
+import java.util.Calendar;
+import java.util.Date;
+
 public class TabunganModel {
     String id;
     String uid;
@@ -86,6 +91,14 @@ public class TabunganModel {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String created_at_to_date() {
+        long time = Long.parseLong(created_at);
+        Date date = new Date(time);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return date.toString();
     }
 
     @Override
