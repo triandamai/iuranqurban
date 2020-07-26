@@ -3,6 +3,7 @@ package com.tdn.qurban.admin.ui.detailnasabah;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -18,18 +19,20 @@ import com.tdn.domain.model.UserModel;
 public class DetailNasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private MutableLiveData<UserModel> detailUsers;
-    private MutableLiveData<rencanaModel> rencanaModelMutableLiveData;
+    private LiveData<UserModel> detailUsers;
+    private LiveData<rencanaModel> rencanaModelMutableLiveData;
 
     public DetailNasabahViewModel(Context context, String id) {
-        this.detailUsers = new MutableLiveData<>();
-        this.rencanaModelMutableLiveData = new MutableLiveData<>();
+
         if (id != null) {
-            getDetail(id);
+            this.detailUsers = getDetailUsers(id);
+            this.rencanaModelMutableLiveData = getRencanaModelMutableLiveData(id);
         }
     }
 
-    private void getDetail(String id) {
+
+    public LiveData<UserModel> getDetailUsers(String id) {
+        final MutableLiveData<UserModel> user = new MutableLiveData<>();
         databaseReference
                 .child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
@@ -39,17 +42,22 @@ public class DetailNasabahViewModel extends ViewModel {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             UserModel userModel = snapshot.getValue(UserModel.class);
-                            detailUsers.setValue(userModel);
+                            user.setValue(userModel);
                         } else {
-                            detailUsers.setValue(null);
+                            user.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        detailUsers.setValue(null);
+                        user.setValue(null);
                     }
                 });
+        return user;
+    }
+
+    public LiveData<rencanaModel> getRencanaModelMutableLiveData(String id) {
+        final MutableLiveData<rencanaModel> rencana = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_RENCANA)
                 .child(id)
@@ -59,36 +67,20 @@ public class DetailNasabahViewModel extends ViewModel {
                         if (snapshot.exists()) {
                             rencanaModel rencanaModel = snapshot.getValue(rencanaModel.class);
                             rencanaModel.setUid(snapshot.getKey());
-                            rencanaModelMutableLiveData.setValue(rencanaModel);
+                            rencana.setValue(rencanaModel);
                         } else {
-                            rencanaModelMutableLiveData = new MutableLiveData<>();
+                            rencana.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        rencanaModelMutableLiveData = new MutableLiveData<>();
+                        rencana.setValue(null);
 
                     }
                 });
+        return rencana;
     }
 
-    public MutableLiveData<UserModel> getDetailUsers() {
-        if (detailUsers == null) {
-            detailUsers = new MutableLiveData<>();
-        }
-        return detailUsers;
-    }
 
-    public MutableLiveData<rencanaModel> getRencanaModelMutableLiveData() {
-        if (rencanaModelMutableLiveData == null) {
-            rencanaModelMutableLiveData = new MutableLiveData<>();
-        }
-        return rencanaModelMutableLiveData;
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-    }
 }

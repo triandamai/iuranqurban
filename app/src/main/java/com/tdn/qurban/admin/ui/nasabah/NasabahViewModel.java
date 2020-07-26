@@ -19,51 +19,42 @@ import java.util.List;
 public class NasabahViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
-    private ValueEventListener datanasabahListener;
-    private LiveData<List<UserModel>> useListLiveData;
+
+    public LiveData<List<UserModel>> useListLiveData;
 
     public NasabahViewModel() {
-        getAllNasabah();
+        this.useListLiveData = getUseListLiveData();
     }
 
-    private void getAllNasabah() {
-        datanasabahListener = databaseReference.child(Const.CHILD_USER)
+
+    public LiveData<List<UserModel>> getUseListLiveData() {
+        final MutableLiveData<List<UserModel>> listMutableLiveData = new MutableLiveData<>();
+        databaseReference.child(Const.CHILD_USER)
                 .orderByChild(Const.CHILD_USER_LEVEL)
                 .startAt(Const.USER_LEVEL_NASABAH)
                 .endAt(Const.USER_LEVEL_NASABAH).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            List<UserModel> userModelList = new ArrayList<>();
-                            for (DataSnapshot data : snapshot.getChildren()) {
-                                UserModel userModel = data.getValue(UserModel.class);
-                                userModel.setUid(data.getKey());
-                                userModelList.add(userModel);
-                            }
-                            userModelList.addAll(userModelList);
-                        } else {
-                            useListLiveData = new MutableLiveData<>();
-                        }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<UserModel> userModelList = new ArrayList<>();
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        UserModel userModel = data.getValue(UserModel.class);
+                        userModel.setUid(data.getKey());
+                        userModelList.add(userModel);
                     }
+                    listMutableLiveData.setValue(userModelList);
+                } else {
+                    listMutableLiveData.setValue(null);
+                }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        useListLiveData = new MutableLiveData<>();
-                    }
-                });
-        databaseReference.addValueEventListener(datanasabahListener);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                listMutableLiveData.setValue(null);
+            }
+        });
+        return listMutableLiveData;
     }
 
-    public LiveData<List<UserModel>> getUseListLiveData() {
-        if (useListLiveData == null) {
-            useListLiveData = new MutableLiveData<>();
-        }
-        return useListLiveData;
-    }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        databaseReference.removeEventListener(datanasabahListener);
-    }
 }

@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.tdn.data.pref.MyUser;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
@@ -45,7 +47,7 @@ public class DetailNasabahFragment extends Fragment {
     }
 
     private void observe(DetailNasabahViewModel mViewModel) {
-        mViewModel.getDetailUsers().observe(getViewLifecycleOwner(), userModel -> {
+        mViewModel.getDetailUsers(MyUser.getInstance(getContext()).getLastIdNasabah()).observe(getViewLifecycleOwner(), userModel -> {
             if (userModel != null) {
                 binding.tvNama.setText(userModel.getNama());
                 binding.tvStatus.setText(userModel.getStatus());
@@ -53,12 +55,16 @@ public class DetailNasabahFragment extends Fragment {
                 binding.tvAhliwaris.setText(userModel.getNama_ahli_waris());
                 binding.tvNik.setText(userModel.getNik());
                 binding.tvTelpon.setText(userModel.getNo_hp());
+            } else {
+                Snackbar.make(binding.getRoot(), "Tidak bisa mengambil data user", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             }
         });
-        mViewModel.getRencanaModelMutableLiveData().observe(getViewLifecycleOwner(), rencanaModel -> {
+        mViewModel.getRencanaModelMutableLiveData(MyUser.getInstance(getContext()).getLastIdNasabah()).observe(getViewLifecycleOwner(), rencanaModel -> {
             if (rencanaModel != null) {
                 binding.tvJenishewan.setText(rencanaModel.getJenis());
                 binding.tvJumlahHewan.setText(rencanaModel.getJumlah());
+            } else {
+                Snackbar.make(binding.getRoot(), "Tidak bisa mengambil data rencana tabungan", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             }
         });
     }

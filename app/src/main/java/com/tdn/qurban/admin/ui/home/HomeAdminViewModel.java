@@ -89,6 +89,9 @@ public class HomeAdminViewModel extends ViewModel {
         databaseReference
                 .child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
+                .orderByChild(Const.CHILD_USER_LEVEL)
+                .startAt(Const.USER_LEVEL_NASABAH)
+                .endAt(Const.USER_LEVEL_NASABAH)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,16 +101,13 @@ public class HomeAdminViewModel extends ViewModel {
 
                             for (DataSnapshot s : snapshot.getChildren()) {
                                 UserModel m = s.getValue(UserModel.class);
-                                if (!m.getLevel().equals(Const.USER_LEVEL_ADMIN) ||
-                                        !m.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
-                                    if (m.getStatus().equals(Const.STATUS_USER_AKTIF)) {
-                                        a = a + 1;
-                                    } else {
-                                        n = n + 1;
-                                    }
-                                } else {
 
+                                if (m.getStatus().equals(Const.STATUS_USER_AKTIF)) {
+                                    a = a + 1;
+                                } else {
+                                    n = n + 1;
                                 }
+                              
                             }
                             nasabahAktif.setValue(a);
                             nasabahNonAktif.setValue(n);
@@ -127,7 +127,7 @@ public class HomeAdminViewModel extends ViewModel {
                         if (snapshot.exists()) {
                             UserModel userModel = snapshot.getValue(UserModel.class);
                             userModel.setUid(snapshot.getKey());
-                          
+
                             userModelMutableLiveData.setValue(userModel);
                         } else {
                             userModelMutableLiveData = new MutableLiveData<>();
