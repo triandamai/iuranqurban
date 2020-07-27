@@ -27,12 +27,38 @@ public class HomeUserViewModel extends ViewModel {
     public LiveData<List<TabunganModel>> listTabunganLiveData;
     public LiveData<Boolean> isUserActive;
     public LiveData<SaldoModel> saldoModel;
+    public LiveData<UserModel> userModel;
 
 
     public HomeUserViewModel() {
         saldoModel = getSaldoDatas();
         isUserActive = getIsActive();
         listTabunganLiveData = getTabunganDatas();
+        userModel = getUser();
+    }
+
+    private LiveData<UserModel> getUser() {
+        final MutableLiveData<UserModel> userModelMutableLiveData = new MutableLiveData<>();
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_USER).child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            UserModel userModel = snapshot.getValue(UserModel.class);
+                            assert userModel != null;
+                            userModel.setUid(snapshot.getKey());
+                            userModelMutableLiveData.setValue(userModel);
+                        } else {
+                            userModelMutableLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        userModelMutableLiveData.setValue(null);
+                    }
+                });
+        return userModelMutableLiveData;
     }
 
 

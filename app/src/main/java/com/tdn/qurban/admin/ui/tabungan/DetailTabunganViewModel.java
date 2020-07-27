@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.tabungan;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -36,6 +37,7 @@ public class DetailTabunganViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
+                            Log.e("data", snapshot.toString());
                             TabunganModel tabunganModel = snapshot.getValue(TabunganModel.class);
                             assert tabunganModel != null;
                             tabunganModel.setId(snapshot.getKey());

@@ -32,7 +32,7 @@ public class NotifikasiNasabahViewModel extends ViewModel {
 
     public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
         final MutableLiveData<List<NotifikasiModel>> notif = new MutableLiveData<>();
-        databaseReference.child(Const.CHILD_NOTIF_USER)
+        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_NOTIF_USER)
                 .child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -41,6 +41,7 @@ public class NotifikasiNasabahViewModel extends ViewModel {
                             List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 NotifikasiModel n = data.getValue(NotifikasiModel.class);
+                                assert n != null;
                                 n.setId(data.getKey());
                                 NotifikasiModels.add(n);
                             }

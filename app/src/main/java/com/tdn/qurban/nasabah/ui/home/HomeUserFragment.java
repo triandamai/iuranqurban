@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
@@ -85,6 +87,10 @@ public class HomeUserFragment extends Fragment {
                 binding.tvStatus.setTextColor(getResources().getColor(R.color.red));
                 binding.tvAktivasi.setVisibility(View.VISIBLE);
             }
+        });
+        homeUserViewModel.userModel.observe(getViewLifecycleOwner(), userModel -> {
+            if (userModel != null)
+                binding.tvNamaNasabah.setText("Nasabah " + userModel.getNama());
         });
     }
 

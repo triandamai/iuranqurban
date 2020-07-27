@@ -80,6 +80,7 @@ public class NotificationsFragment extends Fragment {
 
         } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
             MyUser.getInstance(getContext()).setLastIdTabungan(n.getId_content());
+            MyUser.getInstance(getContext()).setLastIdNotif(n.getId());
             Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_tabungan);
 
 

@@ -68,6 +68,7 @@ public class DetailTabunganFragment extends Fragment {
             n.setBroad_to(tabunganModel.getUid());
             n.setCreated_at(String.valueOf(new Date().getTime()));
             n.setId_content(tabunganModel.getId());
+
             databaseReference.child(Const.BASE_CHILD)
                     .child(Const.CHILD_NOTIF_USER)
                     .child(tabunganModel.getUid())
@@ -81,7 +82,7 @@ public class DetailTabunganFragment extends Fragment {
                         databaseReference.child(Const.BASE_CHILD)
                                 .child(Const.CHILD_SALDO)
                                 .child(tabunganModel.getUid())
-                                .addValueEventListener(new ValueEventListener() {
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         SaldoModel saldoModel = new SaldoModel();
@@ -101,6 +102,9 @@ public class DetailTabunganFragment extends Fragment {
                                                     .child(Const.CHILD_SALDO)
                                                     .child(tabunganModel.getUid())
                                                     .setValue(s);
+                                            databaseReference.child(Const.BASE_CHILD)
+                                                    .child(Const.CHILD_NOTIF_ADMIN)
+                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue();
 
                                         } else {
                                             SaldoModel s = new SaldoModel();
@@ -112,6 +116,9 @@ public class DetailTabunganFragment extends Fragment {
                                                     .child(Const.CHILD_SALDO)
                                                     .child(tabunganModel.getUid())
                                                     .setValue(s);
+                                            databaseReference.child(Const.BASE_CHILD)
+                                                    .child(Const.CHILD_NOTIF_ADMIN)
+                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue();
                                         }
                                     }
 
@@ -133,9 +140,10 @@ public class DetailTabunganFragment extends Fragment {
     }
 
     private void observe(DetailTabunganViewModel mViewModel) {
+        Log.e("id_tabungan terakhir", MyUser.getInstance(getContext()).getLastIdTabungan());
         mViewModel.getTabnganById(MyUser.getInstance(getContext()).getLastIdTabungan())
                 .observe(getViewLifecycleOwner(), tabunganModel -> {
-                    Log.e("tes notif", tabunganModel.toString());
+
                     if (tabunganModel != null) {
 
                         this.tabunganModel = tabunganModel;
@@ -148,6 +156,7 @@ public class DetailTabunganFragment extends Fragment {
                                     .into(binding.ivBukti);
                         }
                     } else {
+                        Snackbar.make(binding.getRoot(), "Gagal ambil data", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
                         this.tabunganModel = new TabunganModel();
                     }
                 });
