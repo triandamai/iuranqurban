@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.notifications;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,9 @@ import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.core.AdapterNotifClicked;
 import com.tdn.qurban.databinding.ItemNotifikasiBinding;
+import com.tdn.qurban.nasabah.ui.notifikasi.AdapterNotifikasi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +35,13 @@ import java.util.Objects;
 public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifikasiAdmin.MyViewHolder> {
     private List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private AdapterClicked adapterClicked;
+    private AdapterNotifClicked adapterClicked;
     private ItemNotifikasiBinding binding;
     private Context context;
+    private UserModel u;
 
-    public AdapterNotifikasiAdmin(Context context) {
-        //this.adapterClicked = adapterClicked;
+    public AdapterNotifikasiAdmin(Context context, AdapterNotifClicked adapterClicked) {
+        this.adapterClicked = adapterClicked;
         this.context = context;
     }
 
@@ -53,6 +57,8 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
         NotifikasiModel n = NotifikasiModels.get(position);
         binding.setData(NotifikasiModels.get(position));
         TextView v = binding.tvIsiNotifikasi;
+        u = new UserModel();
+
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
                 .child(n.getFrom_uid())
@@ -60,31 +66,22 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            UserModel u = snapshot.getValue(UserModel.class);
+                            u = snapshot.getValue(UserModel.class);
                             assert u != null;
                             u.setUid(snapshot.getKey());
 
+
                             if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
-                                MyUser.getInstance(context).setLastIdNasabah(u.getUid());
-                                binding.btnAksi.setOnClickListener(v1 -> {
-                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_nasabah);
-                                });
+
                                 v.setText(u.getNama() + " Mengajukan Pengajuan Dana Status : " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
-                                binding.btnAksi.setOnClickListener(v1 -> {
-                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
-                                });
+
                                 v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
-                                binding.btnAksi.setOnClickListener(v1 -> {
-                                    MyUser.getInstance(context).setLastIdNasabah(u.getUid());
-                                });
+
                                 v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
-                                binding.btnAksi.setOnClickListener(v1 -> {
-                                    MyUser.getInstance(context).setLastIdTabungan(n.getId_content());
-                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_tabungan);
-                                });
+
                                 v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
                             } else {
                                 v.setText("Notifikasi tidak diketahui");
@@ -98,7 +95,14 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
                     }
                 });
+        binding.btnAksi.setOnClickListener(v12 -> {
+            adapterClicked.onClick(position, u);
+        });
+    }
 
+    public NotifikasiModel getFromPosition(int pos) {
+
+        return NotifikasiModels.get(pos);
     }
 
     public void setData(List<NotifikasiModel> NotifikasiModels) {

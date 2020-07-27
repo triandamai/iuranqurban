@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="boolean" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -66,10 +66,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="160dp"
                     android:gravity="center_horizontal"
-                    android:weightSum="2"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
@@ -84,33 +84,33 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="@dimen/dp_30"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dp_30">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:orientation="vertical"
                                 android:paddingStart="@dimen/dp_16"
-                                android:paddingEnd="@dimen/dp_16"
-                                android:orientation="vertical">
+                                android:paddingEnd="@dimen/dp_16">
 
                                 <TextView
                                     android:id="@+id/jml_aktif"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textAlignment="center"
                                     android:text="0"
-                                    android:textStyle="bold"
-                                    android:textSize="@dimen/dp_30" />
+                                    android:textAlignment="center"
+                                    android:textSize="@dimen/dp_30"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textAlignment="center"
-                                    android:text="Nasabah \nAktif" />
+                                    android:text="Nasabah \nAktif"
+                                    android:textAlignment="center" />
 
                             </LinearLayout>
 
@@ -127,43 +127,43 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_16"
                         android:layout_marginBottom="@dimen/dp_16"
-                        android:background="@color/putih"
                         android:layout_weight="1"
+                        android:background="@color/putih"
                         android:elevation="@dimen/dp_4"
                         app:cardCornerRadius="@dimen/dp_5">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="@dimen/dp_30"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dp_30">
 
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:weightSum="3"
+                                android:orientation="vertical"
                                 android:paddingStart="@dimen/dp_16"
                                 android:paddingEnd="@dimen/dp_16"
-                                android:orientation="vertical">
+                                android:weightSum="3">
 
                                 <TextView
                                     android:id="@+id/jumlah_nonaktif"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textAlignment="center"
-                                    android:textStyle="bold"
                                     android:text="0"
-                                    android:textSize="@dimen/dp_30" />
+                                    android:textAlignment="center"
+                                    android:textSize="@dimen/dp_30"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:textAlignment="center"
-                                    android:text="Nasabah \nTidak Aktif" />
+                                    android:text="Nasabah \nTidak Aktif"
+                                    android:textAlignment="center" />
 
                             </LinearLayout>
 

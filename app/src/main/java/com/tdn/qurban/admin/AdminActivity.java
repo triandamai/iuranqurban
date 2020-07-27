@@ -30,8 +30,11 @@ public class AdminActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
-                R.id.navigation_notifications, R.id.navigation_detail_nasabah,
-                R.id.navigation_jenishewan, R.id.navigation_nasabah, R.id.navigation_profiladmin)
+                R.id.navigation_notifications,
+                R.id.navigation_detail_nasabah,
+                R.id.navigation_jenishewan,
+                R.id.navigation_nasabah,
+                R.id.navigation_profiladmin)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

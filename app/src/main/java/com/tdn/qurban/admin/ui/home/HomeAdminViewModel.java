@@ -17,6 +17,7 @@ import com.tdn.data.Const;
 import com.tdn.domain.model.UserModel;
 import com.tdn.domain.model.NotifikasiModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdminViewModel extends ViewModel {
@@ -31,7 +32,7 @@ public class HomeAdminViewModel extends ViewModel {
     public HomeAdminViewModel() {
         nasabahAktif = new MutableLiveData<>();
         nasabahNonAktif = new MutableLiveData<>();
-        notifikasiTabungan = new MutableLiveData<>();
+        notifikasiTabungan = getNotifikasiTabungan();
         userModelMutableLiveData = new MutableLiveData<>();
 
         getMyHome();
@@ -53,13 +54,8 @@ public class HomeAdminViewModel extends ViewModel {
     }
 
     public LiveData<List<NotifikasiModel>> getNotifikasiTabungan() {
-        if (notifikasiTabungan == null) {
-            notifikasiTabungan = new MutableLiveData<>();
-        }
-        return notifikasiTabungan;
-    }
+        final MutableLiveData<List<NotifikasiModel>> notif = new MutableLiveData<>();
 
-    private void getMyHome() {
         databaseReference
                 .child(Const.BASE_CHILD)
                 .child(Const.CHILD_NOTIF_ADMIN).orderByChild("broad_to")
@@ -70,22 +66,30 @@ public class HomeAdminViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
+                            List<NotifikasiModel> not = new ArrayList<>();
                             for (DataSnapshot s : snapshot.getChildren()) {
                                 NotifikasiModel m = s.getValue(NotifikasiModel.class);
                                 assert m != null;
                                 m.setId(s.getKey());
-                                notifikasiTabungan.getValue().add(m);
+                                not.add(m);
+
                             }
+                            notif.setValue(not);
                         } else {
-                            notifikasiTabungan = new MutableLiveData<>();
+                            notif.setValue(null);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        notifikasiTabungan = new MutableLiveData<>();
+                        notif.setValue(null);
                     }
                 });
+        return notif;
+    }
+
+    private void getMyHome() {
+
         databaseReference
                 .child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
@@ -107,7 +111,7 @@ public class HomeAdminViewModel extends ViewModel {
                                 } else {
                                     n = n + 1;
                                 }
-                              
+
                             }
                             nasabahAktif.setValue(a);
                             nasabahNonAktif.setValue(n);
