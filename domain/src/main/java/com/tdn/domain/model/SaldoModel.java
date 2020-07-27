@@ -1,14 +1,14 @@
 package com.tdn.domain.model;
 
-public class saldoModel {
+public class SaldoModel {
     String uid;
     double jumlah;
     String last_updated;
 
-    public saldoModel() {
+    public SaldoModel() {
     }
 
-    public saldoModel(String uid, double jumlah, String last_updated) {
+    public SaldoModel(String uid, double jumlah, String last_updated) {
         this.uid = uid;
         this.jumlah = jumlah;
         this.last_updated = last_updated;
@@ -40,7 +40,7 @@ public class saldoModel {
 
     @Override
     public String toString() {
-        return "saldoModel{" +
+        return "SaldoModel{" +
                 "uid='" + uid + '\'' +
                 ", jumlah=" + jumlah +
                 ", last_updated='" + last_updated + '\'' +

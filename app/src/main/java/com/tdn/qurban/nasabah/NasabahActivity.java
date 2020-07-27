@@ -73,9 +73,11 @@ public class NasabahActivity extends AppCompatActivity {
     private void cekFAB() {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             int id = destination.getId();
-            if (id == R.id.nav_aktivasiakun || id == R.id.nav_konfirmasipembayaran) {
+            if (id == R.id.nav_aktivasiakun ||
+                    id == R.id.nav_konfirmasipembayaran) {
                 fab.setVisibility(View.GONE);
             } else if (id == R.id.nav_home || id == R.id.nav_tabungan) {
+                fab.setVisibility(View.VISIBLE);
                 fab.setOnClickListener(view -> navController.navigate(R.id.nav_konfirmasipembayaran));
             } else {
                 fab.setVisibility(View.VISIBLE);

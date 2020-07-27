@@ -1,7 +1,5 @@
 package com.tdn.qurban.nasabah.ui.home;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -14,8 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.domain.model.SaldoModel;
 import com.tdn.domain.model.TabunganModel;
-import com.tdn.domain.model.saldoModel;
 import com.tdn.domain.model.UserModel;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class HomeUserViewModel extends ViewModel {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public LiveData<List<TabunganModel>> listTabunganLiveData;
     public LiveData<Boolean> isUserActive;
-    public LiveData<saldoModel> saldoModel;
+    public LiveData<SaldoModel> saldoModel;
 
 
     public HomeUserViewModel() {
@@ -38,14 +36,14 @@ public class HomeUserViewModel extends ViewModel {
     }
 
 
-    public LiveData<saldoModel> getSaldoDatas() {
-        final MutableLiveData<saldoModel> saldo = new MutableLiveData<>();
+    public LiveData<SaldoModel> getSaldoDatas() {
+        final MutableLiveData<SaldoModel> saldo = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_SALDO).child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            saldoModel saldoModel = snapshot.getValue(saldoModel.class);
+                            SaldoModel saldoModel = snapshot.getValue(SaldoModel.class);
                             saldoModel.setUid(firebaseAuth.getCurrentUser().getUid());
                             assert saldoModel != null;
                             saldo.setValue(saldoModel);

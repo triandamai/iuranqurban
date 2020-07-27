@@ -1,12 +1,12 @@
 package com.tdn.data.mapper;
 
 import com.tdn.data.entity.saldoEntity;
-import com.tdn.domain.model.saldoModel;
+import com.tdn.domain.model.SaldoModel;
 
-public class saldoMapper extends FirebaseMapper<saldoEntity,saldoModel> {
+public class saldoMapper extends FirebaseMapper<saldoEntity, SaldoModel> {
     @Override
-    public saldoModel map(saldoEntity e, String id) {
-        saldoModel m = new saldoModel();
+    public SaldoModel map(saldoEntity e, String id) {
+        SaldoModel m = new SaldoModel();
         m.setJumlah(e.getJumlah());
         m.setLast_updated(e.getLast_updated());
         m.setUid(id);

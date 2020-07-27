@@ -40,7 +40,7 @@ public class saldoEntity {
 
     @Override
     public String toString() {
-        return "saldoModel{" +
+        return "SaldoModel{" +
                 "uid='" + uid + '\'' +
                 ", jumlah=" + jumlah +
                 ", last_updated='" + last_updated + '\'' +

@@ -41,6 +41,16 @@
         android:name="com.tdn.qurban.admin.ui.tabungan.TabunganAdminFragment"
         android:label="@string/fragment_iuran"
         tools:layout="@layout/tabungan_fragment" />
+    <fragment
+        android:id="@+id/navigation_detail_pengajuandana"
+        android:name="com.tdn.qurban.admin.ui.pengajuan.DetailPengajuanDanaFragment"
+        android:label="@string/fragment_iuran"
+        tools:layout="@layout/detail_pengajuan_pengajuan_fragment" />
+    <fragment
+        android:id="@+id/navigation_detail_pengajuantarik"
+        android:name="com.tdn.qurban.admin.ui.pengajuan.DetailPengajuanTarikFragment"
+        android:label="@string/fragment_iuran"
+        tools:layout="@layout/detail_pengajuan_fragment" />
 
     <fragment
         android:id="@+id/navigation_detail_tabungan"
