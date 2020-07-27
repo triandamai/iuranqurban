@@ -12,6 +12,7 @@ import com.tdn.qurban.admin.ui.jenishewan.JenisHewaViewModel;
 import com.tdn.qurban.admin.ui.jenishewan.TambahHewanViewModel;
 import com.tdn.qurban.admin.ui.nasabah.NasabahViewModel;
 import com.tdn.qurban.admin.ui.notifications.NotificationsViewModel;
+import com.tdn.qurban.admin.ui.tabungan.DetailTabunganViewModel;
 import com.tdn.qurban.admin.ui.tabungan.TabunganAdminViewModel;
 import com.tdn.qurban.auth.LoginViewModel;
 import com.tdn.qurban.nasabah.ui.aktivasiakun.AktivasiAkunViewModel;
@@ -144,6 +145,8 @@ public class VMFactory implements ViewModelProvider.Factory {
             // notifikasi user
         } else if (modelClass.isAssignableFrom(TabunganNasabahViewModel.class)) {
             return (T) new TabunganNasabahViewModel();
+        } else if (modelClass.isAssignableFrom(DetailTabunganViewModel.class)) {
+            return (T) new DetailTabunganViewModel(context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

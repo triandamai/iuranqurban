@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.tdn.data.Const;
 import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.SaldoModel;
 import com.tdn.domain.model.TabunganModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.DetailTabunganFragmentBinding;
 
 import java.util.Date;
@@ -50,7 +53,7 @@ public class DetailTabunganFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_tabungan_fragment, container, false);
-        mViewModel = new ViewModelProvider(this).get(DetailTabunganViewModel.class);
+        mViewModel = new ViewModelProvider(this, new VMFactory(getContext())).get(DetailTabunganViewModel.class);
         onClick();
         return binding.getRoot();
     }
@@ -132,10 +135,20 @@ public class DetailTabunganFragment extends Fragment {
     private void observe(DetailTabunganViewModel mViewModel) {
         mViewModel.getTabnganById(MyUser.getInstance(getContext()).getLastIdTabungan())
                 .observe(getViewLifecycleOwner(), tabunganModel -> {
+                    Log.e("tes notif", tabunganModel.toString());
                     if (tabunganModel != null) {
 
-                    } else {
+                        this.tabunganModel = tabunganModel;
+                        binding.tvJumlah.setText(tabunganModel.getNominal());
+                        binding.tvStatus.setText(tabunganModel.getStatus());
+                        if (tabunganModel.getBukti().equals("kosong")) {
 
+                        } else {
+                            Picasso.get().load(tabunganModel.getBukti())
+                                    .into(binding.ivBukti);
+                        }
+                    } else {
+                        this.tabunganModel = new TabunganModel();
                     }
                 });
     }

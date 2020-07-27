@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             signIn();
         });
         binding.tvDaftar.setOnClickListener(v -> {
-            startActivity(new Intent(this, DaftarActivity.class));
+            // startActivity(new Intent(this, DaftarActivity.class));
         });
     }
 

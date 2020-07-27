@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/nav_konfirmasipembayaran"
         android:name="com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran"
-        android:label="Konfirmasi Akun"
+        android:label="Tambahkan Tabungan"
         tools:layout="@layout/aktivasi_akun_fragment" />
 
     <fragment

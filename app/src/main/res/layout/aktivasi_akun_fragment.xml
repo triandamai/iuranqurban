@@ -43,7 +43,7 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:paddingStart="@dimen/dp_16"
                     android:paddingEnd="@dimen/dp_16"
-                    android:text="Untuk melakukan konfirmasi akun, harap isi data dibawah" />
+                    android:text="Untuk menambah tabungan, harap isi data dibawah" />
 
                 <View
                     android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 android:textColor="@color/putih"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/sp_20"
-                android:text="KONFIRMASI" />
+                android:text="KIRIM" />
 
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

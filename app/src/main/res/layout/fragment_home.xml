@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:textColor="@color/putih"
-                    android:text="LIHAT HISTORY IURAN" />
+                    android:text="LIHAT HISTORY TABUNGAN" />
             </LinearLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
