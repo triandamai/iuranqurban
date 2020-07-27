@@ -72,13 +72,13 @@
                 android:text="Sunting Profil" />
         </RelativeLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LOG OUT"
-            android:textColor="@color/putih"
-            android:background="@color/colorPrimary" />
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/btn_logout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="LOG OUT"-->
+        <!--            android:textColor="@color/putih"-->
+        <!--            android:background="@color/colorPrimary" />-->
     </LinearLayout>
 
 </layout>

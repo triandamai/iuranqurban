@@ -43,9 +43,9 @@ public class ProfilNasabahFragment extends Fragment {
     }
 
     private void onCLick() {
-        binding.btnLogout.setOnClickListener(v -> {
-            Snackbar.make(binding.getRoot(), "Maaf Aksi Belum Bisa digunakan", BaseTransientBottomBar.LENGTH_LONG).show();
-        });
+//        binding.btnLogout.setOnClickListener(v -> {
+//            Snackbar.make(binding.getRoot(), "Maaf Aksi Belum Bisa digunakan", BaseTransientBottomBar.LENGTH_LONG).show();
+//        });
     }
 
     @Override
