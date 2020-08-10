@@ -43,7 +43,7 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:paddingStart="@dimen/dp_16"
                     android:paddingEnd="@dimen/dp_16"
-                    android:text="Untuk menambah tabungan, harap isi data dibawah" />
+                    android:text="Untuk aktivasi akun, harap isi data dibawah" />
 
                 <View
                     android:layout_width="match_parent"
