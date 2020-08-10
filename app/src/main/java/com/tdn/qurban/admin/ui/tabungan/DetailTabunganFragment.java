@@ -10,13 +10,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,7 +107,13 @@ public class DetailTabunganFragment extends Fragment {
                                                     .setValue(s);
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_NOTIF_ADMIN)
-                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue();
+                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_home);
+                                                    Snackbar.make(binding.getRoot(), "Diterima", BaseTransientBottomBar.LENGTH_LONG).show();
+                                                }
+                                            });
 
                                         } else {
                                             SaldoModel s = new SaldoModel();
@@ -118,7 +127,13 @@ public class DetailTabunganFragment extends Fragment {
                                                     .setValue(s);
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_NOTIF_ADMIN)
-                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue();
+                                                    .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_home);
+                                                    Snackbar.make(binding.getRoot(), "Diterima", BaseTransientBottomBar.LENGTH_LONG).show();
+                                                }
+                                            });
                                         }
                                     }
 
@@ -127,7 +142,7 @@ public class DetailTabunganFragment extends Fragment {
 
                                     }
                                 });
-                        Snackbar.make(binding.getRoot(), "Diterima", BaseTransientBottomBar.LENGTH_LONG).show();
+
                     });
 
         });
