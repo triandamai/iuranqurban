@@ -71,7 +71,7 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                             u.setUid(snapshot.getKey());
 
 
-                            if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
+                            if (n.getTipe().equals(Const.TIPE_NOTIF_TUTUP)) {
 
                                 v.setText(u.getNama() + " Mengajukan Pengajuan Dana Status : " + n.getStatus());
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {

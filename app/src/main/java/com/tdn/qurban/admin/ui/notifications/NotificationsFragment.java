@@ -63,7 +63,7 @@ public class NotificationsFragment extends Fragment {
     private AdapterNotifClicked adapterNotifClicked = (posisi, userModel) -> {
         NotifikasiModel n = adapterNotifikasiAdmin.getFromPosition(posisi);
 
-        if (n.getTipe().equals(Const.TIPE_NOTIF_AJUKAN)) {
+        if (n.getTipe().equals(Const.TIPE_NOTIF_TUTUP)) {
             MyUser.getInstance(getContext()).setLastIdNasabah(userModel.getUid());
 
             Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_nasabah);

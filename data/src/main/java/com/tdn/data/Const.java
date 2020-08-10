@@ -58,10 +58,10 @@ public class Const {
     public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_DITOLAK = "DITOLAK";
     public static final String STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU = "PENDING";
 
-    public static final String TIPE_NOTIF_AJUKAN = "AJUKANDANA";
-    public static final String STATUS_NOTIF_AJUKAN_DITERIMA = "DITERIMA";
-    public static final String STATUS_NOTIF_AJUKAN_DITOLAK = "DITOLAK";
-    public static final String STATUS_NOTIF_AJUKAN_MENUNGGU = "PENDING";
+    public static final String TIPE_NOTIF_TUTUP = "TUTUPAKUN";
+    public static final String STATUS_NOTIF_TUTUP_DITERIMA = "DITERIMA";
+    public static final String STATUS_NOTIF_TUTUP_DITOLAK = "DITOLAK";
+    public static final String STATUS_NOTIF_TUTUP_MENUNGGU = "PENDING";
 
     public static final String FILE_KOSONG = "kosong";
 

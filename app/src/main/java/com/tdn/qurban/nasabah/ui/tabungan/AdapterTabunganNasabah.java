@@ -44,9 +44,9 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
         holder.binding.setData(TabunganModels.get(position));
         holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
         holder.binding.setPosisi(position);
-        if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_AJUKAN_DITERIMA)) {
+        if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_TUTUP_DITERIMA)) {
             holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-        } else if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_AJUKAN_DITOLAK)) {
+        } else if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_TUTUP_DITOLAK)) {
             holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.red));
         } else {
             holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.gray_muda));

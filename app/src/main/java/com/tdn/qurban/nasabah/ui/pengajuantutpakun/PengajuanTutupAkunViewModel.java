@@ -16,35 +16,54 @@ import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.TutupAkunModel;
 import com.tdn.qurban.core.ActionListener;
 
+import java.util.Date;
+
 public class PengajuanTutupAkunViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private ActionListener actionListener;
+    private Context context;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public PengajuanTutupAkunViewModel(Context context, ActionListener actionListener) {
         this.actionListener = actionListener;
+        this.context = context;
     }
 
     public void ajukan() {
         actionListener.onStart();
+        String idcontent = databaseReference.push().getKey();
         TutupAkunModel model = new TutupAkunModel();
+        model.setAdmin_acc(Const.PENGAJUAN_VERIFIKASI_NO);
+        model.setCreated_at(new Date().getTime());
+        model.setDesc("Tutup Akun");
+        model.setTitle("Tutup Akun");
+        model.setUid(firebaseAuth.getCurrentUser().getUid());
+        model.setUpdated_at(new Date().getTime());
+        model.setUser_acc(Const.PENGAJUAN_VERIFIKASI_YES);
+
         NotifikasiModel notifikasiModel = new NotifikasiModel();
+        notifikasiModel.setId_content(idcontent);
+        notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
+        notifikasiModel.setBroad_to(Const.USER_LEVEL_PANITIA);
+        notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
+        notifikasiModel.setTipe(Const.TIPE_NOTIF_TUTUP);
+        notifikasiModel.setStatus(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU);
+        notifikasiModel.setBody("Meminta menutup akun");
         databaseReference
                 .child(Const.BASE_CHILD)
-                .child(firebaseAuth.getCurrentUser().getUid())
                 .setValue(model).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 databaseReference.child(Const.BASE_CHILD)
                         .child(Const.CHILD_NOTIF_ADMIN)
                         .push()
-                        .setValue(notifikasiModel).addOnCompleteListener(task1 -> actionListener.onSuccess(""));
+                        .setValue(notifikasiModel).addOnCompleteListener(task1 -> actionListener.onSuccess("Berhasil"));
             } else {
                 actionListener.onError("Gagal melakukan pengajuan");
             }
         }).addOnFailureListener(e -> {
-
+            actionListener.onError("Gagal melakukan pengajuan");
         });
 
     }
