@@ -30,8 +30,7 @@ public class PenutupanAkunViewModel extends ViewModel {
 
     public LiveData<List<TutupAkunModel>> getTutupAkunModel() {
         final MutableLiveData<List<TutupAkunModel>> listMutableLiveData = new MutableLiveData<>();
-        databaseReference.child(Const.CHILD_USER)
-                .orderByChild(Const.CHILD_TUTUPAKUN).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(Const.CHILD_TUTUPAKUN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {

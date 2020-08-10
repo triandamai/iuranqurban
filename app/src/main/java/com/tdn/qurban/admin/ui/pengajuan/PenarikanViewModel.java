@@ -29,29 +29,29 @@ public class PenarikanViewModel extends ViewModel {
 
     public LiveData<List<TarikDanaModel>> getTarikDana() {
         final MutableLiveData<List<TarikDanaModel>> listMutableLiveData = new MutableLiveData<>();
-        databaseReference.child(Const.CHILD_USER)
-                .orderByChild(Const.CHILD_TARIKDANA).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<TarikDanaModel> userModelList = new ArrayList<>();
-                    for (DataSnapshot data : snapshot.getChildren()) {
-                        TarikDanaModel userModel = data.getValue(TarikDanaModel.class);
-                        assert userModel != null;
-                        userModel.setId(data.getKey());
-                        userModelList.add(userModel);
+        databaseReference.child(Const.CHILD_TARIKDANA)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            List<TarikDanaModel> userModelList = new ArrayList<>();
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                TarikDanaModel userModel = data.getValue(TarikDanaModel.class);
+                                assert userModel != null;
+                                userModel.setId(data.getKey());
+                                userModelList.add(userModel);
+                            }
+                            listMutableLiveData.setValue(userModelList);
+                        } else {
+                            listMutableLiveData.setValue(null);
+                        }
                     }
-                    listMutableLiveData.setValue(userModelList);
-                } else {
-                    listMutableLiveData.setValue(null);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                listMutableLiveData.setValue(null);
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        listMutableLiveData.setValue(null);
+                    }
+                });
         return listMutableLiveData;
     }
 }
