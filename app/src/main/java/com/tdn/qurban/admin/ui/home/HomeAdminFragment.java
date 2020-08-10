@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
@@ -27,8 +28,13 @@ public class HomeAdminFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_home_admin, container, false);
         homeAdminViewModel =
                 new ViewModelProvider(this).get(HomeAdminViewModel.class);
-        adapterNotifikasiHomeAdmin = new AdapterNotifikasiHomeAdmin(adapterClicked);
-        binding.rv.setAdapter(adapterNotifikasiHomeAdmin);
+        binding.btnAksi.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tarikdana);
+        });
+        binding.btnBtnPanutupan.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tutupakun);
+        });
+
         return binding.getRoot();
     }
 

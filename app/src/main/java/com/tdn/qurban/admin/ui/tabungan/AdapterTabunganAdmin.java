@@ -9,7 +9,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemTabunganBinding;
@@ -21,7 +28,7 @@ import java.util.Objects;
 public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAdmin.MyViewHolder> {
     private List<TabunganModel> TabunganModels = new ArrayList<>();
     private AdapterClicked adapterClicked;
-
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private Context context;
 
     public AdapterTabunganAdmin(Context context, AdapterClicked adapterClicked) {
@@ -41,7 +48,24 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
         holder.binding.setData(TabunganModels.get(position));
         holder.binding.setAction(adapterClicked);
         holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
-        holder.binding.setPosisi(position);
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(TabunganModels.get(position).getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            UserModel u = snapshot.getValue(UserModel.class);
+                            assert u != null;
+                            holder.binding.tvNamauser.setText(u.getNama());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
         holder.binding.setPosisi(position);
     }
 

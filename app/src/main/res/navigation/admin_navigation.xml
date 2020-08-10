@@ -62,5 +62,14 @@
         android:name="com.tdn.qurban.admin.ui.jenishewan.TambahHewan"
         android:label="@string/label_tambahhewan"
         tools:layout="@layout/tambah_hewan_fragment" />
-
+    <fragment
+        android:id="@+id/navigation_tarikdana"
+        android:name="com.tdn.qurban.admin.ui.pengajuan.PenarikanFragment"
+        android:label="Pengajuan Penarikan Dana"
+        tools:layout="@layout/penarikan_fragment" />
+    <fragment
+        android:id="@+id/navigation_tutupakun"
+        android:name="com.tdn.qurban.admin.ui.pengajuan.PenutupanAkunFragment"
+        android:label="Pengajuan Tutup Akun"
+        tools:layout="@layout/pengajuan_tutup_akun_fragment" />
 </navigation>

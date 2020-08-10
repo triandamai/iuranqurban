@@ -39,9 +39,11 @@
         <activity android:name=".core.ImagePickerActivity" />
         <activity
             android:name=".admin.AdminActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/title_activity_admin" />
         <activity
             android:name=".nasabah.NasabahActivity"
+            android:theme="@style/AppTheme"
             android:label="@string/title_activity_nasabah" />
         <activity
             android:name=".SplashScreen"

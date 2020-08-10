@@ -18,6 +18,8 @@ public class Const {
     public static final String CHILD_ORDERBYTIPE = "tipe_pengajuan";
     public static final String CHILD_ORDERBYSTATUS = "status";
     public static final String CHILD_ORDERBYUID = "uid";
+    public static final String CHILD_TARIKDANA = "TARIKDANA";
+    public static final String CHILD_TUTUPAKUN = "TUTUPAKUN";
 
     public static final String SUDAH_REGISTRASI = "YES";
     public static final String BELUM_REGISTRASI = "NO";

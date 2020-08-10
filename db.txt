@@ -51,3 +51,24 @@ hewan
 	- id
 	- jenis
 	- nominal
+
+tutupakun
+		- uid
+		- title
+		- desc
+		- user_acc
+		- admin_acc
+		- created_at
+		- updated_at
+tarikdana
+		- uid
+		- title
+		- desc
+		- nominal
+		- norek
+		- atas_nama
+		- admin_acc
+		- user_acc
+		- created_at
+		- updated_at
+
