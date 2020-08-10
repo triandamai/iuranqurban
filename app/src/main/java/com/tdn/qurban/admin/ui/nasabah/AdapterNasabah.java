@@ -43,7 +43,7 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
         holder.binding.setPosisi(position);
         holder.binding.tvStatus.setText(he.get(position).getStatus());
         holder.binding.tvNama.setText(he.get(position).getNama());
-        holder.binding.tvNik.setText(he.get(position).getNik());
+        holder.binding.tvNik.setText("NIK : " + he.get(position).getNik());
 
         if (he.get(position).getStatus().equals(Const.STATUS_USER_AKTIF)) {
             binding.tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));

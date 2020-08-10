@@ -28,6 +28,15 @@ public class MyUser {
         return myUser;
     }
 
+    public void setLastIdHewan(String val) {
+        editor.putString(Const.KEY_PREF_LAST_HEWAN_ID, val);
+        editor.apply();
+    }
+
+
+    public String getLastIdHewan() {
+        return sharedPreferences.getString(Const.KEY_PREF_LAST_HEWAN_ID, Const.VALUE_PREF_NULL);
+    }
 
     public void setLastIdNasabah(String val) {
         editor.putString(Const.KEY_PREF_LAST_NASABAH_ID, val);

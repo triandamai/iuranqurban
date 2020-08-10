@@ -77,6 +77,7 @@ public class Const {
     public static final String KEY_PREF_LAST_TABUNGAN_ID = "nsbhb";
     public static final String VALUE_PREF_NULL = "NULL";
     public static final String KEY_PREF = "data_iuran_qurban";
+    public static final String KEY_PREF_LAST_HEWAN_ID = "idhewan";
 
     public static int REQ_IMAGE = 100;
     public static int REQ_SIGN = 200;

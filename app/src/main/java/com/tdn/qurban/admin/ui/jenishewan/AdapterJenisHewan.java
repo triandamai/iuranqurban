@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
+import com.tdn.qurban.core.AdapterActionClicked;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemHewanBinding;
 
@@ -22,11 +23,11 @@ import java.util.Objects;
 
 public class AdapterJenisHewan extends RecyclerView.Adapter<AdapterJenisHewan.MyViewHolder> {
     private List<hewanModel> he = new ArrayList<>();
-    private AdapterClicked adapterClicked;
-    private ItemHewanBinding binding;
+    private AdapterActionClicked adapterClicked;
+
     private Context context;
 
-    public AdapterJenisHewan(Context context, AdapterClicked adapterClicked) {
+    public AdapterJenisHewan(Context context, AdapterActionClicked adapterClicked) {
         this.adapterClicked = adapterClicked;
         this.context = context;
     }
@@ -34,15 +35,26 @@ public class AdapterJenisHewan extends RecyclerView.Adapter<AdapterJenisHewan.My
     @NonNull
     @Override
     public AdapterJenisHewan.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_hewan, parent, false);
+        ItemHewanBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_hewan, parent, false);
         return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterJenisHewan.MyViewHolder holder, int position) {
-        Log.e("Data", he.toString());
-        binding.tvHewan.setText(he.get(position).getJenis());
-        binding.tvNominal.setText(he.get(position).getNominal());
+
+        holder.binding.tvNama.setText(he.get(position).getJenis());
+        holder.binding.tvNominal.setText(he.get(position).getNominal());
+        holder.binding.delete.setOnClickListener(v -> {
+            adapterClicked.onDelete(position);
+        });
+        holder.binding.edit.setOnClickListener(v -> {
+            adapterClicked.onEdit(position);
+        });
+
+    }
+
+    public hewanModel getFromPosition(int pos) {
+        return he.get(pos);
     }
 
     public void setData(List<hewanModel> notifikasiModels) {

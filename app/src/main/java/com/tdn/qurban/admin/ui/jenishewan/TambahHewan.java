@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.tdn.data.pref.MyUser;
+import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.ActionListener;
 import com.tdn.qurban.core.VMFactory;
@@ -43,6 +46,25 @@ public class TambahHewan extends Fragment {
         Watcher();
         return binding.getRoot();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String idhewan = MyUser.getInstance(getContext()).getLastIdHewan();
+        if (idhewan != null || !idhewan.equals("") || !idhewan.isEmpty()) {
+            observe(mViewModel);
+        }
+    }
+
+    private void observe(TambahHewanViewModel mViewModel) {
+        mViewModel.hewanModelLiveData(MyUser.getInstance(getContext()).getLastIdHewan()).observe(getViewLifecycleOwner(), hewanModel -> {
+            binding.etNamahewan.setText(hewanModel.getJenis());
+            binding.etNominal.setText(hewanModel.getNominal());
+
+            mViewModel.nomminalHewan.setValue(hewanModel.getNominal());
+            mViewModel.namaHewan.setValue(hewanModel.getJenis());
+        });
     }
 
     private void Watcher() {
@@ -82,14 +104,11 @@ public class TambahHewan extends Fragment {
     }
 
     private void onClick() {
-        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cekValidasi()) {
-                    mViewModel.simpan();
-                } else {
-                    Snackbar.make(binding.getRoot(), "Isi Semua Field!", BaseTransientBottomBar.LENGTH_LONG).show();
-                }
+        binding.btnSimpan.setOnClickListener(v -> {
+            if (cekValidasi()) {
+                mViewModel.simpan();
+            } else {
+                Snackbar.make(binding.getRoot(), "Isi Semua Field!", BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
     }
@@ -107,12 +126,7 @@ public class TambahHewan extends Fragment {
         @Override
         public void onSuccess(@NonNull String message) {
             Snackbar.make(binding.getRoot(), message, BaseTransientBottomBar.LENGTH_LONG).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_jenishewan);
-                }
-            }, 1000);
+            new Handler().postDelayed(() -> Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_jenishewan), 1000);
         }
 
         @Override
