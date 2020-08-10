@@ -1,5 +1,7 @@
 package com.tdn.qurban.nasabah.ui.pengajuantutpakun;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
@@ -21,7 +23,7 @@ public class PengajuanTutupAkunViewModel extends ViewModel {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private ActionListener actionListener;
 
-    public PengajuanTutupAkunViewModel(ActionListener actionListener) {
+    public PengajuanTutupAkunViewModel(Context context, ActionListener actionListener) {
         this.actionListener = actionListener;
     }
 

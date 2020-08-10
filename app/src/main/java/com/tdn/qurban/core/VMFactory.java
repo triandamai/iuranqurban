@@ -12,6 +12,7 @@ import com.tdn.qurban.admin.ui.jenishewan.JenisHewaViewModel;
 import com.tdn.qurban.admin.ui.jenishewan.TambahHewanViewModel;
 import com.tdn.qurban.admin.ui.nasabah.NasabahViewModel;
 import com.tdn.qurban.admin.ui.notifications.NotificationsViewModel;
+import com.tdn.qurban.admin.ui.pengajuan.PenarikanViewModel;
 import com.tdn.qurban.admin.ui.tabungan.DetailTabunganViewModel;
 import com.tdn.qurban.admin.ui.tabungan.TabunganAdminViewModel;
 import com.tdn.qurban.auth.LoginViewModel;
@@ -20,6 +21,8 @@ import com.tdn.qurban.nasabah.ui.home.HomeUserViewModel;
 import com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran;
 import com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaranViewModel;
 import com.tdn.qurban.nasabah.ui.notifikasi.NotifikasiNasabahViewModel;
+import com.tdn.qurban.nasabah.ui.pengajuanpenarikan.PengajuanPenarikanViewModel;
+import com.tdn.qurban.nasabah.ui.pengajuantutpakun.PengajuanTutupAkunViewModel;
 import com.tdn.qurban.nasabah.ui.tabungan.TabunganNasabahViewModel;
 
 public class VMFactory implements ViewModelProvider.Factory {
@@ -147,6 +150,10 @@ public class VMFactory implements ViewModelProvider.Factory {
             return (T) new TabunganNasabahViewModel();
         } else if (modelClass.isAssignableFrom(DetailTabunganViewModel.class)) {
             return (T) new DetailTabunganViewModel(context);
+        } else if (modelClass.isAssignableFrom(PengajuanPenarikanViewModel.class)) {
+            return (T) new PengajuanPenarikanViewModel(context, actionListener);
+        } else if (modelClass.isAssignableFrom(PengajuanTutupAkunViewModel.class)) {
+            return (T) new PengajuanTutupAkunViewModel(context, actionListener);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
