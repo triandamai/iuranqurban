@@ -160,7 +160,11 @@ public class DetailTabunganFragment extends Fragment {
                 .observe(getViewLifecycleOwner(), tabunganModel -> {
 
                     if (tabunganModel != null) {
-
+                        if (tabunganModel.getStatus().equals(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_DITERIMA)) {
+                            binding.btnAktifasi.setEnabled(false);
+                        } else {
+                            binding.btnAktifasi.setEnabled(true);
+                        }
                         this.tabunganModel = tabunganModel;
                         binding.tvJumlah.setText(tabunganModel.getNominal());
                         binding.tvStatus.setText(tabunganModel.getStatus());

@@ -1,6 +1,7 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import com.tdn.data.Const;
 import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.NotifikasiModel;
+import com.tdn.domain.model.SaldoModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
@@ -76,8 +80,16 @@ public class DetailNasabahFragment extends Fragment {
                     .child(Const.CHILD_ORDERBYSTATUS)
                     .setValue(Const.STATUS_USER_AKTIF)
                     .addOnSuccessListener(aVoid -> {
-                        Snackbar.make(binding.getRoot(), "Berhasil", BaseTransientBottomBar.LENGTH_LONG).show();
-                        Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_nasabah);
+                        databaseReference.child(Const.BASE_CHILD)
+                                .child(Const.CHILD_NOTIF_ADMIN)
+                                .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Snackbar.make(binding.getRoot(), "Berhasil", BaseTransientBottomBar.LENGTH_LONG).show();
+                                Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_nasabah);
+                            }
+                        });
+
                     });
 
         });
@@ -117,5 +129,13 @@ public class DetailNasabahFragment extends Fragment {
                 Snackbar.make(binding.getRoot(), "Tidak bisa mengambil data rencana tabungan", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             }
         });
+        mViewModel.getSaldos(MyUser.getInstance(getContext()).getLastIdNasabah())
+                .observe(getViewLifecycleOwner(), saldoModel -> {
+                    if (saldoModel != null) {
+                        binding.tvJumlahTabungan.setText("Rp " + saldoModel.getJumlah());
+                    } else {
+
+                    }
+                });
     }
 }

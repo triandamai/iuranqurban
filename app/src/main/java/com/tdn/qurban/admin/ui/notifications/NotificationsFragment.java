@@ -76,6 +76,7 @@ public class NotificationsFragment extends Fragment {
 
         } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
             MyUser.getInstance(getContext()).setLastIdNasabah(userModel.getUid());
+            MyUser.getInstance(getContext()).setLastIdNotif(n.getId());
             Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_nasabah);
 
         } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
