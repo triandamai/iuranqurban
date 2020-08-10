@@ -7,14 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdn.domain.model.NotifikasiModel;
+import com.tdn.domain.model.TarikDanaModel;
 import com.tdn.qurban.core.AdapterClicked;
 
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanDana.MyViewHolder> {
-    private List<NotifikasiModel> NotifikasiModels;
+    private List<TarikDanaModel> tarikDanaModels;
     private AdapterClicked adapterClicked;
 
     public AdapterPenarikanDana(AdapterClicked adapterClicked) {
@@ -32,14 +32,14 @@ public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanD
 
     }
 
-    public void setData(List<NotifikasiModel> NotifikasiModels) {
-        if (this.NotifikasiModels == null) {
-            this.NotifikasiModels.addAll(NotifikasiModels);
+    public void setData(List<TarikDanaModel> NotifikasiModels) {
+        if (this.tarikDanaModels == null) {
+            this.tarikDanaModels.addAll(NotifikasiModels);
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return AdapterPenarikanDana.this.NotifikasiModels.size();
+                    return AdapterPenarikanDana.this.tarikDanaModels.size();
                 }
 
                 @Override
@@ -49,17 +49,17 @@ public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanD
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterPenarikanDana.this.NotifikasiModels.get(oldItemPosition).getId() == NotifikasiModels.get(newItemPosition).getId();
+                    return AdapterPenarikanDana.this.tarikDanaModels.get(oldItemPosition).getId() == NotifikasiModels.get(newItemPosition).getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    NotifikasiModel lama = AdapterPenarikanDana.this.NotifikasiModels.get(oldItemPosition);
-                    NotifikasiModel baru = NotifikasiModels.get(newItemPosition);
+                    TarikDanaModel lama = AdapterPenarikanDana.this.tarikDanaModels.get(oldItemPosition);
+                    TarikDanaModel baru = NotifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });
-            this.NotifikasiModels = NotifikasiModels;
+            this.tarikDanaModels = NotifikasiModels;
             result.dispatchUpdatesTo(this);
             notifyDataSetChanged();
         }
@@ -67,7 +67,7 @@ public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanD
 
     @Override
     public int getItemCount() {
-        return NotifikasiModels == null ? 0 : NotifikasiModels.size();
+        return tarikDanaModels == null ? 0 : tarikDanaModels.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

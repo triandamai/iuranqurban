@@ -50,7 +50,7 @@ public class AdapterPenutupanAkun extends RecyclerView.Adapter<AdapterPenutupanA
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterPenutupanAkun.this.tutupAkunModels.get(oldItemPosition).getUid() == NotifikasiModels.get(newItemPosition).getUid();
+                    return AdapterPenutupanAkun.this.tutupAkunModels.get(oldItemPosition).getId() == NotifikasiModels.get(newItemPosition).getId();
                 }
 
                 @Override
