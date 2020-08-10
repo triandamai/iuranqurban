@@ -39,7 +39,7 @@ public class PenutupanAkunFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.penutupan_akun_fragment, container, false);
         adapterPenutupanAkun = new AdapterPenutupanAkun(posisi -> {
 
-        });
+        }, getContext());
         binding.rv.setAdapter(adapterPenutupanAkun);
         return binding.getRoot();
     }

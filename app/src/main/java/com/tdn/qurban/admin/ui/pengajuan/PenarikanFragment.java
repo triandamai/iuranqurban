@@ -40,7 +40,7 @@ public class PenarikanFragment extends Fragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.penarikan_fragment, container, false);
         adapterPenarikanDana = new AdapterPenarikanDana(posisi -> {
 
-        });
+        }, getContext());
         binding.rv.setAdapter(adapterPenarikanDana);
         return binding.getRoot();
     }

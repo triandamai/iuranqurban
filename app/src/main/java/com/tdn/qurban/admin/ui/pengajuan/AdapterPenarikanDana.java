@@ -1,35 +1,49 @@
 package com.tdn.qurban.admin.ui.pengajuan;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdn.domain.model.TarikDanaModel;
+import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.databinding.ItemTarikdanaBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanDana.MyViewHolder> {
-    private List<TarikDanaModel> tarikDanaModels;
+    private List<TarikDanaModel> tarikDanaModels = new ArrayList<>();
     private AdapterClicked adapterClicked;
+    private Context context;
 
-    public AdapterPenarikanDana(AdapterClicked adapterClicked) {
+    public AdapterPenarikanDana(AdapterClicked adapterClicked, Context context) {
         this.adapterClicked = adapterClicked;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public AdapterPenarikanDana.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        ItemTarikdanaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_tarikdana, parent, false);
+
+        return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPenarikanDana.MyViewHolder holder, int position) {
+        holder.binding.setPosisi(position);
+        holder.binding.setAction(adapterClicked);
+        holder.binding.tvNama.setText(tarikDanaModels.get(position).getAtas_nama());
 
+        holder.binding.tvStatus.setText("Status");
     }
 
     public void setData(List<TarikDanaModel> NotifikasiModels) {
@@ -71,8 +85,11 @@ public class AdapterPenarikanDana extends RecyclerView.Adapter<AdapterPenarikanD
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
+        private ItemTarikdanaBinding binding;
+
+        public MyViewHolder(@NonNull ItemTarikdanaBinding itemView) {
+            super(itemView.getRoot());
+            this.binding = itemView;
         }
     }
 }
