@@ -71,7 +71,7 @@ public class SplashScreen extends AppCompatActivity {
                                             }
                                         }, 1000);
                                     }
-                                } else {
+                                } else if (usermodel.getLevel().equals(Const.USER_LEVEL_ADMIN) || usermodel.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
                                     Snackbar.make(binding.getRoot(), "Sync " + usermodel.getNama(), BaseTransientBottomBar.LENGTH_LONG).show();
                                     new Handler().postDelayed(new Runnable() {
                                         @Override

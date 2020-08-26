@@ -10,6 +10,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.tdn.data.Const;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.admin.AdminActivity;
 import com.tdn.qurban.auth.LoginActivity;
@@ -32,6 +39,7 @@ public class NasabahActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +69,40 @@ public class NasabahActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        cekFAB();
+        getStatus();
+
         onClick();
+    }
+
+    private void getStatus() {
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            UserModel s = snapshot.getValue(UserModel.class);
+                            assert s != null;
+                            s.setUid(snapshot.getKey());
+
+                            if (s.getStatus().equals(Const.STATUS_USER_NONAKTIF)) {
+                                fab.setVisibility(View.GONE);
+                            } else {
+                                fab.setVisibility(View.VISIBLE);
+                                cekFAB();
+                            }
+                        } else {
+                            fab.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        fab.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void onClick() {
