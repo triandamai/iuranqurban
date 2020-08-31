@@ -125,7 +125,7 @@
                 android:textColor="@color/putih"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/sp_20"
-                android:text="KONFIRMASI" />
+                android:text="KIRIM" />
 
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

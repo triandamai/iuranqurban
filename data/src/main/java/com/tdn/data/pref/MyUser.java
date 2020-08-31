@@ -28,6 +28,16 @@ public class MyUser {
         return myUser;
     }
 
+    public void setAktif(Boolean val) {
+        editor.putBoolean(Const.KEY_PREF_AKTIF, val);
+        editor.apply();
+    }
+
+
+    public Boolean getAktif() {
+        return sharedPreferences.getBoolean(Const.KEY_PREF_AKTIF, false);
+    }
+
     public void setLastIdHewan(String val) {
         editor.putString(Const.KEY_PREF_LAST_HEWAN_ID, val);
         editor.apply();

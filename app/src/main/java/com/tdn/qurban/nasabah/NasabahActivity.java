@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.admin.AdminActivity;
@@ -89,7 +91,9 @@ public class NasabahActivity extends AppCompatActivity {
 
                             if (s.getStatus().equals(Const.STATUS_USER_NONAKTIF)) {
                                 fab.setVisibility(View.GONE);
+                                MyUser.getInstance(NasabahActivity.this).setAktif(false);
                             } else {
+                                MyUser.getInstance(NasabahActivity.this).setAktif(true);
                                 fab.setVisibility(View.VISIBLE);
                                 cekFAB();
                             }
@@ -107,7 +111,6 @@ public class NasabahActivity extends AppCompatActivity {
 
     private void onClick() {
         fab.setOnClickListener(v -> navController.navigate(R.id.nav_konfirmasipembayaran));
-
     }
 
     private void cekFAB() {
@@ -150,7 +153,12 @@ public class NasabahActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        if (MyUser.getInstance(NasabahActivity.this).getAktif()) {
+            return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                    || super.onSupportNavigateUp();
+        } else {
+            Snackbar.make(fab, "Akun Belum Aktif", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
+            return false;
+        }
     }
 }
