@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp_18"
+        android:layout_marginTop="@dimen/dp_24"
+        android:justificationMode="inter_word"
+        android:text="Sebagai peserta tabungan kurban, dengan ini saya menyatakan bahwa : \n\n"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:justificationMode="inter_word"
+        android:text="1. Saya bersedia melakukan penyetoran tabungan minimal Rp. 100.000 per transaksi. \n"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:justificationMode="inter_word"
+        android:text="2. Jika saya meninggal dunia maka tabungan kurban saya yang diteruskan oleh ahli waris saya. Namun jika ahli waris tidak sanggup, maka tabungan dicairkan dan diserahkan kepada ahli waris sejumlah uang yang saya tabung pada saat 2 bulan menjelang Idul Adha. \n"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:justificationMode="inter_word"
+        android:text="3. Jika terdapat kelebihan simpanan setelah dilaksanakan kurban (jika hewan kurban diberikan panitia) dan saya tidak dapat dikonfirmasi, maka kelebihan tabungan tersebut dijadikan infaq dan digunakan untuk kegiatan kurban di Masjid Baitul Muhsinin. \n"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginStart="@dimen/dp_16"
+        android:justificationMode="inter_word"
+        android:text="4. Saya bersedia dan sanggup untuk tidak menarik/mencairkan uang tabungan yang sudah disetorkan hingga 2 bulan sebelum Idul Adha.
+"
+        tools:ignore="HardcodedText" />
+</LinearLayout>
