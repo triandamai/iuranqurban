@@ -1,5 +1,7 @@
 package com.tdn.qurban.admin.ui.pengajuan;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -13,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.qurban.R;
+import com.tdn.qurban.databinding.DetailPengajuanFragmentBinding;
 
 public class DetailPengajuanDanaFragment extends Fragment {
+    private DetailPengajuanFragmentBinding binding;
 
     private DetailPengajuanDanaViewModel mViewModel;
 
@@ -25,13 +29,15 @@ public class DetailPengajuanDanaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.detail_pengajuan_pengajuan_fragment, container, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.detail_pengajuan_fragment, container, false);
+
+        return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(DetailPengajuanDanaViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(DetailPengajuanDanaViewModel.class);
         // TODO: Use the ViewModel
     }
 

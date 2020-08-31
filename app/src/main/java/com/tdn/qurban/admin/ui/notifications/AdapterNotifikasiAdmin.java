@@ -69,8 +69,6 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                             u = snapshot.getValue(UserModel.class);
                             assert u != null;
                             u.setUid(snapshot.getKey());
-
-
                             if (n.getTipe().equals(Const.TIPE_NOTIF_TUTUP)) {
 
                                 v.setText(u.getNama() + " Mengajukan Penutupan Akun");
@@ -82,7 +80,7 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                                 v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status ");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
 
-                                v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
+                                v.setText(u.getNama() + " Menamba hkan saldo ,Menunggu persetujuan");
                             } else {
                                 v.setText("Notifikasi tidak diketahui");
                             }

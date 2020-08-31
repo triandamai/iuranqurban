@@ -55,7 +55,6 @@ public class NotificationsFragment extends Fragment {
                 adapterNotifikasiAdmin.setData(notifikasiModel);
             } else {
                 binding.lyKosong.setVisibility(View.VISIBLE);
-
             }
         });
     }
