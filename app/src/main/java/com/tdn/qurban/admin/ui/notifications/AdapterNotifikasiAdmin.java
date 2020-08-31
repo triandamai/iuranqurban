@@ -73,13 +73,13 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
 
                             if (n.getTipe().equals(Const.TIPE_NOTIF_TUTUP)) {
 
-                                v.setText(u.getNama() + " Mengajukan Pengajuan Dana Status : " + n.getStatus());
+                                v.setText(u.getNama() + " Mengajukan Penutupan Akun");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
 
-                                v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : " + n.getStatus());
+                                v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : ");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
 
-                                v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status " + n.getStatus());
+                                v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status ");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
 
                                 v.setText(u.getNama() + " Menambahkan saldo ,Menunggu persetujuan");
