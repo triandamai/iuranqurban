@@ -10,13 +10,15 @@
         android:icon="@drawable/ic_nasabah"
         android:title="Nasabah" />
     <item
-        android:id="@+id/navigation_tabungan"
+        android:id="@+id/navigation_list_tabungan"
         android:icon="@drawable/ic_tabungan"
         android:title="Tabungan" />
+
     <item
         android:id="@+id/navigation_jenishewan"
         android:icon="@drawable/ic_hewan"
         android:title="Hewan" />
+
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications"

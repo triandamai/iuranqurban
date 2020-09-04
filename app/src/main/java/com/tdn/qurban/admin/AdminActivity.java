@@ -33,7 +33,7 @@ public class AdminActivity extends AppCompatActivity {
                 R.id.navigation_notifications,
                 R.id.navigation_jenishewan,
                 R.id.navigation_nasabah,
-                R.id.navigation_tabungan)
+                R.id.navigation_list_tabungan)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

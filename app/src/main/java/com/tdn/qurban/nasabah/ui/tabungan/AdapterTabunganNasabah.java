@@ -41,7 +41,7 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setAction(adapterClicked);
-        holder.binding.setData(TabunganModels.get(position));
+
         holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
         holder.binding.setPosisi(position);
         if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_TUTUP_DITERIMA)) {

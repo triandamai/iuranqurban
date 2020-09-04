@@ -19,45 +19,48 @@ import com.tdn.domain.model.TabunganModel;
 import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
+import com.tdn.qurban.databinding.ItemListtabunganBinding;
 import com.tdn.qurban.databinding.ItemTabunganBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAdmin.MyViewHolder> {
-    private List<TabunganModel> TabunganModels = new ArrayList<>();
+public class AdapterListTabunganAdmin extends RecyclerView.Adapter<AdapterListTabunganAdmin.MyViewHolder> {
+    private List<String> TabunganModels = new ArrayList<>();
     private AdapterClicked adapterClicked;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private Context context;
 
-    public AdapterTabunganAdmin(Context context, AdapterClicked adapterClicked) {
+    public AdapterListTabunganAdmin(Context context, AdapterClicked adapterClicked) {
         this.adapterClicked = adapterClicked;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public AdapterTabunganAdmin.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemTabunganBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_tabungan, parent, false);
+    public AdapterListTabunganAdmin.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemListtabunganBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_listtabungan, parent, false);
         return new MyViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterTabunganAdmin.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setAction(adapterClicked);
-        holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
+        holder.binding.setPosisi(position);
+
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
-                .child(TabunganModels.get(position).getUser_uid())
+                .child(TabunganModels.get(position))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             UserModel u = snapshot.getValue(UserModel.class);
-                            assert u != null;
-                            holder.binding.tvNamauser.setText(u.getNama());
+                            holder.binding.tvNamauser.setText("Nama : " + u.getNama());
+                            holder.binding.tvTanggal.setText("Alamat : " + u.getAlamat());
+                        } else {
+
                         }
                     }
 
@@ -69,14 +72,14 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
         holder.binding.setPosisi(position);
     }
 
-    public void setData(List<TabunganModel> NotifikasiModels) {
+    public void setData(List<String> NotifikasiModels) {
         if (this.TabunganModels == null) {
             this.TabunganModels.addAll(NotifikasiModels);
         } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
-                    return AdapterTabunganAdmin.this.TabunganModels.size();
+                    return AdapterListTabunganAdmin.this.TabunganModels.size();
                 }
 
                 @Override
@@ -86,13 +89,13 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterTabunganAdmin.this.TabunganModels.get(oldItemPosition).getId() == NotifikasiModels.get(newItemPosition).getId();
+                    return AdapterListTabunganAdmin.this.TabunganModels.get(oldItemPosition) == NotifikasiModels.get(newItemPosition);
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    TabunganModel lama = AdapterTabunganAdmin.this.TabunganModels.get(oldItemPosition);
-                    TabunganModel baru = NotifikasiModels.get(newItemPosition);
+                    String lama = AdapterListTabunganAdmin.this.TabunganModels.get(oldItemPosition);
+                    String baru = NotifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });
@@ -102,7 +105,7 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
         }
     }
 
-    public TabunganModel getFromPosition(int pos) {
+    public String getFromPosition(int pos) {
         return TabunganModels.get(pos);
     }
 
@@ -112,9 +115,9 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private ItemTabunganBinding binding;
+        private ItemListtabunganBinding binding;
 
-        public MyViewHolder(@NonNull ItemTabunganBinding itemView) {
+        public MyViewHolder(@NonNull ItemListtabunganBinding itemView) {
             super(itemView.getRoot());
             this.binding = itemView;
         }

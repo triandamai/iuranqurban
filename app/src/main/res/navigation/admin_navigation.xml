@@ -72,4 +72,9 @@
         android:name="com.tdn.qurban.admin.ui.pengajuan.PenutupanAkunFragment"
         android:label="Pengajuan Tutup Akun"
         tools:layout="@layout/pengajuan_tutup_akun_fragment" />
+    <fragment
+        android:id="@+id/navigation_list_tabungan"
+        android:name="com.tdn.qurban.admin.ui.tabungan.ListTabunganFragment"
+        android:label="Daftar Tabungan"
+        tools:layout="@layout/list_tabungan_fragment" />
 </navigation>
