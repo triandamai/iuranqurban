@@ -4,14 +4,16 @@ public class hewanModel {
     String id;
     String jenis;
     String nominal;
+    String created_by;
 
     public hewanModel() {
     }
 
-    public hewanModel(String id, String jenis, String nominal) {
+    public hewanModel(String id, String jenis, String nominal, String created_by) {
         this.id = id;
         this.jenis = jenis;
         this.nominal = nominal;
+        this.created_by = created_by;
     }
 
     public String getId() {
@@ -38,12 +40,11 @@ public class hewanModel {
         this.nominal = nominal;
     }
 
-    @Override
-    public String toString() {
-        return "hewanModel{" +
-                "id='" + id + '\'' +
-                ", jenis='" + jenis + '\'' +
-                ", nominal='" + nominal + '\'' +
-                '}';
+    public String getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
     }
 }

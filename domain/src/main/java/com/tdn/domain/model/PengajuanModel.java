@@ -3,11 +3,23 @@ package com.tdn.domain.model;
 public class PengajuanModel {
     String id;
     String tipe_pengajuan;
-    String uid;
+    String user_uid;
+    String admin_uid;
     String keterangan;
     String bukti;
     String verifikasi_admin;
     String verifikasi_user;
+
+    public PengajuanModel(String id, String tipe_pengajuan, String user_uid, String admin_uid, String keterangan, String bukti, String verifikasi_admin, String verifikasi_user) {
+        this.id = id;
+        this.tipe_pengajuan = tipe_pengajuan;
+        this.user_uid = user_uid;
+        this.admin_uid = admin_uid;
+        this.keterangan = keterangan;
+        this.bukti = bukti;
+        this.verifikasi_admin = verifikasi_admin;
+        this.verifikasi_user = verifikasi_user;
+    }
 
     public String getId() {
         return id;
@@ -25,12 +37,20 @@ public class PengajuanModel {
         this.tipe_pengajuan = tipe_pengajuan;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUser_uid() {
+        return user_uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
+    public String getAdmin_uid() {
+        return admin_uid;
+    }
+
+    public void setAdmin_uid(String admin_uid) {
+        this.admin_uid = admin_uid;
     }
 
     public String getKeterangan() {
@@ -63,18 +83,5 @@ public class PengajuanModel {
 
     public void setVerifikasi_user(String verifikasi_user) {
         this.verifikasi_user = verifikasi_user;
-    }
-
-    @Override
-    public String toString() {
-        return "PengajuanModel{" +
-                "id='" + id + '\'' +
-                ", tipe_pengajuan='" + tipe_pengajuan + '\'' +
-                ", uid='" + uid + '\'' +
-                ", keterangan='" + keterangan + '\'' +
-                ", bukti='" + bukti + '\'' +
-                ", verifikasi_admin='" + verifikasi_admin + '\'' +
-                ", verifikasi_user='" + verifikasi_user + '\'' +
-                '}';
     }
 }

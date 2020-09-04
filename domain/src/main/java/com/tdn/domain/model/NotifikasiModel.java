@@ -3,7 +3,7 @@ package com.tdn.domain.model;
 public class NotifikasiModel {
     String id;
     String from_uid;
-    String broad_to;
+    String to_uid;
     String body;
     String tipe;
     String id_content;
@@ -11,17 +11,6 @@ public class NotifikasiModel {
     String created_at;
 
     public NotifikasiModel() {
-    }
-
-    public NotifikasiModel(String id, String from_uid, String broad_to, String body, String tipe, String id_content, String status, String created_at) {
-        this.id = id;
-        this.from_uid = from_uid;
-        this.broad_to = broad_to;
-        this.body = body;
-        this.tipe = tipe;
-        this.id_content = id_content;
-        this.status = status;
-        this.created_at = created_at;
     }
 
     public String getId() {
@@ -40,12 +29,12 @@ public class NotifikasiModel {
         this.from_uid = from_uid;
     }
 
-    public String getBroad_to() {
-        return broad_to;
+    public String getTo_uid() {
+        return to_uid;
     }
 
-    public void setBroad_to(String broad_to) {
-        this.broad_to = broad_to;
+    public void setTo_uid(String to_uid) {
+        this.to_uid = to_uid;
     }
 
     public String getBody() {
@@ -86,19 +75,5 @@ public class NotifikasiModel {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
-    }
-
-    @Override
-    public String toString() {
-        return "NotifikasiModel{" +
-                "id='" + id + '\'' +
-                ", from_uid='" + from_uid + '\'' +
-                ", broad_to='" + broad_to + '\'' +
-                ", body='" + body + '\'' +
-                ", tipe='" + tipe + '\'' +
-                ", id_content='" + id_content + '\'' +
-                ", status='" + status + '\'' +
-                ", created_at='" + created_at + '\'' +
-                '}';
     }
 }

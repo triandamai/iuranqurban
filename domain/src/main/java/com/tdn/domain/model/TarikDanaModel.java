@@ -3,7 +3,8 @@ package com.tdn.domain.model;
 public class TarikDanaModel {
 
     String id;
-    String uid;
+    String user_uid;
+    String admin_uid;
     String title;
     String desc;
     double nominal;
@@ -14,6 +15,24 @@ public class TarikDanaModel {
     double created_at;
     double updated_at;
 
+    public TarikDanaModel() {
+    }
+
+    public TarikDanaModel(String id, String user_uid, String admin_uid, String title, String desc, double nominal, String norek, String atas_nama, String admin_acc, String user_acc, double created_at, double updated_at) {
+        this.id = id;
+        this.user_uid = user_uid;
+        this.admin_uid = admin_uid;
+        this.title = title;
+        this.desc = desc;
+        this.nominal = nominal;
+        this.norek = norek;
+        this.atas_nama = atas_nama;
+        this.admin_acc = admin_acc;
+        this.user_acc = user_acc;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
+
     public String getId() {
         return id;
     }
@@ -22,12 +41,20 @@ public class TarikDanaModel {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUser_uid() {
+        return user_uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
+    public String getAdmin_uid() {
+        return admin_uid;
+    }
+
+    public void setAdmin_uid(String admin_uid) {
+        this.admin_uid = admin_uid;
     }
 
     public String getTitle() {
@@ -100,22 +127,5 @@ public class TarikDanaModel {
 
     public void setUpdated_at(double updated_at) {
         this.updated_at = updated_at;
-    }
-
-    @Override
-    public String toString() {
-        return "TarikDanaModel{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", title='" + title + '\'' +
-                ", desc='" + desc + '\'' +
-                ", nominal=" + nominal +
-                ", norek='" + norek + '\'' +
-                ", atas_nama='" + atas_nama + '\'' +
-                ", admin_acc='" + admin_acc + '\'' +
-                ", user_acc='" + user_acc + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
-                '}';
     }
 }

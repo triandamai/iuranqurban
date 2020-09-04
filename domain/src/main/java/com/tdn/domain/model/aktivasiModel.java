@@ -1,14 +1,19 @@
 package com.tdn.domain.model;
 
 public class aktivasiModel {
-    String uid, foto, created_at, updated_at;
+    String uid,
+            foto,
+            activate_by,
+            created_at,
+            updated_at;
 
     public aktivasiModel() {
     }
 
-    public aktivasiModel(String uid, String foto, String created_at, String updated_at) {
+    public aktivasiModel(String uid, String foto, String activate_by, String created_at, String updated_at) {
         this.uid = uid;
         this.foto = foto;
+        this.activate_by = activate_by;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -29,6 +34,14 @@ public class aktivasiModel {
         this.foto = foto;
     }
 
+    public String getActivate_by() {
+        return activate_by;
+    }
+
+    public void setActivate_by(String activate_by) {
+        this.activate_by = activate_by;
+    }
+
     public String getCreated_at() {
         return created_at;
     }
@@ -43,15 +56,5 @@ public class aktivasiModel {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    @Override
-    public String toString() {
-        return "aktivasiModel{" +
-                "uid='" + uid + '\'' +
-                ", foto='" + foto + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
-                '}';
     }
 }

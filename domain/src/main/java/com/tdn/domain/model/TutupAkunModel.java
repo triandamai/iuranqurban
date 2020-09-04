@@ -2,13 +2,29 @@ package com.tdn.domain.model;
 
 public class TutupAkunModel {
     String id;
-    String uid;
+    String user_uid;
+    String admin_uid;
     String title;
     String desc;
     String user_acc;
     String admin_acc;
     double created_at;
     double updated_at;
+
+    public TutupAkunModel() {
+    }
+
+    public TutupAkunModel(String id, String user_uid, String admin_uid, String title, String desc, String user_acc, String admin_acc, double created_at, double updated_at) {
+        this.id = id;
+        this.user_uid = user_uid;
+        this.admin_uid = admin_uid;
+        this.title = title;
+        this.desc = desc;
+        this.user_acc = user_acc;
+        this.admin_acc = admin_acc;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 
     public String getId() {
         return id;
@@ -18,12 +34,20 @@ public class TutupAkunModel {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUser_uid() {
+        return user_uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
+    public String getAdmin_uid() {
+        return admin_uid;
+    }
+
+    public void setAdmin_uid(String admin_uid) {
+        this.admin_uid = admin_uid;
     }
 
     public String getTitle() {
@@ -72,19 +96,5 @@ public class TutupAkunModel {
 
     public void setUpdated_at(double updated_at) {
         this.updated_at = updated_at;
-    }
-
-    @Override
-    public String toString() {
-        return "TutupAkunModel{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", title='" + title + '\'' +
-                ", desc='" + desc + '\'' +
-                ", user_acc='" + user_acc + '\'' +
-                ", admin_acc='" + admin_acc + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
-                '}';
     }
 }

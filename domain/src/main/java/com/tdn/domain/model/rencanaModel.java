@@ -2,11 +2,11 @@ package com.tdn.domain.model;
 
 public class rencanaModel {
     String uid;
-    String jenis;
-    String id_jenis;
+    String jenis_hewan;
+    String jenis_hewan_id;
     String jumlah;
     String target_nominal;
-    String pembelian;
+    String jenis_pembelian;
     String tempat_penyerahan;
     String created_at;
     String updated_at;
@@ -14,13 +14,13 @@ public class rencanaModel {
     public rencanaModel() {
     }
 
-    public rencanaModel(String uid, String jenis, String id_jenis, String jumlah, String target_nominal, String pembelian, String tempat_penyerahan, String created_at, String updated_at) {
+    public rencanaModel(String uid, String jenis_hewan, String jenis_hewan_id, String jumlah, String target_nominal, String jenis_pembelian, String tempat_penyerahan, String created_at, String updated_at) {
         this.uid = uid;
-        this.jenis = jenis;
-        this.id_jenis = id_jenis;
+        this.jenis_hewan = jenis_hewan;
+        this.jenis_hewan_id = jenis_hewan_id;
         this.jumlah = jumlah;
         this.target_nominal = target_nominal;
-        this.pembelian = pembelian;
+        this.jenis_pembelian = jenis_pembelian;
         this.tempat_penyerahan = tempat_penyerahan;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -34,20 +34,20 @@ public class rencanaModel {
         this.uid = uid;
     }
 
-    public String getJenis() {
-        return jenis;
+    public String getJenis_hewan() {
+        return jenis_hewan;
     }
 
-    public void setJenis(String jenis) {
-        this.jenis = jenis;
+    public void setJenis_hewan(String jenis_hewan) {
+        this.jenis_hewan = jenis_hewan;
     }
 
-    public String getId_jenis() {
-        return id_jenis;
+    public String getJenis_hewan_id() {
+        return jenis_hewan_id;
     }
 
-    public void setId_jenis(String id_jenis) {
-        this.id_jenis = id_jenis;
+    public void setJenis_hewan_id(String jenis_hewan_id) {
+        this.jenis_hewan_id = jenis_hewan_id;
     }
 
     public String getJumlah() {
@@ -66,12 +66,12 @@ public class rencanaModel {
         this.target_nominal = target_nominal;
     }
 
-    public String getPembelian() {
-        return pembelian;
+    public String getJenis_pembelian() {
+        return jenis_pembelian;
     }
 
-    public void setPembelian(String pembelian) {
-        this.pembelian = pembelian;
+    public void setJenis_pembelian(String jenis_pembelian) {
+        this.jenis_pembelian = jenis_pembelian;
     }
 
     public String getTempat_penyerahan() {
@@ -96,20 +96,5 @@ public class rencanaModel {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    @Override
-    public String toString() {
-        return "rencanaModel{" +
-                "uid='" + uid + '\'' +
-                ", jenis='" + jenis + '\'' +
-                ", id_jenis='" + id_jenis + '\'' +
-                ", jumlah='" + jumlah + '\'' +
-                ", target_nominal='" + target_nominal + '\'' +
-                ", pembelian='" + pembelian + '\'' +
-                ", tempat_penyerahan='" + tempat_penyerahan + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
-                '}';
     }
 }

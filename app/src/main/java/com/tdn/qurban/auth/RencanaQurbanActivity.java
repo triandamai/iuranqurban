@@ -127,7 +127,6 @@ public class RencanaQurbanActivity extends AppCompatActivity {
                                     hewan = ArrayUtils.appendToArray(hewan, m.getJenis());
                                     nominal = ArrayUtils.appendToArray(nominal, m.getNominal());
                                     id = ArrayUtils.appendToArray(id, m.getId());
-
                                 }
                                 builder.setTitle("Pilih Jenis Hewan");
                                 String[] finalHewan = hewan;

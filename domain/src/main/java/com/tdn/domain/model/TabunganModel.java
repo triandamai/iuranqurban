@@ -7,7 +7,8 @@ import java.util.Date;
 
 public class TabunganModel {
     String id;
-    String uid;
+    String user_uid;
+    String admin_uid;
     String bukti;
     String nominal;
     String keterangan;
@@ -18,9 +19,10 @@ public class TabunganModel {
     public TabunganModel() {
     }
 
-    public TabunganModel(String id, String uid, String bukti, String nominal, String keterangan, String status, String created_at, String updated_at) {
+    public TabunganModel(String id, String user_uid, String admin_uid, String bukti, String nominal, String keterangan, String status, String created_at, String updated_at) {
         this.id = id;
-        this.uid = uid;
+        this.user_uid = user_uid;
+        this.admin_uid = admin_uid;
         this.bukti = bukti;
         this.nominal = nominal;
         this.keterangan = keterangan;
@@ -37,12 +39,20 @@ public class TabunganModel {
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public String getUser_uid() {
+        return user_uid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_uid(String user_uid) {
+        this.user_uid = user_uid;
+    }
+
+    public String getAdmin_uid() {
+        return admin_uid;
+    }
+
+    public void setAdmin_uid(String admin_uid) {
+        this.admin_uid = admin_uid;
     }
 
     public String getBukti() {
@@ -91,27 +101,5 @@ public class TabunganModel {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public String created_at_to_date() {
-        long time = Long.parseLong(created_at);
-        Date date = new Date(time);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return date.toString();
-    }
-
-    @Override
-    public String toString() {
-        return "TabunganModel{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", bukti='" + bukti + '\'' +
-                ", nominal='" + nominal + '\'' +
-                ", keterangan='" + keterangan + '\'' +
-                ", status='" + status + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
-                '}';
     }
 }

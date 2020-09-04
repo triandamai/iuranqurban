@@ -1,42 +1,87 @@
 {
   "project_info": {
-    "project_number": "264573731963",
-    "firebase_url": "https://myproject-64aac.firebaseio.com",
-    "project_id": "myproject-64aac",
-    "storage_bucket": "myproject-64aac.appspot.com"
+    "project_number": "302297332162",
+    "firebase_url": "https://tabungan-208af.firebaseio.com",
+    "project_id": "tabungan-208af",
+    "storage_bucket": "tabungan-208af.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:264573731963:android:cefa3874af3ea2c1be4ede",
+        "mobilesdk_app_id": "1:302297332162:android:83268740a83fb7cfcffe5b",
         "android_client_info": {
-          "package_name": "com.tdn.qurban"
+          "package_name": "com.tdn.data"
         }
       },
       "oauth_client": [
         {
-          "client_id": "264573731963-n3bfohavc6j7uem942k02srforqbels1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tdn.qurban",
-            "certificate_hash": "5ce992c54564f7ed00280c063564767bdd732955"
-          }
-        },
-        {
-          "client_id": "264573731963-ro6vtkfus8etok361bbr7ef3tiuffcsj.apps.googleusercontent.com",
+          "client_id": "302297332162-1k7v63ef0qaoc936dsc5gegnlj9s23s6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBbwHhGWzv5pdzHWFN4YYd27csOPhd1Rjk"
+          "current_key": "AIzaSyDpZViuvGfU_V0TGP4h-NtSlQk6N95tMaw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "264573731963-ro6vtkfus8etok361bbr7ef3tiuffcsj.apps.googleusercontent.com",
+              "client_id": "302297332162-1k7v63ef0qaoc936dsc5gegnlj9s23s6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302297332162:android:0af51be815acffd1cffe5b",
+        "android_client_info": {
+          "package_name": "com.tdn.qurban"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302297332162-itjc61upbfu38d3il9u0k5m951hvln53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdn.qurban",
+            "certificate_hash": "0cd28955f4d85d074ca5402f677c41615006accd"
+          }
+        },
+        {
+          "client_id": "302297332162-atbkip0ma45d3qrtdem73egqpqdumq28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdn.qurban",
+            "certificate_hash": "55224c97cb1eab2634b10b22a62a3c42cfc659ba"
+          }
+        },
+        {
+          "client_id": "302297332162-3g9dchq88qnulpu9gmphnn9gpjc7uoc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tdn.qurban",
+            "certificate_hash": "2eca1703fc1ddc13454edcb200c05f4c6522ee03"
+          }
+        },
+        {
+          "client_id": "302297332162-1k7v63ef0qaoc936dsc5gegnlj9s23s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpZViuvGfU_V0TGP4h-NtSlQk6N95tMaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302297332162-1k7v63ef0qaoc936dsc5gegnlj9s23s6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

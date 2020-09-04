@@ -3,15 +3,10 @@ package com.tdn.domain.model;
 public class SaldoModel {
     String uid;
     double jumlah;
-    String last_updated;
+    String updated_at;
+    String created_at;
 
     public SaldoModel() {
-    }
-
-    public SaldoModel(String uid, double jumlah, String last_updated) {
-        this.uid = uid;
-        this.jumlah = jumlah;
-        this.last_updated = last_updated;
     }
 
     public String getUid() {
@@ -30,20 +25,19 @@ public class SaldoModel {
         this.jumlah = jumlah;
     }
 
-    public String getLast_updated() {
-        return last_updated;
+    public String getUpdated_at() {
+        return updated_at;
     }
 
-    public void setLast_updated(String last_updated) {
-        this.last_updated = last_updated;
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 
-    @Override
-    public String toString() {
-        return "SaldoModel{" +
-                "uid='" + uid + '\'' +
-                ", jumlah=" + jumlah +
-                ", last_updated='" + last_updated + '\'' +
-                '}';
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 }
