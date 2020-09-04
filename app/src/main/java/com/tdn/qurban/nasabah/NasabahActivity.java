@@ -2,6 +2,7 @@ package com.tdn.qurban.nasabah;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -64,8 +65,15 @@ public class NasabahActivity extends AppCompatActivity {
                 R.id.nav_profil,
                 R.id.nav_tentang)
                 .setOpenableLayout(drawer)
-                .setFallbackOnNavigateUpListener(() ->
-                        NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                .setFallbackOnNavigateUpListener(() -> {
+                            if (MyUser.getInstance(this).getAktif()) {
+                                NavigationUI.navigateUp(navController, mAppBarConfiguration);
+                                return true;
+                            } else {
+                                Snackbar.make(fab, "Akun Anda Belum Aktif!", BaseTransientBottomBar.LENGTH_LONG).show();
+                                return false;
+                            }
+                        }
                 )
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -84,33 +92,42 @@ public class NasabahActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         if (snapshot.exists()) {
                             UserModel s = snapshot.getValue(UserModel.class);
                             assert s != null;
-                            s.setUid(snapshot.getKey());
+                            s.setUid(firebaseAuth.getCurrentUser().getUid());
 
-                            if (s.getStatus().equals(Const.STATUS_USER_NONAKTIF)) {
-                                fab.setVisibility(View.GONE);
+                            if (s.getStatus().equalsIgnoreCase(Const.STATUS_USER_NONAKTIF) || s.getStatus().equalsIgnoreCase(Const.STATUS_USER_PENDING)) {
+//                                fab.setVisibility(View.GONE);
                                 MyUser.getInstance(NasabahActivity.this).setAktif(false);
                             } else {
                                 MyUser.getInstance(NasabahActivity.this).setAktif(true);
-                                fab.setVisibility(View.VISIBLE);
+//                                fab.setVisibility(View.VISIBLE);
                                 cekFAB();
                             }
                         } else {
+                            MyUser.getInstance(NasabahActivity.this).setAktif(false);
                             fab.setVisibility(View.GONE);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        fab.setVisibility(View.GONE);
+                        MyUser.getInstance(NasabahActivity.this).setAktif(false);
+                        //fab.setVisibility(View.GONE);
                     }
                 });
     }
 
     private void onClick() {
-        fab.setOnClickListener(v -> navController.navigate(R.id.nav_konfirmasipembayaran));
+        fab.setOnClickListener(v -> {
+            if (MyUser.getInstance(this).getAktif()) {
+                navController.navigate(R.id.nav_konfirmasipembayaran);
+            } else {
+                Snackbar.make(fab, "Akun Anda Belum Aktif!", BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void cekFAB() {
@@ -157,7 +174,7 @@ public class NasabahActivity extends AppCompatActivity {
             return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                     || super.onSupportNavigateUp();
         } else {
-            Snackbar.make(fab, "Akun Belum Aktif", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
+            Snackbar.make(fab, "Akun Anda Belum Aktif", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             return false;
         }
     }
