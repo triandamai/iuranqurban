@@ -103,12 +103,19 @@ public class DetailNasabahFragment extends Fragment {
     private void observe(DetailNasabahViewModel mViewModel) {
         mViewModel.getDetailUsers(MyUser.getInstance(getContext()).getLastIdNasabah()).observe(getViewLifecycleOwner(), userModel -> {
             if (userModel != null) {
-                binding.tvNama.setText(userModel.getNama());
-                binding.tvStatus.setText(userModel.getStatus());
-                binding.tvAlamat.setText(userModel.getAlamat());
-                binding.tvAhliwaris.setText(userModel.getNama_ahli_waris());
-                binding.tvNik.setText(userModel.getNik());
-                binding.tvTelpon.setText(userModel.getNo_hp());
+                binding.tvNama.setText("Nama Nasabah : " + userModel.getNama());
+                if (userModel.getStatus().equalsIgnoreCase(Const.STATUS_USER_PENDING)) {
+                    binding.tvStatus.setText("Menunggu Persetujuan");
+                } else if (userModel.getStatus().equalsIgnoreCase(Const.STATUS_USER_AKTIF)) {
+                    binding.tvStatus.setText("Aktis");
+                } else {
+                    binding.tvStatus.setText("Tidak Aktif");
+                }
+
+                binding.tvAlamat.setText("Alamat : " + userModel.getAlamat());
+                binding.tvAhliwaris.setText("Nama Ahli Waris : " + userModel.getNama_ahli_waris());
+                binding.tvNik.setText("Nik : " + userModel.getNik());
+                binding.tvTelpon.setText("No telp : " + userModel.getNo_hp());
                 if (userModel.getKartu_identitas().equals("kosong")) {
                     Snackbar.make(binding.getRoot(), "User Belum Mengirimkan Kartu Identitas", BaseTransientBottomBar.LENGTH_LONG).show();
                 } else {
@@ -120,8 +127,10 @@ public class DetailNasabahFragment extends Fragment {
         });
         mViewModel.getRencanaModelMutableLiveData(MyUser.getInstance(getContext()).getLastIdNasabah()).observe(getViewLifecycleOwner(), rencanaModel -> {
             if (rencanaModel != null) {
-                binding.tvJenishewan.setText(rencanaModel.getJenis_hewan());
-                binding.tvJumlahHewan.setText(rencanaModel.getJumlah());
+                binding.tvJenishewan.setText("Jenis Hewan Qurban : " + rencanaModel.getJenis_hewan());
+                binding.tvJumlahHewan.setText("Jumlah Hewan Qurban : " + rencanaModel.getJumlah());
+                binding.tvTargetnominal.setText("Target Nominal  : Rp " + rencanaModel.getTarget_nominal());
+                binding.tvTempatpenyerahan.setText("Tempat Penyerahan : " + rencanaModel.getTempat_penyerahan());
             } else {
                 Snackbar.make(binding.getRoot(), "Tidak bisa mengambil data rencana tabungan", BaseTransientBottomBar.LENGTH_INDEFINITE).show();
             }
@@ -129,9 +138,9 @@ public class DetailNasabahFragment extends Fragment {
         mViewModel.getSaldos(MyUser.getInstance(getContext()).getLastIdNasabah())
                 .observe(getViewLifecycleOwner(), saldoModel -> {
                     if (saldoModel != null) {
-                        binding.tvJumlahTabungan.setText("Rp " + saldoModel.getJumlah());
+                        binding.tvJumlahTabungan.setText("Saldo : Rp " + saldoModel.getJumlah());
                     } else {
-
+                        binding.tvJumlahTabungan.setText("Saldo : Rp 0");
                     }
                 });
     }

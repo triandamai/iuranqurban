@@ -9,15 +9,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
 
-
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

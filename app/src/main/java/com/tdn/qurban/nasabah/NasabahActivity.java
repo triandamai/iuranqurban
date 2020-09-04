@@ -80,7 +80,7 @@ public class NasabahActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         getStatus();
-
+        cekFAB();
         onClick();
     }
 
@@ -98,13 +98,15 @@ public class NasabahActivity extends AppCompatActivity {
                             assert s != null;
                             s.setUid(firebaseAuth.getCurrentUser().getUid());
 
-                            if (s.getStatus().equalsIgnoreCase(Const.STATUS_USER_NONAKTIF) || s.getStatus().equalsIgnoreCase(Const.STATUS_USER_PENDING)) {
+                            if (s.getStatus().equalsIgnoreCase(Const.STATUS_USER_NONAKTIF) ||
+                                    s.getStatus().equalsIgnoreCase(Const.STATUS_USER_PENDING)) {
 //                                fab.setVisibility(View.GONE);
                                 MyUser.getInstance(NasabahActivity.this).setAktif(false);
+
                             } else {
                                 MyUser.getInstance(NasabahActivity.this).setAktif(true);
 //                                fab.setVisibility(View.VISIBLE);
-                                cekFAB();
+
                             }
                         } else {
                             MyUser.getInstance(NasabahActivity.this).setAktif(false);
@@ -118,6 +120,7 @@ public class NasabahActivity extends AppCompatActivity {
                         //fab.setVisibility(View.GONE);
                     }
                 });
+
     }
 
     private void onClick() {

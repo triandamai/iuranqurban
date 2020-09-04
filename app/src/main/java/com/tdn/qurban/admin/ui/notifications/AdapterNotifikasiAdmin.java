@@ -55,7 +55,7 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
     @Override
     public void onBindViewHolder(@NonNull AdapterNotifikasiAdmin.MyViewHolder holder, int position) {
         NotifikasiModel n = NotifikasiModels.get(position);
-        binding.setData(NotifikasiModels.get(position));
+
         TextView v = binding.tvIsiNotifikasi;
         u = new UserModel();
 
@@ -74,10 +74,10 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
                                 v.setText(u.getNama() + " Mengajukan Penutupan Akun");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TARIK)) {
 
-                                v.setText(u.getNama() + " Mengajukan Penarikan Dana Status : ");
+                                v.setText(u.getNama() + " Mengajukan Penarikan Dana ");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_AKTIVASI)) {
 
-                                v.setText(u.getNama() + " Meminta persetujuan aktivasi akun Status ");
+                                v.setText(u.getNama() + " Mengajukan Aktivasi Akun");
                             } else if (n.getTipe().equals(Const.TIPE_NOTIF_TAMBAHSALDO)) {
 
                                 v.setText(u.getNama() + " Menamba hkan saldo ,Menunggu persetujuan");

@@ -1,6 +1,7 @@
 package com.tdn.qurban.nasabah.ui.notifikasi;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class NotifikasiNasabahViewModel extends ViewModel {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Const.BASE_CHILD);
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private Context context;
     public LiveData<List<NotifikasiModel>> notifikasiModelLiveData;
 
@@ -32,17 +33,21 @@ public class NotifikasiNasabahViewModel extends ViewModel {
 
     public LiveData<List<NotifikasiModel>> getNotifikasiModelLiveData() {
         final MutableLiveData<List<NotifikasiModel>> notif = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_NOTIF_USER)
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_NOTIF_USER)
                 .child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                         if (snapshot.exists()) {
                             List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 NotifikasiModel n = data.getValue(NotifikasiModel.class);
                                 assert n != null;
                                 n.setId(data.getKey());
+                                Log.e("notif user", data.toString());
                                 NotifikasiModels.add(n);
                             }
                             notif.setValue(NotifikasiModels);

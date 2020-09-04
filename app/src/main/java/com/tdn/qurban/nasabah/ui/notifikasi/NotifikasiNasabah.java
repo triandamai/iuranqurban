@@ -57,7 +57,7 @@ public class NotifikasiNasabah extends Fragment {
     }
 
     private void observe(NotifikasiNasabahViewModel mViewModel) {
-        mViewModel.notifikasiModelLiveData.observe(getViewLifecycleOwner(), notifikasiModels -> {
+        mViewModel.getNotifikasiModelLiveData().observe(getViewLifecycleOwner(), notifikasiModels -> {
             if (notifikasiModels != null) {
                 binding.lyKosong.setVisibility(View.GONE);
                 adapterNotifikasi.setData(notifikasiModels);

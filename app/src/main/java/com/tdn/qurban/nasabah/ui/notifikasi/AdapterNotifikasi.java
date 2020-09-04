@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tdn.data.Const;
 import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
@@ -40,7 +41,39 @@ public class AdapterNotifikasi extends RecyclerView.Adapter<AdapterNotifikasi.My
 
     @Override
     public void onBindViewHolder(@NonNull AdapterNotifikasi.MyViewHolder holder, int position) {
-        holder.binding.setData(NotifikasiModels.get(position));
+        if (NotifikasiModels.get(position).getTipe().equalsIgnoreCase(Const.TIPE_NOTIF_AKTIVASI)) {
+            if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_AKTIVASI_MENUNGGU)) {
+                // holder.binding.tvIsiNotifikasi.setText("Aktivasi Akun Anda telah disetujui Oleh Admin");
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_AKTIVASI_DITERIMA)) {
+                holder.binding.tvIsiNotifikasi.setText("Aktivasi Akun Anda telah disetujui Oleh Admin");
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_AKTIVASI_DITOLAK)) {
+                holder.binding.tvIsiNotifikasi.setText("Aktivasi Akun Anda telah ditolak dengan alasan : " + NotifikasiModels.get(position).getBody());
+            }
+            holder.binding.btnAksi.setVisibility(View.GONE);
+        } else if (NotifikasiModels.get(position).getTipe().equalsIgnoreCase(Const.TIPE_NOTIF_TAMBAHSALDO)) {
+            if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA)) {
+                holder.binding.tvIsiNotifikasi.setText("Penambahan Saldo Diterima Oleh Admin");
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_DITOLAK)) {
+                holder.binding.tvIsiNotifikasi.setText("Penambahan Saldo Ditolak alasan : " + NotifikasiModels.get(position).getStatus());
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU)) {
+                //  holder.binding.tvIsiNotifikasi.setText("Penambahan Saldo Diterima Oleh Admin");
+            }
+        } else if (NotifikasiModels.get(position).getTipe().equalsIgnoreCase(Const.TIPE_NOTIF_TARIK)) {
+            if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_DITERIMA)) {
+                holder.binding.tvIsiNotifikasi.setText("Penarikan Saldo Diterima Oleh Admin");
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_DITOLAK)) {
+                holder.binding.tvIsiNotifikasi.setText("Penarikan Saldo Ditolak Admin alasan : " + NotifikasiModels.get(position
+                ).getStatus());
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU)) {
+            }
+        } else if (NotifikasiModels.get(position).getTipe().equalsIgnoreCase(Const.TIPE_NOTIF_TUTUP)) {
+            if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TUTUP_DITERIMA)) {
+                holder.binding.tvIsiNotifikasi.setText("Penutupan Akun Disetujui ");
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TUTUP_DITOLAK)) {
+                holder.binding.tvIsiNotifikasi.setText("Penutupan Akun Ditolak alasan : " + NotifikasiModels.get(position).getStatus());
+            } else if (NotifikasiModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TUTUP_MENUNGGU)) {
+            }
+        }
 
     }
 
