@@ -37,7 +37,7 @@ public class PenutupanAkunViewModel extends ViewModel {
                     List<TutupAkunModel> userModelList = new ArrayList<>();
                     for (DataSnapshot data : snapshot.getChildren()) {
                         TutupAkunModel userModel = data.getValue(TutupAkunModel.class);
-                        userModel.setUid(data.getKey());
+                        userModel.setUser_uid(data.getKey());
                         userModelList.add(userModel);
                     }
                     listMutableLiveData.setValue(userModelList);

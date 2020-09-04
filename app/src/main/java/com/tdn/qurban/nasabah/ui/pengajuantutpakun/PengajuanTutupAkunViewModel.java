@@ -39,14 +39,14 @@ public class PengajuanTutupAkunViewModel extends ViewModel {
         model.setCreated_at(new Date().getTime());
         model.setDesc("Tutup Akun");
         model.setTitle("Tutup Akun");
-        model.setUid(firebaseAuth.getCurrentUser().getUid());
+        model.setUser_uid(firebaseAuth.getCurrentUser().getUid());
         model.setUpdated_at(new Date().getTime());
         model.setUser_acc(Const.PENGAJUAN_VERIFIKASI_YES);
 
         NotifikasiModel notifikasiModel = new NotifikasiModel();
         notifikasiModel.setId_content(idcontent);
         notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
-        notifikasiModel.setBroad_to(Const.USER_LEVEL_PANITIA);
+        notifikasiModel.setTo_uid(Const.USER_LEVEL_PANITIA);
         notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
         notifikasiModel.setTipe(Const.TIPE_NOTIF_TUTUP);
         notifikasiModel.setStatus(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU);

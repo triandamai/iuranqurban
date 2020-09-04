@@ -8,13 +8,14 @@ public class rencanaModel {
     String target_nominal;
     String jenis_pembelian;
     String tempat_penyerahan;
+    boolean isKelompok;
     String created_at;
     String updated_at;
 
     public rencanaModel() {
     }
 
-    public rencanaModel(String uid, String jenis_hewan, String jenis_hewan_id, String jumlah, String target_nominal, String jenis_pembelian, String tempat_penyerahan, String created_at, String updated_at) {
+    public rencanaModel(String uid, String jenis_hewan, String jenis_hewan_id, String jumlah, String target_nominal, String jenis_pembelian, String tempat_penyerahan, boolean isKelompok, String created_at, String updated_at) {
         this.uid = uid;
         this.jenis_hewan = jenis_hewan;
         this.jenis_hewan_id = jenis_hewan_id;
@@ -22,6 +23,7 @@ public class rencanaModel {
         this.target_nominal = target_nominal;
         this.jenis_pembelian = jenis_pembelian;
         this.tempat_penyerahan = tempat_penyerahan;
+        this.isKelompok = isKelompok;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -80,6 +82,14 @@ public class rencanaModel {
 
     public void setTempat_penyerahan(String tempat_penyerahan) {
         this.tempat_penyerahan = tempat_penyerahan;
+    }
+
+    public boolean isKelompok() {
+        return isKelompok;
+    }
+
+    public void setKelompok(boolean kelompok) {
+        isKelompok = kelompok;
     }
 
     public String getCreated_at() {

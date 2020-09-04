@@ -96,7 +96,7 @@ public class AktivasiAkunViewModel extends ViewModel {
                         n.setBody(Const.STATUS_NOTIF_AKTIVASI_MENUNGGU);
                         n.setTipe(Const.TIPE_NOTIF_AKTIVASI);
                         n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
-                        n.setBroad_to(Const.USER_LEVEL_PANITIA);
+                        n.setTo_uid(Const.USER_LEVEL_PANITIA);
                         n.setCreated_at(String.valueOf(new Date().getTime()));
 
                         databaseReference.child(Const.CHILD_NOTIF_ADMIN)

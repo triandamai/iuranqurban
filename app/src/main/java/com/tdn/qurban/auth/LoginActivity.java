@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tdn.data.Const;
 import com.tdn.domain.model.UserModel;
+import com.tdn.qurban.Ketentuan_Layanan;
 import com.tdn.qurban.R;
 import com.tdn.qurban.admin.AdminActivity;
 import com.tdn.qurban.core.AuthListener;
@@ -54,8 +55,9 @@ public class LoginActivity extends AppCompatActivity {
             signIn();
         });
         binding.tvDaftar.setOnClickListener(v -> {
-            // startActivity(new Intent(this, DaftarActivity.class));
+            startActivity(new Intent(this, Ketentuan_Layanan.class));
         });
+
     }
 
     private void signIn() {
@@ -94,19 +96,16 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSuccess(@NonNull String message, UserModel data) {
             Snackbar.make(binding.getRoot(), "signInWithCredential:success", BaseTransientBottomBar.LENGTH_LONG).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (message.equals(Const.USER_ADA)) {
+            new Handler().postDelayed(() -> {
+                if (message.equals(Const.USER_ADA)) {
+                    if (data.getLevel().equals(Const.USER_LEVEL_ADMIN) || data.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
+                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                        finish();
+                    } else {
                         if (data.getRegistrasi().equals(Const.SUDAH_REGISTRASI)) {
                             if (data.getRencana().equals(Const.SUDAH_RENCANA)) {
-                                if (data.getLevel().equals(Const.USER_LEVEL_ADMIN) || data.getLevel().equals(Const.USER_LEVEL_PANITIA)) {
-                                    startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-                                    finish();
-                                } else {
-                                    startActivity(new Intent(LoginActivity.this, NasabahActivity.class));
-                                    finish();
-                                }
+                                startActivity(new Intent(LoginActivity.this, NasabahActivity.class));
+                                finish();
                             } else {
                                 startActivity(new Intent(LoginActivity.this, RencanaQurbanActivity.class));
                                 finish();
@@ -115,13 +114,12 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
                             finish();
                         }
-
-                    } else {
-                        startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
-                        finish();
                     }
+                } else {
+                    startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
+                    finish();
                 }
-            }, 2000);
+            }, 900);
 
         }
 

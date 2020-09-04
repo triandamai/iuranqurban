@@ -32,6 +32,28 @@
             android:paddingEnd="@dimen/dp_16"
             android:text="Selamat Datang di Tabungan Qurban" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginTop="@dimen/dp_16"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:text="Masjid Baitul Muhsinin" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginTop="@dimen/dp_16"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_16"
+            android:text="Alamat" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_simpan"
             android:layout_width="match_parent"

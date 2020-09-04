@@ -1,7 +1,6 @@
 package com.tdn.qurban.admin.ui.detailnasabah;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +25,6 @@ import com.squareup.picasso.Picasso;
 import com.tdn.data.Const;
 import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.NotifikasiModel;
-import com.tdn.domain.model.SaldoModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.DetailNasabahFragmentBinding;
@@ -62,7 +59,7 @@ public class DetailNasabahFragment extends Fragment {
             notifikasiModel.setId_content(MyUser.getInstance(getContext()).getLastIdNasabah());
             notifikasiModel.setId(id);
             notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
-            notifikasiModel.setBroad_to(MyUser.getInstance(getContext()).getLastIdNasabah());
+            notifikasiModel.setTo_uid(MyUser.getInstance(getContext()).getLastIdNasabah());
             notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
             notifikasiModel.setTipe(Const.TIPE_NOTIF_AKTIVASI);
             notifikasiModel.setStatus(Const.STATUS_NOTIF_AKTIVASI_DITERIMA);
@@ -123,7 +120,7 @@ public class DetailNasabahFragment extends Fragment {
         });
         mViewModel.getRencanaModelMutableLiveData(MyUser.getInstance(getContext()).getLastIdNasabah()).observe(getViewLifecycleOwner(), rencanaModel -> {
             if (rencanaModel != null) {
-                binding.tvJenishewan.setText(rencanaModel.getJenis());
+                binding.tvJenishewan.setText(rencanaModel.getJenis_hewan());
                 binding.tvJumlahHewan.setText(rencanaModel.getJumlah());
             } else {
                 Snackbar.make(binding.getRoot(), "Tidak bisa mengambil data rencana tabungan", BaseTransientBottomBar.LENGTH_INDEFINITE).show();

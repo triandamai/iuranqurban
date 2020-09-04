@@ -56,6 +56,46 @@
                 android:focusable="false"
                 android:hint="Jenis hewan qurban" />
 
+            <TextView
+                android:id="@+id/tv_sapi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:focusable="false"
+                android:hint="Jenis hewan qurban" />
+
+            <LinearLayout
+                android:id="@+id/ly_sapi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/dp_10">
+
+                <RadioGroup
+                    android:id="@+id/rg_beli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rb_beli1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="individu"
+                        android:text="Individu" />
+
+                    <RadioButton
+                        android:id="@+id/rb_beli2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="kelompok"
+                        android:text="Kelompok" />
+                </RadioGroup>
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/et_jumlah"
                 android:layout_width="match_parent"

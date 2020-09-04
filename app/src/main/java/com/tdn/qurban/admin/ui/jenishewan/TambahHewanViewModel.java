@@ -71,7 +71,7 @@ public class TambahHewanViewModel extends ViewModel {
         listener.onStart();
         String idhewan = MyUser.getInstance(context).getLastIdHewan();
         String key = "";
-        if (idhewan != null || !idhewan.equals("") || !idhewan.isEmpty()) {
+        if (idhewan != null) {
             key = MyUser.getInstance(context).getLastIdHewan();
         } else {
             key = databaseReference.push().getKey();

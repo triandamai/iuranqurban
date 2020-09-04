@@ -102,4 +102,9 @@ public class TabunganModel {
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
+
+    public String created_at_to_date() {
+        Date d = new Date(created_at);
+        return String.valueOf(d);
+    }
 }

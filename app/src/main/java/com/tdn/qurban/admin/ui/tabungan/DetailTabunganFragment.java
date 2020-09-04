@@ -68,13 +68,13 @@ public class DetailTabunganFragment extends Fragment {
             n.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA);
             n.setTipe(Const.TIPE_NOTIF_TAMBAHSALDO);
             n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
-            n.setBroad_to(tabunganModel.getUid());
+            n.setTo_uid(tabunganModel.getUser_uid());
             n.setCreated_at(String.valueOf(new Date().getTime()));
             n.setId_content(tabunganModel.getId());
 
             databaseReference.child(Const.BASE_CHILD)
                     .child(Const.CHILD_NOTIF_USER)
-                    .child(tabunganModel.getUid())
+                    .child(tabunganModel.getUser_uid())
                     .setValue(n);
             databaseReference.child(Const.BASE_CHILD)
                     .child(Const.CHILD_TABUNGAN)
@@ -84,7 +84,7 @@ public class DetailTabunganFragment extends Fragment {
                     .addOnSuccessListener(aVoid -> {
                         databaseReference.child(Const.BASE_CHILD)
                                 .child(Const.CHILD_SALDO)
-                                .child(tabunganModel.getUid())
+                                .child(tabunganModel.getUser_uid())
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,12 +98,13 @@ public class DetailTabunganFragment extends Fragment {
 
                                             double total = asli + baru;
                                             SaldoModel s = new SaldoModel();
-                                            s.setUid(tabunganModel.getUid());
+                                            s.setUid(tabunganModel.getUser_uid());
                                             s.setJumlah(total);
-                                            s.setLast_updated(String.valueOf(new Date().getTime()));
+                                            s.setCreated_at(String.valueOf(new Date().getTime()));
+                                            s.setUpdated_at(String.valueOf(new Date().getTime()));
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_SALDO)
-                                                    .child(tabunganModel.getUid())
+                                                    .child(tabunganModel.getUser_uid())
                                                     .setValue(s);
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_NOTIF_ADMIN)
@@ -117,13 +118,14 @@ public class DetailTabunganFragment extends Fragment {
 
                                         } else {
                                             SaldoModel s = new SaldoModel();
-                                            s.setUid(tabunganModel.getUid());
+                                            s.setUid(tabunganModel.getUser_uid());
                                             s.setJumlah(Double.parseDouble(tabunganModel.getNominal()));
-                                            s.setLast_updated(String.valueOf(new Date().getTime()));
+                                            s.setCreated_at(String.valueOf(new Date().getTime()));
+                                            s.setUpdated_at(String.valueOf(new Date().getTime()));
 
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_SALDO)
-                                                    .child(tabunganModel.getUid())
+                                                    .child(tabunganModel.getUser_uid())
                                                     .setValue(s);
                                             databaseReference.child(Const.BASE_CHILD)
                                                     .child(Const.CHILD_NOTIF_ADMIN)

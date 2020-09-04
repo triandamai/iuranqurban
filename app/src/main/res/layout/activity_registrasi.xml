@@ -1,157 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".auth.RegistrasiActivity">
 
     <data>
 
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".auth.RegistrasiActivity">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:paddingEnd="@dimen/sp_16"
-            android:paddingStart="@dimen/sp_16"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/sp_16"
-                android:layout_marginTop="@dimen/dp_16"
-                android:paddingStart="@dimen/dp_16"
-                android:paddingEnd="@dimen/dp_16"
-                android:text="Daftarkan diri Anda" />
+                android:gravity="start"
+                android:paddingEnd="@dimen/sp_16"
+                android:paddingStart="@dimen/sp_16"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:text="Daftarkan diri Anda" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/sp_20"
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:text="Masukkan data diri Anda disini" />
+
+                <EditText
+                    android:id="@+id/et_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:hint="Nama Lengkap" />
+
+                <EditText
+                    android:id="@+id/et_nik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:inputType="number"
+                    android:hint="Nama NIK" />
+
+                <EditText
+                    android:id="@+id/et_hp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:inputType="phone"
+                    android:hint="Nomor Handphone/WA" />
+
+                <EditText
+                    android:id="@+id/et_jk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:focusable="false"
+                    android:hint="Jenis Kelamin" />
+
+                <EditText
+                    android:id="@+id/et_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:inputType="textMultiLine"
+                    android:hint="Alamat lengkap" />
+
+                <EditText
+                    android:id="@+id/et_namaahliwaris"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:hint="Nama ahli waris" />
+
+                <EditText
+                    android:id="@+id/et_nikahliwaris"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:inputType="number"
+                    android:hint="NIK ahli waris" />
+
+                <EditText
+                    android:id="@+id/et_hubungan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/dp_10"
+                    android:background="@drawable/myedittext"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:focusable="false"
+                    android:hint="Hubungan dengan ahli waris" />
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_simpan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="normal"
-                android:textAlignment="textStart"
-                android:textSize="@dimen/sp_12"
-                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:background="@color/colorPrimary"
+                app:cornerRadius="@dimen/dp_5"
+                android:textColor="@color/putih"
                 android:layout_marginBottom="@dimen/sp_20"
-                android:paddingStart="@dimen/dp_16"
-                android:paddingEnd="@dimen/dp_16"
-                android:text="Masukkan data diri Anda disini" />
+                android:text="SELANJUTNYA" />
 
-            <EditText
-                android:id="@+id/et_nama"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:hint="Nama Lengkap" />
-
-            <EditText
-                android:id="@+id/et_nik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:inputType="number"
-                android:hint="Nama NIK" />
-
-            <EditText
-                android:id="@+id/et_hp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:inputType="phone"
-                android:hint="Nomor Handphone/WA" />
-
-            <EditText
-                android:id="@+id/et_jk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:focusable="false"
-                android:hint="Jenis Kelamin" />
-
-            <EditText
-                android:id="@+id/et_alamat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:inputType="textMultiLine"
-                android:hint="Alamat lengkap" />
-
-            <EditText
-                android:id="@+id/et_namaahliwaris"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:hint="Nama ahli waris" />
-
-            <EditText
-                android:id="@+id/et_nikahliwaris"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:inputType="number"
-                android:hint="NIK ahli waris" />
-
-            <EditText
-                android:id="@+id/et_hubungan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="@dimen/dp_10"
-                android:background="@drawable/myedittext"
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:focusable="false"
-                android:hint="Hubungan dengan ahli waris" />
         </LinearLayout>
+    </ScrollView>
 
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_simpan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_100"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/putih"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/sp_20"
-            android:text="SELANJUTNYA" />
-
-    </RelativeLayout>
 </layout>

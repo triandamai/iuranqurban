@@ -1,5 +1,9 @@
 package com.tdn.data;
 
+import android.annotation.SuppressLint;
+
+import java.text.DecimalFormat;
+
 public class Const {
     public static final String BASE_CHILD = "IuranQurban";
     public static final String CHILD_USER = "USER";
@@ -83,4 +87,10 @@ public class Const {
     public static int REQ_IMAGE = 100;
     public static int REQ_SIGN = 200;
 
+    @SuppressLint("DefaultLocale")
+    public static String currency(Double d) {
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+        return "Rp " + String.format("%.2f", d);//formatter.format("Rp " + d);
+    }
 }

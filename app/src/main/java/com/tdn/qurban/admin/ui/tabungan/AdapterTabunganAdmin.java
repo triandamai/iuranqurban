@@ -50,7 +50,7 @@ public class AdapterTabunganAdmin extends RecyclerView.Adapter<AdapterTabunganAd
         holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
-                .child(TabunganModels.get(position).getUid())
+                .child(TabunganModels.get(position).getUser_uid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -45,7 +45,7 @@ public class MyUser {
 
 
     public String getLastIdHewan() {
-        return sharedPreferences.getString(Const.KEY_PREF_LAST_HEWAN_ID, Const.VALUE_PREF_NULL);
+        return sharedPreferences.getString(Const.KEY_PREF_LAST_HEWAN_ID, null);
     }
 
     public void setLastIdNasabah(String val) {

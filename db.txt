@@ -30,15 +30,16 @@ rencana	- uid
 	- updated_at
 
 tabungan
-	- id
-	- uid
-	- bukti
-	- nominal
-	- keterangan
-	- keterangan status
-	- status
-	- created_at
-	- updated_at
+    - uid
+	    - id
+	    - uid
+	    - bukti
+	    - nominal
+	    - keterangan
+	    - keterangan status
+	    - status
+	    - created_at
+	    - updated_at
 
 notif
 	- id

@@ -65,7 +65,7 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                     m.setBukti(downloadUri.toString());
                     m.setCreated_at(String.valueOf(new Date().getTime()));
                     m.setUpdated_at(String.valueOf(new Date().getTime()));
-                    m.setUid(firebaseAuth.getCurrentUser().getUid());
+                    m.setUser_uid(firebaseAuth.getCurrentUser().getUid());
                     m.setKeterangan(ket.getValue());
                     m.setNominal(nominal.getValue());
                     m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
@@ -74,7 +74,7 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                     n.setBody(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
                     n.setTipe(Const.TIPE_NOTIF_TAMBAHSALDO);
                     n.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
-                    n.setBroad_to(Const.USER_LEVEL_PANITIA);
+                    n.setTo_uid(Const.USER_LEVEL_PANITIA);
 
                     n.setCreated_at(String.valueOf(new Date().getTime()));
                     databaseReference.child(Const.CHILD_TABUNGAN)

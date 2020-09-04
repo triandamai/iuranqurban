@@ -36,7 +36,7 @@ public class PengajuanPenarikanViewModel extends ViewModel {
         String idcontent = databaseReference.push().getKey();
         notifikasiModel.setId_content(idcontent);
         notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
-        notifikasiModel.setBroad_to(Const.USER_LEVEL_PANITIA);
+        notifikasiModel.setTo_uid(Const.USER_LEVEL_PANITIA);
         notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
         notifikasiModel.setTipe(Const.TIPE_NOTIF_TARIK);
         notifikasiModel.setStatus(Const.STATUS_NOTIF_PENGAJUANTARIKDANA_MENUNGGU);

@@ -52,18 +52,20 @@ public class TambahHewan extends Fragment {
     public void onResume() {
         super.onResume();
         String idhewan = MyUser.getInstance(getContext()).getLastIdHewan();
-        if (idhewan != null || !idhewan.equals("") || !idhewan.isEmpty()) {
+        if (idhewan != null) {
             observe(mViewModel);
         }
     }
 
     private void observe(TambahHewanViewModel mViewModel) {
         mViewModel.hewanModelLiveData(MyUser.getInstance(getContext()).getLastIdHewan()).observe(getViewLifecycleOwner(), hewanModel -> {
-            binding.etNamahewan.setText(hewanModel.getJenis());
-            binding.etNominal.setText(hewanModel.getNominal());
+            if (hewanModel != null) {
+                binding.etNamahewan.setText(hewanModel.getJenis());
+                binding.etNominal.setText(hewanModel.getNominal());
 
-            mViewModel.nomminalHewan.setValue(hewanModel.getNominal());
-            mViewModel.namaHewan.setValue(hewanModel.getJenis());
+                mViewModel.nomminalHewan.setValue(hewanModel.getNominal());
+                mViewModel.namaHewan.setValue(hewanModel.getJenis());
+            }
         });
     }
 
@@ -126,7 +128,7 @@ public class TambahHewan extends Fragment {
         @Override
         public void onSuccess(@NonNull String message) {
             Snackbar.make(binding.getRoot(), message, BaseTransientBottomBar.LENGTH_LONG).show();
-            new Handler().postDelayed(() -> Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_jenishewan), 1000);
+            new Handler().postDelayed(() -> Navigation.findNavController(binding.getRoot()).popBackStack(), 1000);
         }
 
         @Override

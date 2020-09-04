@@ -74,7 +74,7 @@ public class PengajuanPenarikanFragment extends Fragment {
                 tarikDanaModel.setNominal(Double.parseDouble(binding.etNominal.getText().toString()));
                 tarikDanaModel.setNorek(binding.etNorek.getText().toString());
                 tarikDanaModel.setTitle("Tarik Dana");
-                tarikDanaModel.setUid(firebaseAuth.getCurrentUser().getUid());
+                tarikDanaModel.setUser_uid(firebaseAuth.getCurrentUser().getUid());
                 tarikDanaModel.setUpdated_at(new Date().getTime());
                 tarikDanaModel.setUser_acc(Const.PENGAJUAN_VERIFIKASI_YES);
 
