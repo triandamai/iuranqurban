@@ -52,7 +52,7 @@
             android:layout_marginTop="@dimen/dp_16"
             android:paddingStart="@dimen/dp_16"
             android:paddingEnd="@dimen/dp_16"
-            android:text="Alamat" />
+            android:text="Komplek Perumahan Shamara Sumbang Blok A, Dusun Banaran RT 008 RW 001, Desa Ciberem, Kecamatan Sumbang 53183" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_simpan"
