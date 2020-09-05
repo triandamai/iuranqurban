@@ -136,6 +136,13 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/sp_20"
+                    android:text="Riwayat Transaksi" />
+                
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/rv"
                     android:layout_marginTop="@dimen/dp_10"
@@ -191,7 +198,7 @@
                     android:layout_marginTop="@dimen/dp_16"
                     android:paddingStart="@dimen/dp_16"
                     android:paddingEnd="@dimen/dp_16"
-                    android:text="Bank Muamalat(kode :147) \n No. Rek:5410074879" />
+                    android:text="Bank Muamalat(kode :147)\nNo. Rek:5410074879\nAn. Fandy Setyo Utomo" />
 
             </LinearLayout>
         </RelativeLayout>

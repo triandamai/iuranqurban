@@ -48,6 +48,7 @@ public class Const {
     public static final String STATUS_NOTIF_TAMBAHSALDO_DITOLAK = "TAMBAHSALDOTOLAK";
     public static final String STATUS_NOTIF_TAMBAHSALDO_DITERIMA = "TAMBAHSALDOTERIMA";
     public static final String STATUS_NOTIF_TAMBAHSALDO_MENUNGGU = "PENDING";
+    public static final String STATUS_NOTIF_TAMBAHSALDO_DITARIK = "SUDAHDIAMBIL";
 
 
     public static final String TIPE_NOTIF_AKTIVASI = "AKTIVASI";
@@ -102,6 +103,7 @@ public class Const {
     public static final String KEY_PREF = "data_iuran_qurban";
     public static final String KEY_PREF_LAST_HEWAN_ID = "idhewan";
     public static final String KEY_PREF_AKTIF = "status";
+    public static final String CHILD_ORDERBYCREATEDAT = "created_at";
 
 
     public static int REQ_IMAGE = 100;
@@ -109,15 +111,13 @@ public class Const {
 
     @SuppressLint("DefaultLocale")
     public static String currency(Double d) {
-        DecimalFormat formatter = new DecimalFormat("#,###,###");
 
         return "Rp " + String.format("%.2f", d);//formatter.format("Rp " + d);
     }
 
     @SuppressLint("DefaultLocale")
-    public static String currency(String d) {
-        DecimalFormat formatter = new DecimalFormat("#,###,###");
-
+    public static String currency(String val) {
+        Double d = Double.parseDouble(val);
         return "Rp " + String.format("%.2f", d);
     }
 
@@ -131,9 +131,16 @@ public class Const {
     }
 
     public static String date_at(String val) {
-
+        long result = Long.parseLong(val);
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String dateText = df2.format(result);
+        return String.valueOf(dateText);
+    }
+
+    public static String date_at(long val) {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         String dateText = df2.format(val);
 
         return String.valueOf(dateText);

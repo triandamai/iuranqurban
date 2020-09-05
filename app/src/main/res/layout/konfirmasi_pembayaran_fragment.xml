@@ -137,8 +137,7 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:paddingStart="@dimen/dp_16"
                         android:paddingEnd="@dimen/dp_16"
-                        android:text="Bank Muamalat(kode :147) \n No. Rek:5410074879" />
-
+                        android:text="Bank Muamalat(kode :147)\nNo. Rek:5410074879\nAn. Fandy Setyo Utomo" />
                 </LinearLayout>
 
 

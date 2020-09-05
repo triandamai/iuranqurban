@@ -3,6 +3,7 @@ package com.tdn.domain.model;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -108,8 +109,10 @@ public class TabunganModel {
     public String created_at_to_date() {
 
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-        String dateText = df2.format(created_at);
+        long val = Long.parseLong(created_at);
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String dateText = df2.format(val);
+        Log.e("tesformat", String.valueOf(created_at));
         return String.valueOf(dateText);
     }
 }

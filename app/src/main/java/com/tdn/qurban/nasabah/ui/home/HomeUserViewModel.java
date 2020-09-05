@@ -39,7 +39,10 @@ public class HomeUserViewModel extends ViewModel {
 
     private LiveData<UserModel> getUser() {
         final MutableLiveData<UserModel> userModelMutableLiveData = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_USER).child(firebaseAuth.getCurrentUser().getUid())
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -64,7 +67,10 @@ public class HomeUserViewModel extends ViewModel {
 
     public LiveData<SaldoModel> getSaldoDatas() {
         final MutableLiveData<SaldoModel> saldo = new MutableLiveData<>();
-        databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_SALDO).child(firebaseAuth.getCurrentUser().getUid())
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_SALDO)
+                .child(firebaseAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,9 +96,9 @@ public class HomeUserViewModel extends ViewModel {
         final MutableLiveData<List<TabunganModel>> listTabungan = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .startAt(firebaseAuth.getCurrentUser().getUid())
-                .endAt(firebaseAuth.getCurrentUser().getUid())
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .orderByChild(Const.CHILD_ORDERBYCREATEDAT)
+                .limitToLast(3)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
