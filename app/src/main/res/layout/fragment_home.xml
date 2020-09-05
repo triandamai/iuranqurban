@@ -170,6 +170,29 @@
                     android:background="@color/colorPrimary"
                     android:textColor="@color/putih"
                     android:text="LIHAT HISTORY TABUNGAN" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:text="**\nPembayaran dapat dilakukan melalui transfer bank :" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold|italic"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:text="Bank Muamalat(kode :147) \n No. Rek:5410074879" />
+
             </LinearLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

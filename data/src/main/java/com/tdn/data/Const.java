@@ -3,6 +3,7 @@ package com.tdn.data;
 import android.annotation.SuppressLint;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 public class Const {
     public static final String BASE_CHILD = "IuranQurban";
@@ -72,9 +73,27 @@ public class Const {
     public static final String JK_PR = "PEREMPUAN";
     public static final String JK_LK = "LAKI-LAKI";
 
+    public static final String[] hubungan = {
+            Const.HUBUNGAN_ANAK,
+            Const.HUBUNGAN_SAUDARA,
+            Const.HUBUNGAN_ORANGTUA,
+            Const.HUBUNGAN_SUAMI,
+            Const.HUBUNGAN_ISTRI,
+            Const.HUBUNGAN_LAINNYA};
+
+    public static final String[] jeniskelamin = {
+            Const.JK_LK,
+            Const.JK_PR};
+
+    public static final String[] tempat = {"Masjid Baitul Muhsinin", "Lainnya"};
+    public static final String[] jenisbeli = {"Beli Sendiri", "Melalui Panitia"};
+
     public static final String HUBUNGAN_SAUDARA = "SAUDARA";
     public static final String HUBUNGAN_ANAK = "ANAK";
     public static final String HUBUNGAN_ORANGTUA = "ORANG TUA";
+    public static final String HUBUNGAN_SUAMI = "SUAMI";
+    public static final String HUBUNGAN_ISTRI = "ISTRI";
+    public static final String HUBUNGAN_LAINNYA = "LAINNYA";
 
     public static final String KEY_PREF_LAST_NASABAH_ID = "nsbh";
     public static final String KEY_PREF_LAST_NOTIF_ID = "nsbha";
@@ -84,6 +103,7 @@ public class Const {
     public static final String KEY_PREF_LAST_HEWAN_ID = "idhewan";
     public static final String KEY_PREF_AKTIF = "status";
 
+
     public static int REQ_IMAGE = 100;
     public static int REQ_SIGN = 200;
 
@@ -92,5 +112,30 @@ public class Const {
         DecimalFormat formatter = new DecimalFormat("#,###,###");
 
         return "Rp " + String.format("%.2f", d);//formatter.format("Rp " + d);
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String currency(String d) {
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+        return "Rp " + String.format("%.2f", d);
+    }
+
+    public static String date_at(Long val) {
+
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        String dateText = df2.format(val);
+
+        return String.valueOf(dateText);
+    }
+
+    public static String date_at(String val) {
+
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        String dateText = df2.format(val);
+
+        return String.valueOf(dateText);
     }
 }

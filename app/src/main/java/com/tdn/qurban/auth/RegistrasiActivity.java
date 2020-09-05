@@ -20,13 +20,14 @@ import com.tdn.qurban.databinding.ActivityRegistrasiBinding;
 
 import java.util.Date;
 
+import static com.tdn.data.Const.hubungan;
+import static com.tdn.data.Const.jeniskelamin;
+
 public class RegistrasiActivity extends AppCompatActivity {
     private ActivityRegistrasiBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
 
-    private String[] jeniskelamin = {Const.JK_LK, Const.JK_PR};
-    private String[] hubungan = {Const.HUBUNGAN_ANAK, Const.HUBUNGAN_SAUDARA, Const.HUBUNGAN_ORANGTUA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

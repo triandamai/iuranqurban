@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.tdn.data.Const.date_at;
+
 public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifikasiAdmin.MyViewHolder> {
     private List<NotifikasiModel> NotifikasiModels = new ArrayList<>();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -57,8 +59,9 @@ public class AdapterNotifikasiAdmin extends RecyclerView.Adapter<AdapterNotifika
         NotifikasiModel n = NotifikasiModels.get(position);
 
         TextView v = binding.tvIsiNotifikasi;
-        u = new UserModel();
+        binding.tvDate.setText(date_at(NotifikasiModels.get(position).getCreated_at()));
 
+        u = new UserModel();
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_USER)
                 .child(n.getFrom_uid())

@@ -38,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 
 import static com.tdn.data.Const.currency;
+import static com.tdn.data.Const.jenisbeli;
+import static com.tdn.data.Const.tempat;
 
 public class RencanaQurbanActivity extends AppCompatActivity {
     private ActivityRencanaQurbanBinding binding;
@@ -48,8 +50,6 @@ public class RencanaQurbanActivity extends AppCompatActivity {
     private String id_jenis = "";
     private boolean kelompok = false;
     private double globalnominal = 0;
-    String[] tempat = {"Masjid Baitul Muhsinin", "Lainnya"};
-    String[] jenisbeli = {"Beli Sendiri", "Melalui Panitia"};
 
 
     @Override

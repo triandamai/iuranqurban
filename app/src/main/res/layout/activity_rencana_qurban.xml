@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tag="kelompok"
-                        android:text="Kelompok" />
+                        android:text="kelompon (1 Sapi = 7 Orang)" />
                 </RadioGroup>
             </LinearLayout>
 
