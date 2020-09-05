@@ -121,7 +121,7 @@ public class VMFactory implements ViewModelProvider.Factory {
               TODO:: admin tambah hewan
               */
         } else if (modelClass.isAssignableFrom(TambahHewanViewModel.class)) {
-            return (T) new TambahHewanViewModel(context, actionListener);
+            return (T) new TambahHewanViewModel(context, actionListener); 
             /*
             TODO:: admin data tabungan
             */
