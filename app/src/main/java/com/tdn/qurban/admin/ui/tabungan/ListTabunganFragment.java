@@ -10,12 +10,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.print.PageRange;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.data.pref.MyUser;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ListTabunganFragmentBinding;
@@ -64,6 +66,7 @@ public class ListTabunganFragment extends Fragment {
     }
 
     private AdapterClicked adapterClicked = posisi -> {
-
+        MyUser.getInstance(getContext()).setLastIdNasabah(adapterListTabunganAdmin.getFromPosition(posisi));
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_tabungan);
     };
 }

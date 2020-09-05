@@ -32,7 +32,7 @@ public class TabunganAdminFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.tabungan_fragment, container, false);
-        mViewModel = new ViewModelProvider(this, new VMFactory()).get(TabunganAdminViewModel.class);
+        mViewModel = new ViewModelProvider(this, new VMFactory(getContext())).get(TabunganAdminViewModel.class);
         adapterTabunganAdmin = new AdapterTabunganAdmin(getContext(), adapterClicked);
         binding.rv.setAdapter(adapterTabunganAdmin);
         return binding.getRoot();
