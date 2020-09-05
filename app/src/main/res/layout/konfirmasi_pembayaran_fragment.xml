@@ -71,7 +71,7 @@
                             android:layout_marginBottom="@dimen/sp_20"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="PILIH BUTI PEMBAYARAN"
+                            android:text="PILIH BUKTI PEMBAYARAN"
                             android:clickable="true"
                             android:layout_weight="1" />
 

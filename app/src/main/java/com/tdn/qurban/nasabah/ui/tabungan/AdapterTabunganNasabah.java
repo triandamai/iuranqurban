@@ -11,8 +11,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
+import com.tdn.domain.model.UserModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemTabunganBinding;
@@ -21,10 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.tdn.data.Const.currency;
+
 public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabunganNasabah.MyViewHolder> {
     private List<TabunganModel> TabunganModels = new ArrayList<>();
     private Context context;
     private AdapterClicked adapterClicked;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public AdapterTabunganNasabah(Context context, AdapterClicked adapterClicked) {
         this.context = context;
@@ -41,9 +52,10 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.setAction(adapterClicked);
+        holder.binding.setAction(adapterClicked);
 
         holder.binding.tvTanggal.setText(TabunganModels.get(position).created_at_to_date());
-        holder.binding.setPosisi(position);
+        holder.binding.tvJumlah.setText(currency(TabunganModels.get(position).getNominal()));
         if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_TUTUP_DITERIMA)) {
             holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         } else if (TabunganModels.get(position).getStatus().equals(Const.STATUS_NOTIF_TUTUP_DITOLAK)) {
@@ -51,7 +63,40 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
         } else {
             holder.binding.tvStatus.setTextColor(context.getResources().getColor(R.color.gray_muda));
         }
-        Log.e("tes tabungan", TabunganModels.toString());
+        if (TabunganModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_DITERIMA)) {
+            holder.binding.tvStatus.setText("Sudah Di terima Oleh Admin");
+        } else if (TabunganModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_DITOLAK)) {
+            holder.binding.tvStatus.setText("Ditolak");
+        } else if (TabunganModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU)) {
+            holder.binding.tvStatus.setText("Menunggu Konfirmasi");
+        } else if (TabunganModels.get(position).getStatus().equalsIgnoreCase(Const.STATUS_NOTIF_TAMBAHSALDO_DITARIK)) {
+            holder.binding.tvStatus.setText("Sudah Di Ambil");
+        }
+        holder.binding.setPosisi(position);
+
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_TABUNGAN)
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            UserModel u = snapshot.getValue(UserModel.class);
+                            u.setUid(snapshot.getKey());
+                            holder.binding.tvNamauser.setText(u.getNama());
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
     }
 
     @Override

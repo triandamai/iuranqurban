@@ -34,9 +34,8 @@ public class TabunganNasabahViewModel extends ViewModel {
         final MutableLiveData<List<TabunganModel>> tabunganModel = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD)
                 .child(Const.CHILD_TABUNGAN)
-                .orderByChild(Const.CHILD_ORDERBYUID)
-                .startAt(firebaseAuth.getCurrentUser().getUid())
-                .endAt(firebaseAuth.getCurrentUser().getUid())
+                .child(firebaseAuth.getCurrentUser().getUid())
+                .orderByChild(Const.CHILD_ORDERBYTIME)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

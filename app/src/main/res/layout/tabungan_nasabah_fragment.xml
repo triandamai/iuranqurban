@@ -33,7 +33,18 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:hint="Cari.." />
+
+                    <TextView
+                        android:id="@+id/tv_jml"
+                        android:textSize="@dimen/sp_18"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Jumlah Tabungan" />
                 </LinearLayout>
 
                 <LinearLayout

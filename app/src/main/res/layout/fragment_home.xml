@@ -142,7 +142,7 @@
                     android:textAlignment="center"
                     android:textSize="@dimen/sp_20"
                     android:text="Riwayat Transaksi" />
-                
+
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/rv"
                     android:layout_marginTop="@dimen/dp_10"

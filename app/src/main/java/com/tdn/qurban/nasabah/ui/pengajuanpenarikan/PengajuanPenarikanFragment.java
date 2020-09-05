@@ -4,6 +4,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -77,8 +79,15 @@ public class PengajuanPenarikanFragment extends Fragment {
                 tarikDanaModel.setUser_uid(firebaseAuth.getCurrentUser().getUid());
                 tarikDanaModel.setUpdated_at(new Date().getTime());
                 tarikDanaModel.setUser_acc(Const.PENGAJUAN_VERIFIKASI_YES);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                        .setTitle("Info")
+                        .setMessage("Apakah Anda Yakin Mengajukan Penarikan Dana?")
+                        .setPositiveButton("YA", (dialog, which) -> {
+                            mViewModel.simpan(tarikDanaModel);
+                        });
+                builder.create();
+                builder.show();
 
-                mViewModel.simpan(tarikDanaModel);
             } else {
                 Snackbar.make(binding.getRoot(), "Isi semua field !", BaseTransientBottomBar.LENGTH_LONG).show();
             }

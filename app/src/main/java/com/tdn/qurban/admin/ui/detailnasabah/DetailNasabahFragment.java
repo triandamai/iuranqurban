@@ -3,6 +3,7 @@ package com.tdn.qurban.admin.ui.detailnasabah;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -54,42 +55,54 @@ public class DetailNasabahFragment extends Fragment {
 
     private void onClick() {
         binding.btnAktifasi.setOnClickListener(v -> {
-            String id = databaseReference.push().getKey();
-            NotifikasiModel notifikasiModel = new NotifikasiModel();
-            notifikasiModel.setId_content(MyUser.getInstance(getContext()).getLastIdNasabah());
-            notifikasiModel.setId(id);
-            notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
-            notifikasiModel.setTo_uid(MyUser.getInstance(getContext()).getLastIdNasabah());
-            notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
-            notifikasiModel.setTipe(Const.TIPE_NOTIF_AKTIVASI);
-            notifikasiModel.setStatus(Const.STATUS_NOTIF_AKTIVASI_DITERIMA);
-            notifikasiModel.setBody("Disetujui");
-
-            databaseReference.child(Const.BASE_CHILD)
-                    .child(Const.CHILD_NOTIF_USER)
-                    .child(MyUser.getInstance(getContext()).getLastIdNasabah())
-                    .child(id)
-                    .setValue(notifikasiModel);
-
-            databaseReference.child(Const.BASE_CHILD)
-                    .child(Const.CHILD_USER)
-                    .child(MyUser.getInstance(getContext()).getLastIdNasabah())
-                    .child(Const.CHILD_ORDERBYSTATUS)
-                    .setValue(Const.STATUS_USER_AKTIF)
-                    .addOnSuccessListener(aVoid -> {
-                        databaseReference.child(Const.BASE_CHILD)
-                                .child(Const.CHILD_NOTIF_ADMIN)
-                                .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Snackbar.make(binding.getRoot(), "Berhasil", BaseTransientBottomBar.LENGTH_LONG).show();
-                                Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_nasabah);
-                            }
-                        });
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                    .setTitle("Info")
+                    .setMessage("Aktivasi User ?")
+                    .setPositiveButton("YA", (dialog, which) -> {
+                        akivasi();
                     });
+            builder.create();
+            builder.show();
 
         });
+    }
+
+    private void akivasi() {
+
+        String id = databaseReference.push().getKey();
+        NotifikasiModel notifikasiModel = new NotifikasiModel();
+        notifikasiModel.setId_content(MyUser.getInstance(getContext()).getLastIdNasabah());
+        notifikasiModel.setId(id);
+        notifikasiModel.setCreated_at(String.valueOf(new Date().getTime()));
+        notifikasiModel.setTo_uid(MyUser.getInstance(getContext()).getLastIdNasabah());
+        notifikasiModel.setFrom_uid(firebaseAuth.getCurrentUser().getUid());
+        notifikasiModel.setTipe(Const.TIPE_NOTIF_AKTIVASI);
+        notifikasiModel.setStatus(Const.STATUS_NOTIF_AKTIVASI_DITERIMA);
+        notifikasiModel.setBody("Disetujui");
+
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_NOTIF_USER)
+                .child(MyUser.getInstance(getContext()).getLastIdNasabah())
+                .child(id)
+                .setValue(notifikasiModel);
+
+        databaseReference.child(Const.BASE_CHILD)
+                .child(Const.CHILD_USER)
+                .child(MyUser.getInstance(getContext()).getLastIdNasabah())
+                .child(Const.CHILD_ORDERBYSTATUS)
+                .setValue(Const.STATUS_USER_AKTIF)
+                .addOnSuccessListener(aVoid -> {
+                    databaseReference.child(Const.BASE_CHILD)
+                            .child(Const.CHILD_NOTIF_ADMIN)
+                            .child(MyUser.getInstance(getContext()).getLastIdNotif()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Snackbar.make(binding.getRoot(), "Berhasil", BaseTransientBottomBar.LENGTH_LONG).show();
+                            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_nasabah);
+                        }
+                    });
+
+                });
     }
 
 

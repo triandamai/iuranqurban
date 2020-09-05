@@ -57,13 +57,15 @@ public class TabunganNasabahFragment extends Fragment {
         mViewModel.listLiveData.observe(getViewLifecycleOwner(), tabunganModels -> {
 
             if (tabunganModels != null) {
-                Log.e("tes tabungan", tabunganModels.toString());
+
                 binding.lyKosong.setVisibility(View.GONE);
                 adapterTabunganNasabah.setData(tabunganModels);
                 adapterTabunganNasabah.notifyDataSetChanged();
+                binding.tvJml.setText(String.valueOf(tabunganModels.size()) + " Riwayat transaksi");
             } else {
                 binding.lyKosong.setVisibility(View.VISIBLE);
                 binding.rv.setVisibility(View.GONE);
+                binding.tvJml.setText("0 Riwayat Transaksi");
             }
         });
 

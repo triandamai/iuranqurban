@@ -31,6 +31,7 @@ public class PengajuanPenarikanViewModel extends ViewModel {
     }
 
     public void simpan(TarikDanaModel tarikDanaModel) {
+
         actionListener.onStart();
         NotifikasiModel notifikasiModel = new NotifikasiModel();
         String idcontent = databaseReference.push().getKey();

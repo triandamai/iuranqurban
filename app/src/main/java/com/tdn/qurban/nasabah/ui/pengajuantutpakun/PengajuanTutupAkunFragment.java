@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,14 @@ public class PengajuanTutupAkunFragment extends Fragment {
 
     private void onClick() {
         binding.btnPickImage.setOnClickListener(v -> {
-            Snackbar.make(binding.getRoot(), "Maaf Aksi Belum Bisa digunakan", BaseTransientBottomBar.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                    .setTitle("Info")
+                    .setMessage("Apakah Anda Yakin Mengajukan Peenutupan Akun?")
+                    .setPositiveButton("YA", (dialog, which) -> {
+                        mViewModel.ajukan();
+                    });
+            builder.create();
+            builder.show();
         });
     }
 

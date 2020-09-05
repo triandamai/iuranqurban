@@ -42,6 +42,7 @@ public class PengajuanTutupAkunViewModel extends ViewModel {
         model.setUser_uid(firebaseAuth.getCurrentUser().getUid());
         model.setUpdated_at(new Date().getTime());
         model.setUser_acc(Const.PENGAJUAN_VERIFIKASI_YES);
+        model.setAdmin_uid("kosong");
 
         NotifikasiModel notifikasiModel = new NotifikasiModel();
         notifikasiModel.setId_content(idcontent);
@@ -53,6 +54,8 @@ public class PengajuanTutupAkunViewModel extends ViewModel {
         notifikasiModel.setBody("Meminta menutup akun");
         databaseReference
                 .child(Const.BASE_CHILD)
+                .child(Const.CHILD_TUTUPAKUN)
+                .child(idcontent)
                 .setValue(model).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 databaseReference.child(Const.BASE_CHILD)
