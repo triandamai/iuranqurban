@@ -58,32 +58,33 @@ public class AdapterNasabah extends RecyclerView.Adapter<AdapterNasabah.MyViewHo
         if (this.he == null) {
             this.he.addAll(notifikasiModels);
         } else {
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-                @Override
-                public int getOldListSize() {
-                    return AdapterNasabah.this.he.size();
-                }
-
-                @Override
-                public int getNewListSize() {
-                    return notifikasiModels.size();
-                }
-
-                @Override
-                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return AdapterNasabah.this.he.get(oldItemPosition).getUid() == notifikasiModels.get(newItemPosition).getUid();
-                }
-
-                @Override
-                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    UserModel lama = AdapterNasabah.this.he.get(oldItemPosition);
-                    UserModel baru = notifikasiModels.get(newItemPosition);
-                    return lama == baru && Objects.equals(lama, baru);
-                }
-            });
             this.he = notifikasiModels;
-            result.dispatchUpdatesTo(this);
-            notifyDataSetChanged();
+//            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+//                @Override
+//                public int getOldListSize() {
+//                    return AdapterNasabah.this.he.size();
+//                }
+//
+//                @Override
+//                public int getNewListSize() {
+//                    return notifikasiModels.size();
+//                }
+//
+//                @Override
+//                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+//                    return AdapterNasabah.this.he.get(oldItemPosition).getUid() == notifikasiModels.get(newItemPosition).getUid();
+//                }
+//
+//                @Override
+//                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+//                    UserModel lama = AdapterNasabah.this.he.get(oldItemPosition);
+//                    UserModel baru = notifikasiModels.get(newItemPosition);
+//                    return lama == baru && Objects.equals(lama, baru);
+//                }
+//            });
+//            this.he = notifikasiModels;
+//            result.dispatchUpdatesTo(this);
+//            notifyDataSetChanged();
         }
     }
 
