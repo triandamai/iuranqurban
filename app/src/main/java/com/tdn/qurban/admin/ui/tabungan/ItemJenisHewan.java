@@ -14,6 +14,7 @@ import com.tdn.domain.model.HewanModel;
 import com.tdn.qurban.R;
 import com.trian.singleadapter.SingleAdapterRow;
 import com.trian.singleadapter.onEventClick;
+import com.trian.singleadapter.onEventType;
 
 public class ItemJenisHewan extends LinearLayout implements SingleAdapterRow<HewanModel> {
     private Chip chip;
@@ -45,7 +46,7 @@ public class ItemJenisHewan extends LinearLayout implements SingleAdapterRow<Hew
     public void bindView(HewanModel data, onEventClick<HewanModel> eventClick, int position) {
         chip.setText(data.getJenis().toString().toUpperCase());
         chip.setOnClickListener(v -> {
-            eventClick.onDetail(data, position);
+            eventClick.onClick(onEventType.onDetail,data,position);
         });
     }
 }

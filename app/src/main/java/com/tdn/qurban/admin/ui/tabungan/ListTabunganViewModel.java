@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +20,15 @@ public class ListTabunganViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     public LiveData<List<HewanModel>> hewanModelList;
+    public MutableLiveData<List<String>> tabunganList = new MutableLiveData<>();
+
 
     public ListTabunganViewModel() {
-        getListtab("");
+        getListtabungan("");
         hewanModelList = getListhewan();
     }
 
-    private LiveData<List<HewanModel>> getListhewan() {
+    public LiveData<List<HewanModel>> getListhewan() {
         MutableLiveData<List<HewanModel>> data = new MutableLiveData<>();
         databaseReference
                 .child(Const.BASE_CHILD)
@@ -55,32 +56,59 @@ public class ListTabunganViewModel extends ViewModel {
         return data;
     }
 
-    public LiveData<List<String>> getListtab(String param) {
-        final MutableLiveData<List<String>> data = new MutableLiveData<>();
-        databaseReference
-                .child(Const.BASE_CHILD)
-                .child(Const.CHILD_RENCANA)
-                .orderByChild(Const.CHILD_JENIS_HEWAN_RENCANA)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            List<String> s = new ArrayList<>();
-                            for (DataSnapshot d : snapshot.getChildren()) {
-                                String val = d.getKey();
-                                s.add(val);
+    public void getListtabungan(String param) {
+        if( param == null){
+            databaseReference
+                    .child(Const.BASE_CHILD)
+                    .child(Const.CHILD_RENCANA)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                List<String> s = new ArrayList<>();
+                                for (DataSnapshot d : snapshot.getChildren()) {
+                                    String val = d.getKey();
+                                    s.add(val);
+                                }
+                                tabunganList.setValue(s);
+                            } else {
+                                tabunganList.setValue(null);
                             }
-                            data.setValue(s);
-                        } else {
-                            data.setValue(null);
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        data.setValue(null);
-                    }
-                });
-        return data;
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            tabunganList.setValue(null);
+                        }
+                    });
+        }else {
+            databaseReference
+                    .child(Const.BASE_CHILD)
+                    .child(Const.CHILD_RENCANA)
+                    .orderByChild(Const.CHILD_JENIS_HEWAN_RENCANA)
+                    .startAt(param)
+                    .endAt(param)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                List<String> s = new ArrayList<>();
+                                for (DataSnapshot d : snapshot.getChildren()) {
+                                    String val = d.getKey();
+                                    s.add(val);
+                                }
+                                tabunganList.setValue(s);
+                            } else {
+                                tabunganList.setValue(null);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            tabunganList.setValue(null);
+                        }
+                    });
+        }
+
     }
 }

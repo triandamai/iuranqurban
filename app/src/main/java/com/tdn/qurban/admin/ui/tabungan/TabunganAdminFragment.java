@@ -8,21 +8,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tdn.data.pref.MyUser;
+import com.tdn.domain.model.TabunganModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.core.VMFactory;
 import com.tdn.qurban.databinding.TabunganFragmentBinding;
+import com.trian.singleadapter.SingleAdapter;
+import com.trian.singleadapter.onEventClick;
+import com.trian.singleadapter.onEventType;
 
 public class TabunganAdminFragment extends Fragment {
 
     private TabunganAdminViewModel mViewModel;
     private TabunganFragmentBinding binding;
-    private AdapterTabunganAdmin adapterTabunganAdmin;
+    private SingleAdapter<TabunganModel> singleAdapter;
 
     public static TabunganAdminFragment newInstance() {
         return new TabunganAdminFragment();
@@ -33,8 +39,12 @@ public class TabunganAdminFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.tabungan_fragment, container, false);
         mViewModel = new ViewModelProvider(this, new VMFactory(getContext())).get(TabunganAdminViewModel.class);
-        adapterTabunganAdmin = new AdapterTabunganAdmin(getContext(), adapterClicked);
-        binding.rv.setAdapter(adapterTabunganAdmin);
+        singleAdapter = new SingleAdapter<>(R.layout.item_tabungan, (eventType, payload, position) -> {
+            MyUser.getInstance(getContext()).setLastIdTabungan(payload.getId());
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_detail_tabungan);
+        });
+
+        binding.rv.setAdapter(singleAdapter);
         return binding.getRoot();
     }
 
@@ -48,13 +58,10 @@ public class TabunganAdminFragment extends Fragment {
         binding.setIsLoading(false);
         mViewModel.tabunganData.observe(getViewLifecycleOwner(), tabunganModels -> {
             if (tabunganModels != null) {
-                adapterTabunganAdmin.setData(tabunganModels);
+                singleAdapter.setData(tabunganModels);
             }
         });
     }
 
-    private AdapterClicked adapterClicked = posisi -> {
-
-    };
 
 }

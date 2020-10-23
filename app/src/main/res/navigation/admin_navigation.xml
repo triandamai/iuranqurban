@@ -77,4 +77,14 @@
         android:name="com.tdn.qurban.admin.ui.tabungan.ListTabunganFragment"
         android:label="Daftar Tabungan"
         tools:layout="@layout/list_tabungan_fragment" />
+    <fragment
+        android:id="@+id/navigation_list_user_tambah_tabungan"
+        android:name="com.tdn.qurban.admin.ui.tabungan.TambahTabunganFragment"
+        android:label="Daftar User"
+        tools:layout="@layout/tambah_tabungan_fragment"/>
+    <fragment
+        android:id="@+id/navigation_tambah_tabungan_admin"
+        android:name="com.tdn.qurban.nasabah.ui.konfirmasipembayaran.KonfirmasiPembayaran"
+        android:label="Tambah Tabungan"
+        tools:layout="@layout/konfirmasi_pembayaran_fragment"/>
 </navigation>

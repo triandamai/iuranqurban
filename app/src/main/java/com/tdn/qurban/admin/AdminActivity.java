@@ -20,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 public class AdminActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class AdminActivity extends AppCompatActivity {
                 R.id.navigation_nasabah,
                 R.id.navigation_list_tabungan)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
@@ -54,6 +55,9 @@ public class AdminActivity extends AppCompatActivity {
                 firebaseAuth.signOut();
                 startActivity(new Intent(AdminActivity.this, LoginActivity.class));
                 finish();
+                return true;
+            case R.id.action_tambah:
+                navController.navigate(R.id.navigation_list_user_tambah_tabungan);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

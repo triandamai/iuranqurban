@@ -11,34 +11,43 @@
             name="isLoading"
             type="boolean" />
     </data>
-
-    <LinearLayout
-        android:layout_height="wrap_content"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-        <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/rv_hewan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/rv_hewan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/rv"
+                    android:layout_below="@id/rv_hewan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    showShimmer="@{isLoading}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="2"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_shimmer_iuran" />
+
+            </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-        </com.todkars.shimmer.ShimmerRecyclerView>
-
-        <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/rv"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            showShimmer="@{isLoading}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:shimmer_recycler_item_count="2"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_shimmer_iuran" />
-
-    </LinearLayout>
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

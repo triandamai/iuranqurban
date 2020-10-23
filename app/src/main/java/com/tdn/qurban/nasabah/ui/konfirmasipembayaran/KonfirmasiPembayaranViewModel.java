@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.tdn.data.Const;
+import com.tdn.data.pref.MyUser;
 import com.tdn.domain.model.NotifikasiModel;
 import com.tdn.domain.model.TabunganModel;
 import com.tdn.qurban.core.ActionListener;
@@ -59,6 +60,12 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                 return storage.getDownloadUrl();
             }).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    String idUser = "";
+                    if(MyUser.getInstance(context).getLastIdNasabah() != null){
+                        idUser = MyUser.getInstance(context).getLastIdNasabah();
+                    }else {
+                        idUser = firebaseAuth.getCurrentUser().getUid();
+                    }
                     Uri downloadUri = task.getResult();
                     TabunganModel m = new TabunganModel();
                     String id = databaseReference.push().getKey();
@@ -66,7 +73,7 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                     m.setCreated_at(String.valueOf(new Date().getTime()));
                     m.setUpdated_at(String.valueOf(new Date().getTime()));
                     m.setAdmin_uid("kosong");
-                    m.setUser_uid(firebaseAuth.getCurrentUser().getUid());
+                    m.setUser_uid(idUser);
                     m.setKeterangan(ket.getValue());
                     m.setNominal(nominal.getValue());
                     m.setStatus(Const.STATUS_NOTIF_TAMBAHSALDO_MENUNGGU);
@@ -78,8 +85,9 @@ public class KonfirmasiPembayaranViewModel extends ViewModel {
                     n.setTo_uid(Const.USER_LEVEL_PANITIA);
 
                     n.setCreated_at(String.valueOf(new Date().getTime()));
+
                     databaseReference.child(Const.CHILD_TABUNGAN)
-                            .child(firebaseAuth.getCurrentUser().getUid())
+                            .child(idUser)
                             .child(id)
                             .setValue(m);
                     databaseReference.child(Const.CHILD_NOTIF_ADMIN)

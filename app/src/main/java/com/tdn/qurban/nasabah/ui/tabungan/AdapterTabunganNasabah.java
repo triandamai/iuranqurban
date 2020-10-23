@@ -84,7 +84,7 @@ public class AdapterTabunganNasabah extends RecyclerView.Adapter<AdapterTabungan
                         if (snapshot.exists()) {
                             UserModel u = snapshot.getValue(UserModel.class);
                             u.setUid(snapshot.getKey());
-                            holder.binding.tvNamauser.setText(u.getNama());
+                            holder.binding.tvNama.setText(u.getNama());
                         } else {
 
                         }

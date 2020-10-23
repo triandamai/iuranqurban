@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-
-    </data>
-
-<com.tdn.qurban.admin.ui.tabungan.ItemListTabunganUser
+<com.tdn.qurban.admin.ui.tabungan.ItemListUserTambahTabungan
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.google.android.material.card.MaterialCardView
@@ -34,7 +27,6 @@
                     android:text="Sarana"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
-
             </LinearLayout>
 
             <!-- Buttons -->
@@ -45,12 +37,12 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_detail"
+                    android:id="@+id/btn_pilih"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Detail" />
+                    android:text="Pilih" />
 
             </LinearLayout>
 
@@ -58,5 +50,4 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</com.tdn.qurban.admin.ui.tabungan.ItemListTabunganUser>
-</layout>
+</com.tdn.qurban.admin.ui.tabungan.ItemListUserTambahTabungan>

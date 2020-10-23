@@ -33,6 +33,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.tdn.data.pref.MyUser;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.ActionListener;
 import com.tdn.qurban.core.ImagePickerActivity;
@@ -192,4 +193,16 @@ public class KonfirmasiPembayaran extends MyFragment {
         }
     };
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyUser.getInstance(getContext()).setLastIdNasabah(null);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyUser.getInstance(getContext()).setLastIdNasabah(null);
+
+    }
 }
