@@ -17,17 +17,14 @@
         android:layout_width="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/rv_hewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kambing" />
-        </LinearLayout>
+
+        </com.todkars.shimmer.ShimmerRecyclerView>
 
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/rv"

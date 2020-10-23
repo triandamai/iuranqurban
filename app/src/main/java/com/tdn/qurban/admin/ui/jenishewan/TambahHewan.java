@@ -1,7 +1,6 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.tdn.data.pref.MyUser;
-import com.tdn.domain.model.hewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.ActionListener;
 import com.tdn.qurban.core.VMFactory;

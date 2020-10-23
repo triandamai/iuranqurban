@@ -1,15 +1,15 @@
 package com.tdn.domain.model;
 
-public class hewanModel {
+public class HewanModel {
     String id;
     String jenis;
     String nominal;
     String created_by;
 
-    public hewanModel() {
+    public HewanModel() {
     }
 
-    public hewanModel(String id, String jenis, String nominal, String created_by) {
+    public HewanModel(String id, String jenis, String nominal, String created_by) {
         this.id = id;
         this.jenis = jenis;
         this.nominal = nominal;

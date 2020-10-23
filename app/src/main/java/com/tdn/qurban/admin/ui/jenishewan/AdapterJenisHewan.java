@@ -1,9 +1,7 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,10 +9,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tdn.domain.model.hewanModel;
+import com.tdn.domain.model.HewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterActionClicked;
-import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ItemHewanBinding;
 
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AdapterJenisHewan extends RecyclerView.Adapter<AdapterJenisHewan.MyViewHolder> {
-    private List<hewanModel> he = new ArrayList<>();
+    private List<HewanModel> he = new ArrayList<>();
     private AdapterActionClicked adapterClicked;
 
     private Context context;
@@ -53,11 +50,11 @@ public class AdapterJenisHewan extends RecyclerView.Adapter<AdapterJenisHewan.My
 
     }
 
-    public hewanModel getFromPosition(int pos) {
+    public HewanModel getFromPosition(int pos) {
         return he.get(pos);
     }
 
-    public void setData(List<hewanModel> notifikasiModels) {
+    public void setData(List<HewanModel> notifikasiModels) {
         if (this.he == null) {
             this.he.addAll(notifikasiModels);
         } else {
@@ -79,8 +76,8 @@ public class AdapterJenisHewan extends RecyclerView.Adapter<AdapterJenisHewan.My
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    hewanModel lama = AdapterJenisHewan.this.he.get(oldItemPosition);
-                    hewanModel baru = notifikasiModels.get(newItemPosition);
+                    HewanModel lama = AdapterJenisHewan.this.he.get(oldItemPosition);
+                    HewanModel baru = notifikasiModels.get(newItemPosition);
                     return lama == baru && Objects.equals(lama, baru);
                 }
             });

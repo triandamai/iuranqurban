@@ -7,10 +7,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.data.pref.MyUser;
-import com.tdn.domain.model.hewanModel;
+import com.tdn.domain.model.HewanModel;
 import com.tdn.qurban.core.ActionListener;
 
 public class TambahHewanViewModel extends ViewModel {
@@ -39,8 +35,8 @@ public class TambahHewanViewModel extends ViewModel {
 
     }
 
-    public LiveData<hewanModel> hewanModelLiveData(String id) {
-        final MutableLiveData<hewanModel> result = new MutableLiveData<>();
+    public LiveData<HewanModel> hewanModelLiveData(String id) {
+        final MutableLiveData<HewanModel> result = new MutableLiveData<>();
         databaseReference
                 .child(Const.BASE_CHILD)
                 .child(Const.CHILD_HEWAN)
@@ -49,8 +45,8 @@ public class TambahHewanViewModel extends ViewModel {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            hewanModel h = new hewanModel();
-                            h = snapshot.getValue(hewanModel.class);
+                            HewanModel h = new HewanModel();
+                            h = snapshot.getValue(HewanModel.class);
                             assert h != null;
                             h.setId(snapshot.getKey());
                             result.setValue(h);
@@ -76,7 +72,7 @@ public class TambahHewanViewModel extends ViewModel {
         } else {
             key = databaseReference.push().getKey();
         }
-        hewanModel m = new hewanModel();
+        HewanModel m = new HewanModel();
         m.setId(key);
         m.setNominal(nomminalHewan.getValue());
         m.setJenis(namaHewan.getValue());

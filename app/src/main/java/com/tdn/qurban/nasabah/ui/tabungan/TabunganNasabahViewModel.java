@@ -1,7 +1,5 @@
 package com.tdn.qurban.nasabah.ui.tabungan;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
 import com.tdn.domain.model.TabunganModel;
-import com.tdn.domain.model.hewanModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,16 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.hewanModel;
+import com.tdn.domain.model.HewanModel;
 import com.tdn.domain.model.rencanaModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.databinding.ActivityRencanaQurbanBinding;
 import com.tdn.qurban.nasabah.NasabahActivity;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static com.tdn.data.Const.currency;
 import static com.tdn.data.Const.jenisbeli;
@@ -150,7 +146,7 @@ public class RencanaQurbanActivity extends AppCompatActivity {
                                 String[] nominal = {};
                                 String[] id = {};
                                 for (DataSnapshot s : snapshot.getChildren()) {
-                                    hewanModel m = s.getValue(hewanModel.class);
+                                    HewanModel m = s.getValue(HewanModel.class);
                                     m.setId(s.getKey());
                                     Log.e("hewan", m.toString());
                                     m.setId(s.getKey());

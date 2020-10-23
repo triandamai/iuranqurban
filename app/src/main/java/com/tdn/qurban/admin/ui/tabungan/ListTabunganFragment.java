@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tdn.data.pref.MyUser;
+import com.tdn.domain.model.HewanModel;
 import com.tdn.qurban.R;
 import com.tdn.qurban.core.AdapterClicked;
 import com.tdn.qurban.databinding.ListTabunganFragmentBinding;
+import com.trian.singleadapter.SingleAdapter;
+import com.trian.singleadapter.onEventClick;
 
 import java.util.List;
 
@@ -29,16 +33,34 @@ public class ListTabunganFragment extends Fragment {
     private ListTabunganViewModel mViewModel;
     private ListTabunganFragmentBinding binding;
     private AdapterListTabunganAdmin adapterListTabunganAdmin;
+    private SingleAdapter<HewanModel> adspterHewan;
 
     public static ListTabunganFragment newInstance() {
         return new ListTabunganFragment();
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.list_tabungan_fragment, container, false);
         mViewModel = new ViewModelProvider(this).get(ListTabunganViewModel.class);
+        adspterHewan = new SingleAdapter<>(R.layout.item_chip_hewan, new onEventClick<HewanModel>() {
+            @Override
+            public void onEdit(HewanModel payload, int position) {
+
+            }
+
+            @Override
+            public void onDetail(HewanModel payload, int position) {
+
+            }
+
+            @Override
+            public void onDelete(HewanModel payload, int position) {
+
+            }
+        });
         adapterListTabunganAdmin = new AdapterListTabunganAdmin(getContext(), adapterClicked);
         binding.rv.setAdapter(adapterListTabunganAdmin);
         return binding.getRoot();

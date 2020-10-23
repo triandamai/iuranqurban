@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -77,12 +77,12 @@ dependencies {
     implementation "com.karumi:dexter:5.0.0"
     implementation 'com.github.yalantis:ucrop:2.2.5'
 
-    api 'com.google.firebase:firebase-auth:19.3.2'
-    api 'com.google.firebase:firebase-analytics:17.5.0'
-    api 'com.google.firebase:firebase-database:19.4.0'
+    api 'com.google.firebase:firebase-auth:19.4.0'
+    api 'com.google.firebase:firebase-analytics:17.6.0'
     api 'com.google.firebase:firebase-storage:19.2.0'
-    api 'com.google.firebase:firebase-database:19.4.0'
+    api 'com.google.firebase:firebase-database:19.5.0'
     api 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.github.triandamai:singleadapter:v1.0.3'
     implementation project(path: ':data')
 
     implementation project(path: ':domain')

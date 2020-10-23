@@ -105,6 +105,7 @@ public class Const {
     public static final String KEY_PREF_LAST_HEWAN_ID = "idhewan";
     public static final String KEY_PREF_AKTIF = "status";
     public static final String CHILD_ORDERBYCREATEDAT = "created_at";
+    public static final String CHILD_JENIS_HEWAN_RENCANA = "jenis";
 
 
     public static int REQ_IMAGE = 100;

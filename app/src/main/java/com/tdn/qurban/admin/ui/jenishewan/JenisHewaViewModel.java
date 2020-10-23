@@ -1,7 +1,5 @@
 package com.tdn.qurban.admin.ui.jenishewan;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,11 +11,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
-import com.tdn.domain.model.hewanModel;
+import com.tdn.domain.model.HewanModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class JenisHewaViewModel extends ViewModel {
     // TODO: Implement the ViewModel
@@ -29,16 +26,16 @@ public class JenisHewaViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<hewanModel>> getJenisHewan() {
-        final MutableLiveData<List<hewanModel>> jenisHewan = new MutableLiveData<>();
+    public LiveData<List<HewanModel>> getJenisHewan() {
+        final MutableLiveData<List<HewanModel>> jenisHewan = new MutableLiveData<>();
         databaseReference.child(Const.BASE_CHILD).child(Const.CHILD_HEWAN).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    List<hewanModel> hewanModelList = new ArrayList<>();
+                    List<HewanModel> hewanModelList = new ArrayList<>();
                     for (DataSnapshot data : snapshot.getChildren()) {
 
-                        hewanModel hewanModel = data.getValue(hewanModel.class);
+                        HewanModel hewanModel = data.getValue(HewanModel.class);
                         hewanModel.setId(data.getKey());
 
                         hewanModelList.add(hewanModel);

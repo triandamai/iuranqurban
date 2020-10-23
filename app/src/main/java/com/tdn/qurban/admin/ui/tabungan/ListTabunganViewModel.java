@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tdn.data.Const;
+import com.tdn.domain.model.HewanModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +20,47 @@ import java.util.List;
 public class ListTabunganViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public LiveData<List<HewanModel>> hewanModelList;
 
     public ListTabunganViewModel() {
-        getListtab();
+        getListtab("");
+        hewanModelList = getListhewan();
     }
 
-    public LiveData<List<String>> getListtab() {
+    private LiveData<List<HewanModel>> getListhewan() {
+        MutableLiveData<List<HewanModel>> data = new MutableLiveData<>();
+        databaseReference
+                .child(Const.BASE_CHILD)
+                .child(Const.CHILD_HEWAN)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<HewanModel> hewanModels = new ArrayList<>();
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                HewanModel hewan = dataSnapshot.getValue(HewanModel.class);
+                                hewanModels.add(hewan);
+                            }
+                            data.setValue(hewanModels);
+                        } else {
+                            data.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        data.setValue(null);
+                    }
+                });
+        return data;
+    }
+
+    public LiveData<List<String>> getListtab(String param) {
         final MutableLiveData<List<String>> data = new MutableLiveData<>();
         databaseReference
                 .child(Const.BASE_CHILD)
-                .child(Const.CHILD_TABUNGAN)
+                .child(Const.CHILD_RENCANA)
+                .orderByChild(Const.CHILD_JENIS_HEWAN_RENCANA)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
